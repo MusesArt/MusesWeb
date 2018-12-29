@@ -1,0 +1,35 @@
+{
+	"orders":[
+		{
+			"number":"201802154996",
+			"flag":"交易完成",
+			"order":[
+				{
+					"src":"/static/img/new1.png",
+					"title":"便携保温杯",
+					"content":"银色 旋转波纹",
+					"price":288,
+					"num":2
+				},
+				{
+					"src":"/static/img/new2.png",
+					"title":"热水壶",
+					"content":"银色 标配",
+					"price":278,
+					"num":1
+				}]
+		},
+		{
+			"number":"201802154996",
+			"flag":"等待付款",
+			"order":[
+				{
+					"src":"/static/img/new1.png",
+					"title":"头戴式耳机",
+					"content":"无线耳机 HIFI音质 高解析 褐色标配",
+					"price":1599,
+					"num":1
+				}]
+		}
+	]
+}

@@ -1,0 +1,27 @@
+{
+	"total":1259,
+	"markets":[
+		{
+			"percent":90,
+			"title":"满200减30",
+			"content":"30元现金券",
+			"integral":60,
+			"empty":"立即兑换"
+		},
+		{
+			"percent":8,
+			"title":"满200减30",
+			"content":"30元现金券",
+			"integral":60,
+			"empty":"立即兑换"
+		},
+		{
+			"percent":100,
+			"title":"满200减30",
+			"content":"30元现金券",
+			"integral":60,
+			"empty":"已兑完"
+		}
+
+	]
+}

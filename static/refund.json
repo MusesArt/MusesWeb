@@ -1,0 +1,49 @@
+{
+	"refund":[
+		{
+			"title":"退货退款",
+			"flag":"进行中",
+			"images":[
+				{
+					"image":"/static/img/new1.png",
+					"title":"便携保温杯",
+					"content":"银色 旋转波纹",
+					"price":288,
+					"number":1
+				}
+			]
+		},
+		{
+			"title":"仅退款",
+			"flag":"已成功",
+			"images":[
+				{
+					"image":"/static/img/new1.png",
+					"title":"头戴式耳机",
+					"content":"蓝褐配色 带耳机线",
+					"price":1599,
+					"number":1
+				},
+				{
+					"image":"/static/img/new2.png",
+					"title":"头戴式耳机",
+					"content":"蓝褐配色 带耳机线",
+					"price":1599,
+					"number":1
+				}]
+		},
+		{
+			"title":"换货",
+			"flag":"已取消",
+			"images":[
+				{
+					"image":"/static/img/new1.png",
+					"title":"便携保温杯",
+					"content":"银色 旋转波纹",
+					"price":288,
+					"number":1
+				}
+			]
+		}
+	]
+}

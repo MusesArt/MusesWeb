@@ -1,0 +1,25 @@
+{
+	"shopping":[
+		{
+			"src":"/static/img/new1.png",
+			"title":"无线鼠标",
+			"message":"白色 标配",
+			"num":1,
+			"price":129
+		},
+		{
+			"src":"/static/img/new1.png",
+			"title":"便携保温杯",
+			"message":"银色 旋转波纹",
+			"num":1,
+			"price":288
+		},
+		{
+			"src":"/static/img/new1.png",
+			"title":"热水壶",
+			"message":"银色 标配",
+			"num":1,
+			"price":278
+		}
+	]
+}
