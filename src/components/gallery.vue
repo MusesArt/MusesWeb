@@ -267,7 +267,6 @@ form{
 	border-radius: 10px;
 	overflow: hidden;
 	display: inline-block;
-	margin-left:10px;
 }
 .main{
 	margin-top:30px;
