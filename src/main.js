@@ -10,6 +10,7 @@ import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
 Vue.config.productionTip = false
 Vue.prototype.$http= axios
+Vue.use(router)
 /* eslint-disable no-new */
 const options = {
   color: '#bffaf3',

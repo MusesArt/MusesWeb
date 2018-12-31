@@ -26,7 +26,7 @@ export default{
 			flag:0,
 			mark:1,
 			bottom:'上拉加载',
-			search:''
+			search: ''
 		}
 	},
 	mounted() {
@@ -83,6 +83,7 @@ export default{
     	},
     	clear(){
     		this.search=''
+        console.log(this.$router.query.searchKey);
     	}
     }
 }
