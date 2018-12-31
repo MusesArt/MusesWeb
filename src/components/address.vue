@@ -8,12 +8,12 @@
 			<template v-for="(item,index) in address">
 				<div class="body">
 					<div class="title">
-						<span v-text="item.home"></span>
-						<p v-text="item.name"></p>
-						<p v-text="item.phone"></p>
+						<span v-text="item.district"></span>
+						<p v-text="item.signer_mobile"></p>
+						<p v-text="item.signer_mobile"></p>
 					</div>
 					<div class="content">
-						<p>地址:{{item.src}}</p>
+						<p>地址:{{item.province}}{{item.city}} {{item.address}}</p>
 					</div>
 					<hr color="#eee">
 					<div class="bottom">
@@ -21,13 +21,18 @@
 							<img src="../assets/true.png" v-if="item.checked" style="width:18px;height:18px;">
 						</div>
 						<p>设为默认</p>
-						<p>删除</p>
+						<p @click="deleteAddr(item)">删除</p>
 						<img src="../assets/trash.png">
 						<p style="margin-right:20px">编辑</p>	
 						<img src="../assets/trash.png">
 					</div>
 				</div>
 			</template>
+		</div>
+		<div class="add">
+			<div class="add_button">
+				添加地址
+			</div>
 		</div>
 	</div>
 </template>
@@ -44,10 +49,8 @@ export default{
 	mounted(){
 		this.$nextTick(function(){
 			let self=this;
-			self.$http.get('../static/address.json').then(function(res){
-				for(var i=0;i<res.data.address.length;i++){
-					self.address.push(res.data.address[i]);
-				}
+			self.$http.get('http://localhost:8080/api/address/list').then(function(res){
+				self.address = res.data;
 				self.$set(self.address[0], 'checked', true);
 			})
 		})
@@ -55,12 +58,27 @@ export default{
 	methods:{
 		click(item){
 			let self=this;
-			if (typeof item.checked === 'undefined') {
-				self.$set(item, 'checked', true);
-			}
-			else{
-				item.checked=!item.checked;
-			}
+			var flag = item.checked;
+			self.address.forEach(function(item,index){
+					if(typeof item.checked=="undefined"){
+                        self.$set(item,"checked",false);
+                    }
+                    else{
+                    	item.checked=false;
+                    }
+				})
+			item.checked = !flag;
+		},
+		deleteAddr(item){
+			let self = this;
+			self.$http.delete('http://localhost:8080/api/address/list',{
+				params:{
+					Id:item.id
+				}
+			}).then(function(res){
+				self.address = res.data;
+				self.$set(self.address[0], 'checked', true);
+			})
 		}
 	}
 }
@@ -163,5 +181,23 @@ hr{
 }
 .clicked{
 	border:0px;
+}
+.add{
+	width:100%;
+	position:fixed;
+	bottom:10px;
+	left:0;
+	height:50px;
+}
+.add_button{
+	margin:0px 10px;
+	background-color: #ff4013;
+	border-radius: 30px;
+	height:50px;
+	color: white;
+	text-align: center;
+	line-height: 50px;
+	box-sizing: border-box;
+	font-size: 16px;
 }
 </style>
