@@ -30,9 +30,11 @@
 			</template>
 		</div>
 		<div class="add">
-			<div class="add_button">
-				添加地址
-			</div>
+			<router-link to="/add_address">
+				<div class="add_button">
+					添加地址
+				</div>
+			</router-link>
 		</div>
 	</div>
 </template>
@@ -84,6 +86,9 @@ export default{
 }
 </script>
 <style scoped>
+a{
+	text-decoration: none;
+}
 p{
 	margin:0px;
 }
