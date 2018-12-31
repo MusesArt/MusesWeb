@@ -47,6 +47,12 @@
 <script>
 import { Flexbox, FlexboxItem } from 'vux'
 export default {
+  created:function(){
+    this.$http.get("http://localhost:8080/api/hotkey/").then(res=>{
+      console.log("success")
+      console.log(res.data);
+    }).catch(response=>{console.log("error")});
+  },
 	data(){
 		return {
 			search:'',
