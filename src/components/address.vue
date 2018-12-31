@@ -9,8 +9,8 @@
 				<div class="body">
 					<div class="title">
 						<span v-text="item.district"></span>
-						<p v-text="item.signer_mobile"></p>
-						<p v-text="item.signer_mobile"></p>
+						<p v-text="item.signerName"></p>
+						<p v-text="item.signerMobile"></p>
 					</div>
 					<div class="content">
 						<p>地址:{{item.province}}{{item.city}} {{item.address}}</p>
@@ -21,9 +21,9 @@
 							<img src="../assets/true.png" v-if="item.checked" style="width:18px;height:18px;">
 						</div>
 						<p>设为默认</p>
-						<p @click="deleteAddr(item)">删除</p>
+						<p @click="deleteAddr(item,index)">删除</p>
 						<img src="../assets/trash.png">
-						<p style="margin-right:20px">编辑</p>	
+						<p style="margin-right:20px" @click="edit(item)">编辑</p>	
 						<img src="../assets/trash.png">
 					</div>
 				</div>
@@ -71,16 +71,19 @@ export default{
 				})
 			item.checked = !flag;
 		},
-		deleteAddr(item){
+		deleteAddr(item,index){
 			let self = this;
 			self.$http.delete('http://localhost:8080/api/address/list',{
 				params:{
 					Id:item.id
 				}
 			}).then(function(res){
-				self.address = res.data;
-				self.$set(self.address[0], 'checked', true);
+				self.address.slice(index,1);
 			})
+		},
+		edit(item){
+			let self = this;
+			this.$router.push({path:'/edit_address',query:{addressId:item.id}})
 		}
 	}
 }
