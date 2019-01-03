@@ -50,12 +50,8 @@ export default{
 		this.$nextTick(function(){
 			let self=this;
 			this.addressId = this.$route.query.addressId;
-			self.$http.get('http://localhost:8080/api/address/one',{
-				params:{
-					Id:self.addressId
-				}
-			}).then(function(res){
-				self.myaddress = res.data;
+			self.$http.get('http://localhost:8080/api/address/'+self.addressId).then(function(res){
+				self.myaddress = res.data.data;
 				self.place = self.myaddress.province+self.myaddress.city+self.myaddress.district;
 			}).catch(function(error){
 				console.log(error);
@@ -149,6 +145,5 @@ form input{
 	height:20px;
 	font-size: 13px;
 	padding-left:5px;
-	display: inline-block;
 }
 </style>

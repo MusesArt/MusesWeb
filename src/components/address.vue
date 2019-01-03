@@ -51,8 +51,10 @@ export default{
 	mounted(){
 		this.$nextTick(function(){
 			let self=this;
-			self.$http.get('http://localhost:8080/api/address/list').then(function(res){
-				self.address = res.data;
+			self.$http.get('http://localhost:8080/api/address/list?userId=1').then(function(res){
+				if(res.data.code == "OK"){
+					self.address = res.data.data;
+				}
 				self.$set(self.address[0], 'checked', true);
 			})
 		})
