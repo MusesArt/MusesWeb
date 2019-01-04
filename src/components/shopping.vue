@@ -20,29 +20,29 @@
 						</div>
 					</div>
 					<div class="box_img">
-						<img :src="item.src">
+						<img :src="item.commodity.coverImage">
 					</div>
 					<div v-show="!edit">
 						<div class="box_content" :style="{width:width-118+'px'}">
-							<p class="box_head" v-text="item.title"></p>
+							<p class="box_head" v-text="item.commodity.name"></p>
 							<div class="box_hide_message">
 								<p>
-									{{item.message}}
+									{{item.commodity.brief}}
 								</p>
 							</div>
-							<p class="box_price box_hide_price">¥{{item.price}}</p>
+							<p class="box_price box_hide_price">¥{{item.commodity.discountPrice}}</p>
 						</div>
 					</div>
 					<div v-show="edit">
 						<div class="box_content" :style="{width:(width-118)*7/9+'px'}">
 							<p class="box_head" v-text="item.title"></p>
-							<p class="box_message" v-text="item.message"></p>
-							<p class="box_price">¥{{item.price}}</p>
+							<p class="box_message" v-text="item.commodity.brief"></p>
+							<p class="box_price">¥{{item.commodity.discountPrice}}</p>
 						</div>
 						<div class="box_right" :style="{width:(width-118)*2/9+'px'}">
 							<input type="button" value="+" class="add button" @click="change(item,1)">
-							<input type="text" value="1" v-model="item.num" class="text">
-							<input type="button" value="-" class="button decrease" :class="{'disable':item.num==1}" @click="change(item,-1)">
+							<input type="text" value="1" v-model="item.number" class="text">
+							<input type="button" value="-" class="button decrease" :class="{'disable':item.number==1}" @click="change(item,-1)">
 						</div>
 						<div class="hide_left">
 							<input type="button" value="收藏" class="collect">
@@ -111,6 +111,12 @@ export default {
 	},
 	beforeCreate () {
 		document.querySelector('body').setAttribute('style', 'background-color:#eee')
+		this.$http.get("http://localhost:8080/api/cart/list/1").then(res=>{
+			if(res.data.code=="ERROR") console.log(res.data.msg);
+			console.log("success")
+			console.log(res.data.data);
+			this.items = res.data.data;
+		}).catch(response=>{console.log("error")});
 	},
 	created: function() {
 		this.width=document.documentElement.clientWidth;
@@ -205,13 +211,13 @@ export default {
 		change(item,way){
 			let self=this;
 			if(way<0){
-				item.num--;
-				if(item.num<1){
-					item.num=1;
+				item.number--;
+				if(item.number<1){
+					item.number=1;
 				}
 			}
 			else{
-				item.num++;
+				item.number++;
 			}
 			this.colacNum();
 		},
@@ -222,7 +228,7 @@ export default {
 			this.items.forEach(function(item,index){
 				if(item.checked==true){
 					_this.totalNum++;
-					_this.totalPrice+=item.num*item.price;
+					_this.totalPrice+=item.number*item.commodity.discountPrice;
 				}
 			})
 		}

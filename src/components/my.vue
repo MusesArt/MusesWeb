@@ -45,7 +45,7 @@
 		</div>
 		<div class="body">
 			<Flexbox>
-				<FlexboxItem class="body_bar">
+				<FlexboxItem class="body_bar" @click.native="unpayed()">
 					<img src="../assets/trash.png">
 					<p>待付款</p>
 				</FlexboxItem>
@@ -103,6 +103,9 @@ export default {
 		},
 		refund(){
 			this.$router.push({path:'/refund'});
+		},
+		unpayed(){
+			this.$router.push({path:'/unpayed'});
 		}
 	}
 }

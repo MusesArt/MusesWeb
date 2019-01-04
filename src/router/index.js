@@ -32,6 +32,8 @@ import address from '../components/address.vue'
 import add_address from '../components/add_address.vue'
 import edit_address from '../components/edit_address.vue'
 import my_order from '../components/my_order.vue'
+import unpayed from '../components/unpayed.vue'
+
 
 Vue.use(Router)
 
@@ -177,6 +179,11 @@ export default new Router({
     	path:'/refund',
     	name:'refund',
     	component:refund
+    },
+    {
+      path: '/unpayed',
+      name: 'unpayed',
+      component: unpayed
     },
     {
     	path:'/address',
