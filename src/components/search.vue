@@ -4,9 +4,9 @@
       <Flexbox>
         <FlexboxItem :span="10">
           <form method="post" @keydown.enter.prevent="detail()">
-            <input type="button" class="button" @click="detail()">
+            <img class="search" alt="search" src="../assets/search.png" @click="detail()">
             <input type="text" class="text" placeholder="搜索装饰画" v-model="search">
-            <img src="../assets/clear.png" class="clear" @click="clear()">
+            <img alt="clear" src="../assets/clear.png" class="clear" @click="clear()">
           </form>
         </FlexboxItem>
         <FlexboxItem :span="2">
@@ -20,7 +20,7 @@
           <p class="hot">热门搜索</p>
         </FlexboxItem>
       </Flexbox>
-      <template v-for="(item,index) in keys">
+      <template v-for="(item) in keys">
         <div class="content">
           <p v-text="item.keyword" @click="select(item.keyword)"></p>
         </div>
@@ -31,11 +31,11 @@
             <p class="hot">历史搜索</p>
           </FlexboxItem>
           <FlexboxItem :span="3">
-            <img src="../assets/trash.png" class="img-trash" @click="trash()" style="width:20px;height:20px">
+            <img alt="clear history search" src="../assets/trash.png" class="img-trash" @click="trash()" style="width:18px;height:18px">
             <p class="p-trash" @click="trash()">清空</p>
           </FlexboxItem>
         </Flexbox>
-        <template v-for="(item,index) in historyList">
+        <template v-for="(item) in historyList">
           <div class="content">
             <p v-text="item.history" @click="select(item.history)"></p>
           </div>
@@ -50,23 +50,23 @@
   export default {
     created: function () {
       this.$http.get("http://localhost:8080/api/hotkey/").then(res => {
-        console.log("success")
+        console.log("success");
         if (res.data.code === "OK") {
-          this.keys = res.data.data
+          this.keys = res.data.data;
           console.log(this.keys)
         } else {
-          console.log(res.data.code)
+          console.log(res.data.code);
           console.log(res.data.msg)
         }
-      }).catch(response => {
+      }).catch(() => {
         console.log("error")
       });
-      var storage = window.localStorage;
-      var historys = storage.getItem("searchHistory");
-      console.log(historys);
-      if (historys !== "" && historys != null) {
-        console.log("[ " + historys + " ]");
-        this.historyList = JSON.parse("[ " + historys + " ]");
+      let storage = window.localStorage;
+      let histories = storage.getItem("searchHistory");
+      console.log(histories);
+      if (histories !== "" && histories != null) {
+        console.log("[ " + histories + " ]");
+        this.historyList = JSON.parse("[ " + histories + " ]");
         console.log(this.historyList)
       } else {
         this.isShow = false;
@@ -86,16 +86,16 @@
       },
       trash() {
         this.history = '';
-        var storage = window.localStorage;
+        let storage = window.localStorage;
         storage.removeItem("searchHistory");
         this.isShow = false;
       },
       detail() {
-        var searchKey = this.search;
+        let searchKey = this.search;
         if (searchKey !== "") {
-          var storage = window.localStorage;
+          let storage = window.localStorage;
           storage.setItem("searchKey", searchKey);
-          var searchHistory = storage.getItem("searchHistory");
+          let searchHistory = storage.getItem("searchHistory");
           if (searchHistory !== "" && searchHistory != null) {
             if (searchHistory.search(searchKey) === -1) {
               storage.setItem("searchHistory", '{ "history": "' + searchKey + '" } , ' + searchHistory);
@@ -103,6 +103,7 @@
           } else {
             storage.setItem("searchHistory", '{ "history": "' + searchKey + '" }');
           }
+          // noinspection JSUnresolvedVariable
           this.$router.push({path:'/result'})
         }
       },
@@ -130,12 +131,11 @@
   }
 
   p {
-    margin: 0px;
+    margin: 0;
   }
 
   .container {
-    margin: 0 10px;
-    margin-top: 7px;
+    margin: 7px 10px 0;
   }
 
   form {
@@ -148,14 +148,13 @@
     margin-top: 3px;
   }
 
-  .button {
+  .search {
     float: left;
     width: 23px;
     height: 23px;
     margin-top: 2px;
     margin-right: 10px;
     outline: none;
-    background: url(../assets/search.png);
     background-size: 100% 100%;
     background-position: 50% 50%;
     border: 0;
@@ -175,15 +174,17 @@
     width: 82%;
     font-size: 14px;
     line-height: 20px;
-    border: 0px;
+    border: 0;
     outline: none;
     background: #f6f6f6;
   }
 
   .back {
     margin-left: 20px;
-    margin-top: 5px;
     font-size: 12px;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+    border: 0;
   }
 
   .hot {
@@ -206,7 +207,7 @@
 
   .img-trash {
     float: right;
-    margin-top: 40px;
+    margin-top: 32px;
     margin-right: 10px;
   }
 
