@@ -15,18 +15,24 @@
 				</FlexboxItem>
 			</Flexbox>
 			<swiper auto loop dots-position="center" class="swiper">
-				<swiper-item class="images">
-					<img src="../assets/cubism.png">
-				</swiper-item>
-				<swiper-item class="images">
-					<img src="../assets/dew.png">
-				</swiper-item>
-				<swiper-item class="images">
-					<img src="../assets/guide.png">
-				</swiper-item>
-				<swiper-item class="images">
-					<img src="../assets/institute.png">
-				</swiper-item>
+				<!-- <template v-for="(item,index) in slider">
+					<swiper-item class="images">
+						<img :src="item.imageUrl">
+					</swiper-item>
+				</template> -->
+
+					<swiper-item class="images">
+						<img src="../assets/cubism.png">
+					</swiper-item>
+					<swiper-item class="images">
+						<img src="../assets/dew.png">
+					</swiper-item>
+					<swiper-item class="images">
+						<img src="../assets/guide.png">
+					</swiper-item>
+					<swiper-item class="images">
+						<img src="../assets/institute.png">
+					</swiper-item>
 			</swiper>
 			<Flexbox :gutter="0" class="main">
 				<FlexboxItem :span="3" class="bar">
@@ -127,6 +133,7 @@ export default {
 	data(){
 		return {
 			width:0,
+			slider:[],
 			head:require("../assets/new.png"),
 			hot:require("../assets/new.png"),
 			images:[
@@ -196,6 +203,17 @@ export default {
 	},
 	created(){
 		this.width=document.documentElement.clientWidth;
+	},
+	mounted(){
+		this.$nextTick(function(){
+			let self = this;
+			self.$http.get('http://localhost:8080/api/banner/').then(function(res){
+				self.slider = res.data.data;
+				console.log(self.slider.imageUrl);
+			}).catch(function(error){
+				console.log(error);
+			})
+		})
 	},
 	computed:{
 		width2:function(){
@@ -267,7 +285,6 @@ form{
 	border-radius: 10px;
 	overflow: hidden;
 	display: inline-block;
-	margin-left:10px;
 }
 .main{
 	margin-top:30px;
