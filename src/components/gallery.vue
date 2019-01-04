@@ -87,14 +87,11 @@
 					<p class="more_font">更多</p>
 				</FlexboxItem>
 			</Flexbox>
-			<div class="img-box img-head">
-				<img :src="head">
-			</div>
 			<!-- <template v-for="(item,index) in image_news">
 				<div class="img-box img-head" v-if="index==0">
 					<img :src="item.coverImage">
 				</div>
-				<div class="news-bar" :class="{'news-bar2':index%2!=0}" v-if="index!=0">
+				<div class="news-bar" :class="{'news-bar2':index%2==0}" v-if="index!=0">
 					<div class="img-box">
 						<img :src="item.coverImage">
 					</div>
@@ -103,6 +100,9 @@
 					<p v-text="'￥'+item.discountPrice" class="price"></p>
 				</div>
 			</template> -->
+			<div class="img-box img-head">
+				<img :src="head">
+			</div>
 			<template v-for="(item,index) in news">
 				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
 					<div class="img-box">
@@ -170,6 +170,12 @@ export default {
 			today:[],
 			image_news:[],
 			image_hots:[],
+			data:{
+				size:4,
+				sortType:4,
+				asc:false,
+				keyword:""
+			},
 			head:require("../assets/new.png"),
 			hot:require("../assets/new.png"),
 			images:[
@@ -254,16 +260,12 @@ export default {
 				}
 			}).catch(function(error){
 				console.log(error);
-			})
+			});
 
-			self.$http.get('http://localhost:8080/api/commodity/page/1',{
-				params:{
-					size:4,
-					sortType:4,
-					isASC:true,
-					keyword:""
-				}
-			}).then(function(res){
+			var searchModel1 = JSON.parse(JSON.stringify(self.data));
+			searchModel1.size=4;
+			searchModel1.sortType=4;
+			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel1).then(function(res){
 				if(res.data.code=="OK"){
 					self.today = res.data.data.dataList;
 					console.log(self.today);
@@ -275,15 +277,10 @@ export default {
 			}).catch(function(error){
 				console.log(error);
 			})
-
-			self.$http.get('http://localhost:8080/api/commodity/page/1',{
-				params:{
-					size:5,
-					sortType:0,
-					isASC:false,
-					keyword:""
-				}
-			}).then(function(res){
+			var searchModel2 = JSON.parse(JSON.stringify(self.data));
+			searchModel2.size=5;
+			searchModel2.sortType=0;
+			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel2).then(function(res){
 				if(res.data.code==="OK"){
 					self.image_news = res.data.data.dataList;
 					console.log(self.image_news);
@@ -295,15 +292,10 @@ export default {
 			}).catch(function(error){
 				console.log(error);
 			})
-
-			self.$http.get('http://localhost:8080/api/commodity/page/1',{
-				params:{
-					size:5,
-					sortType:2,
-					isASC:false,
-					keyword:""
-				}
-			}).then(function(res){
+			var searchModel3 = JSON.parse(JSON.stringify(self.data));
+			searchModel2.size=5;
+			searchModel2.sortType=2;
+			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel3).then(function(res){
 				if(res.data.code=="OK"){
 					self.image_hots = res.data.data.dataList;
 					console.log(self.image_hots);
