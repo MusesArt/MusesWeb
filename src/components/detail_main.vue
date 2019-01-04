@@ -9,18 +9,18 @@
 				</p>
 			</div>
 			<swiper :show-dots="false" loop class="swiper" height="330px" v-model="index" @on-index-change="change">
-				<template v-for="(item,index) in items">
+				<template v-for="(item,index) in images.imageUrls">
 					<swiper-item>
-						<img :src="item.src">
+						<img :src="item">
 					</swiper-item>			
 				</template>
 			</swiper>
 		</div>
 		<div class="head">
-			<p v-text="title"></p>
-			<p v-text="content"></p>
-			<p>￥{{newPrice}}
-				<small class="old">￥{{oldPrice}}</small>
+			<p v-text="images.name"></p>
+			<p v-text="images.brief"></p>
+			<p>￥{{images.discountPrice}}
+				<small class="old">￥{{images.originalPrice}}</small>
 			</p>
 		</div>
 		<div class="border">
@@ -30,12 +30,14 @@
 						<p class="small">促销</p>
 					</div>
 					<div class="right">
-						<template v-for="(item,index) in promotion">
 							<div class="right_bar">
 								<input type="button" value="领券" class="get">
-								<p class="get_text">{{item.content}}</p>
+								<p class="get_text">10元现金券 满200减30</p>
 							</div>
-						</template>
+							<div class="right_bar">
+								<input type="button" value="领券" class="get">
+								<p class="get_text">全场满188包邮</p>
+							</div>
 					</div>
 				</div>
 				<div class="bottom">
@@ -74,7 +76,7 @@
 		<div class="assess_body">
 			<scroller lock-y :scrollbar-x=false>
 				<div  :style="{width:width2+'px'}">
-					<template v-for="(item,index) in assess">
+					<template v-for="(item,index) in images_assess">
 						<div class="assess_box" :style="{width:width*0.92+'px'}">
 							<div class="assess_box_top">
 								<div class="box_head">
@@ -83,8 +85,8 @@
 									</div>
 								</div>
 								<div class="box_name">
-									<p v-text="item.name"></p>
-									<p v-text="item.data"></p>
+									<p v-text="item.username"></p>
+									<p v-text="item.date"></p>
 								</div>
 								<div class="box_active">
 									<div class="box_active_left">
@@ -103,7 +105,7 @@
 							<div class="assess_box_bottom">
 								<template v-for="image in item.images" class="test">
 									<div class="bottom_img">
-										<img :src="image.src">
+										<img :src="image">
 									</div>
 								</template>
 							</div>
@@ -119,16 +121,16 @@
 			<p>为你推荐</p>
 		</div>
 		<div class="recommend_box">
-			<template v-for="(item,index) in recommend">
+			<template v-for="(item,index) in foryou">
 				<div :class="index%2==0? 'recommend_bar_left' : 'recommend_bar_right'">
 					<div class="recommend_image">
-						<img :src="item.src">
+						<img :src="item.coverImage">
 					</div>
 					<div class="recommend_title">
-						<p v-text="item.title"></p>
+						<p v-text="item.name"></p>
 					</div>
 					<div class="recommend_price">
-						<p>￥{{item.price}}</p>
+						<p>￥{{item.discountPrice}}</p>
 					</div>
 				</div>
 			</template>
@@ -162,28 +164,30 @@
 				<div class="popup_box">
 					<div class="popup_bar" style="height:110px">
 						<div class="popup_img">
-							<img :src="popup.img_src">
+							<img :src="currentImage">
 						</div>
 						<div class="popup_head">
-							<p>￥{{popup.price}}</p>
-							<p>{{popup.message}} {{currentColor}} {{currentVersion}}</p>
+							<p>￥{{images.discountPrice}}
+							</p>
+							<div>
+								已选:
+								<template v-for="(item,index) in current">
+									{{item}}
+								</template>
+							</div>
 						</div>
 						<div class="popup_close" @click="close">
 							<img src="../assets/clear.png">
 						</div>
 					</div>
-					<p class="color">颜色</p>
-					<div class="popup_bar">
-						<template v-for="(item,index) in colors">
-							<input type="button" class="popup_color" :class="item.color==currentColor?'selected':'no_selected'" :value="item.color" @click="changeColor(item,index)">
-						</template>
-					</div>
-					<p class="color">版本</p>
-					<div class="popup_bar">
-						<template v-for="(item,index) in versions">
-							<input type="button" class="popup_color" :class="item.version==currentVersion?'selected':'no_selected'" :value="item.version" @click="changeVersion(item,index)">
-						</template>
-					</div>
+					<template v-for="(item1,index1) in images.attributes">
+						<p class="color" v-text="item1.name"></p>
+						<div class="popup_bar">
+							<template v-for="(item2,index2) in item1.parameters">
+								<input type="button" class="popup_color" :class="{'selected':item2.value==current[index1+1]}" :value="item2.value" @click="changeColor(index1,index2,item1,item2)">
+							</template>
+						</div>
+					</template>
 					<p class="color">数量</p>
 					<div class="popup_bar">
 						<input type="button" value="-" class="popup_add popup_button" @click="numchange(-1)">
@@ -256,21 +260,10 @@
 export default {
 	data(){
 		return{
-			items:[],
-			assess:[],
-			recommend:[],
-			colors:[],
-			versions:[],
-			currentColor:'',
-			currentVersion:'',
-			popup:[{
-				img_src:'',
-				price:0,
-				message:'',
-				color:'',
-				version:'',
-				num:1
-			}],
+			currentImage:'',
+			images:[],
+			images_assess:[],
+			current:[],
 			num:1,
 			isShare:false,
 			indexs:1,
@@ -279,14 +272,7 @@ export default {
 			len:0,
 			width:0,
 			isShow:false,
-			assess_len:0,
-			recommend_len:0,
-			title:'',
-			content:'',
-			newPrice:0,
-			oldPrice:0,
-			promotion:[],
-			prolen:0
+			foryou:[]
 		}
 	},
 	beforeCreate () {
@@ -299,43 +285,57 @@ export default {
 		this.$nextTick(function(){
 
 			let self=this;
-			self.$http.get("../static/details.json").then(function(res){
-				self.prolen=res.data.promotion.length;
-				self.len=res.data.imgs.length;
-				self.title=res.data.title;
-				self.newPrice=res.data.new_price;
-				self.oldPrice=res.data.old_price;
-				self.content=res.data.content;
-				for(var j=0;j<self.prolen;j++)
-					self.promotion.push(res.data.promotion[j]);
-				for(var i=0;i<self.len;i++){
-					self.items.push(res.data.imgs[i])
+			var id = 1;
+			self.$http.get('http://localhost:8080/api/commodity/'+id).then(function(res){
+				if(res.data.code=="OK"){
+					self.images = res.data.data;
+					self.len = self.images.imageUrls.length;
+					self.currentImage = self.images.coverImage;
+					self.current.push(self.images.commoditySN);
+					for(var i=0;i<self.images.attributes.length;i++){
+						self.current.push(self.images.attributes[i].parameters[0].value);
+					}
 				}
-				for(var i=0;i<res.data.colors.length;i++)
-					self.colors.push(res.data.colors[i])
-				for(var i=0;i<res.data.versions.length;i++)
-					self.versions.push(res.data.versions[i])
-				self.popup.img_src=self.items[0].src;
-				self.popup.price=res.data.new_price;
-				self.popup.message=self.title;
-				self.popup.color=self.colors[0].color;
-				self.popup.version=self.versions[0].version;
-				self.popup.num=1;
-				self.currentColor=self.colors[0].color;
-				self.currentVersion=self.versions[0].version;
-			});
-			self.$http.get("../static/assess.json").then(function(res){
-				self.assess_len=res.data.assess.length;
-				for(var i=0;i<self.assess_len;i++){
-					self.assess.push(res.data.assess[i]);
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
 				}
-			});
-			self.$http.get("../static/recommend.json").then(function(res){
-				self.recommend_len=res.data.recommend.length;
-				for(var i=0;i<self.recommend_len;i++){
-					self.recommend.push(res.data.recommend[i]);
+			}).catch(function(error){
+				console.log(error);
+			})
+			self.$http.get("http://localhost:8080/api/comment/"+id+"/1/",{
+				params:{
+					size:10
+				}
+			}).then(function(res){
+				if(res.data.code=="OK"){
+					self.images_assess=res.data.data.dataList;
+					console.log(self.images_assess);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
 				}
 			});
+			self.$http.get('http://localhost:8080/api/commodity/page/1',{
+				params:{
+					size:4,
+					sortType:4,
+					isASC:true,
+					keyword:""
+				}
+			}).then(function(res){
+				if(res.data.code=="OK"){
+					self.foryou = res.data.data.dataList;
+					console.log(self.foryou);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
+				}
+			}).catch(function(error){
+				console.log(error);
+			})
 		})
 	},
 	methods:{
@@ -359,13 +359,12 @@ export default {
 			else{
 				self.num++;
 			}
-			self.popup.num=self.num;
 		},
-		changeColor(item,index){
-			this.currentColor=this.colors[index].color;
-		},
-		changeVersion(item,index){
-			this.currentVersion=this.versions[index].version;
+		changeColor(index1,index2,item1,item2){
+			this.current[index1+1]=item2.value;
+			if(item1.imageFlag==true)
+				this.currentImage=item2.image;
+			this.$forceUpdate();
 		},
 		changeShare(){
 			this.isShare=true;
@@ -643,6 +642,7 @@ p{
 	margin-top:15px;
 	font-size:13px;
 	margin-bottom:20px;
+	clear:left;
 }
 .recommend{
 	font-size:24px;
@@ -658,12 +658,10 @@ p{
 .recommend_bar_left{
 	float:left;
 	width:46%;
-	height:210px;
 }
 .recommend_bar_right{
 	float:left;
 	width:46%;
-	height:210px;
 	margin-left:10px;
 }
 .recommend_image{
@@ -682,7 +680,8 @@ p{
 	color:#ff0000;
 	font-weight:bold;
 	margin-top:5px;
-	font-size:15px;
+	font-size:17px;
+	margin-bottom:10px;
 } 
 .end{
 	margin:0 auto;
@@ -757,16 +756,18 @@ p{
 .popup_head{
 	height:50px;
 	float:left;
-	padding-top:50px;
+	width:200px;
+	padding-top:40px;
 	padding-left:8px;
+}
+.popup_head div{
+	font-size:14px;
+	float:left;
 }
 .popup_head p:nth-child(1){
 	color:#ff0000;
 	font-size:17px;
 	font-weight:550;
-}
-.popup_head p:nth-child(2){
-	font-size:14px;
 }
 .color{
 	clear:both;
@@ -783,7 +784,7 @@ p{
 	right:5px;
 }
 .popup_color{
-	width:65px;
+	min-width: 65px;
 	background:#eee;
 	text-align:center;
 	margin-right:10px;
@@ -792,6 +793,8 @@ p{
 	height:30px;
 	border-radius: 15px;
 	outline:none;
+	padding:5px 10px;
+	margin-bottom:8px;
 }
 .popup_button{
 	width:40px;

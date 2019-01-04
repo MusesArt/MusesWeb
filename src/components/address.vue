@@ -75,11 +75,7 @@ export default{
 		},
 		deleteAddr(item,index){
 			let self = this;
-			self.$http.delete('http://localhost:8080/api/address/list',{
-				params:{
-					Id:item.id
-				}
-			}).then(function(res){
+			self.$http.delete('http://localhost:8080/api/address/'+item.id).then(function(res){
 				self.address.slice(index,1);
 			})
 		},
