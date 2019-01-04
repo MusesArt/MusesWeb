@@ -30,6 +30,7 @@ import used from '../components/used.vue'
 import refund from '../components/refund.vue'
 import address from '../components/address.vue'
 import add_address from '../components/add_address.vue'
+import edit_address from '../components/edit_address.vue'
 import my_order from '../components/my_order.vue'
 
 Vue.use(Router)
@@ -186,6 +187,11 @@ export default new Router({
       path:'/add_address',
       name:'add_address',
       component:add_address
+    },
+    {
+      path:'/edit_address',
+      name:'edit_address',
+      component:edit_address
     },
     {
     	path:'/my_order',
