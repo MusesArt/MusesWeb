@@ -244,8 +244,14 @@ export default {
 		this.$nextTick(function(){
 			let self = this;
 			self.$http.get('http://localhost:8080/api/banner/').then(function(res){
-				self.slider = res.data.data;
-				console.log(self.slider.imageUrl);
+				if(res.data.code=="OK"){
+					self.slider = res.data.data;
+					console.log(self.slider.imageUrl);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
+				}
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -258,8 +264,14 @@ export default {
 					keyword:""
 				}
 			}).then(function(res){
-				self.today = res.data.data.dataList;
-				console.log(self.today);
+				if(res.data.code=="OK"){
+					self.today = res.data.data.dataList;
+					console.log(self.today);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
+				}
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -272,8 +284,14 @@ export default {
 					keyword:""
 				}
 			}).then(function(res){
-				self.image_news = res.data.data.dataList;
-				console.log(self.image_news);
+				if(res.data.code==="OK"){
+					self.image_news = res.data.data.dataList;
+					console.log(self.image_news);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
+				}
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -286,8 +304,14 @@ export default {
 					keyword:""
 				}
 			}).then(function(res){
-				self.image_hots = res.data.data.dataList;
-				console.log(self.image_hots);
+				if(res.data.code=="OK"){
+					self.image_hots = res.data.data.dataList;
+					console.log(self.image_hots);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
+				}
 			}).catch(function(error){
 				console.log(error);
 			})
