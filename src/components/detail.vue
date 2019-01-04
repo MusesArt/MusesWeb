@@ -130,7 +130,8 @@ export default {
 
 		},
 		back(){
-			this.$router.push({path:'/result'});
+			this.$router.push({path:'/result/default'});
+      // this.$router.go(-1)
 		},
 		close_share(){
 			this.isShare=false;

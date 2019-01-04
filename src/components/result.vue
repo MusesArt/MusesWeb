@@ -13,7 +13,7 @@
         </router-link>
       </FlexboxItem>
     </Flexbox>
-    <tab active-color="#333" default-color="#333" custom-bar-width="30px" style="margin-bottom: 5px">
+    <tab active-color="#333" default-color="#333" custom-bar-width="30px" style="margin-bottom: 5px" ref="tab">
       <tab-item @on-item-click="click(1)" class="tab" selected>综合</tab-item>
       <tab-item @on-item-click="click(2)" class="tab">最新</tab-item>
       <tab-item @on-item-click="click(3)" class="tab">最热</tab-item>
@@ -40,7 +40,8 @@
     data() {
       return {
         height: 0,
-        search: ''
+        search: '',
+        tabIndex: 1
       }
     },
     created() {
@@ -53,10 +54,19 @@
         this.search = '';
       },
       click(index) {
-        if (index === 1) {
-          this.$router.push({path: '/result/'});
-        } else {
-          this.$router.push({path: '/result'});
+        switch (index) {
+          case 1:
+            this.$router.push({path: '/result/default'});
+            break;
+          case 2:
+            this.$router.push({path: '/result/new'});
+            break;
+          case 3:
+            this.$router.push({path: '/result/hot'});
+            break;
+          case 4:
+            this.$router.push({path: '/result/price'});
+            break;
         }
       }
     }
