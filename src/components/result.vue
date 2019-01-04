@@ -3,9 +3,8 @@
     <Flexbox>
       <FlexboxItem :span="10">
         <form action="" method="post">
-          <input type="button" class="button">
+          <img alt="search" src="../assets/search.png" class="search">
           <input type="text" class="text" v-model="search">
-          <img src="../assets/clear.png" class="clear" @click="clear()">
         </form>
       </FlexboxItem>
       <FlexboxItem :span="2">
@@ -14,7 +13,7 @@
         </router-link>
       </FlexboxItem>
     </Flexbox>
-    <tab active-color="#333" default-color="#333" custom-bar-width="30px">
+    <tab active-color="#333" default-color="#333" custom-bar-width="30px" style="margin-bottom: 5px">
       <tab-item @on-item-click="click(1)" class="tab" selected>综合</tab-item>
       <tab-item @on-item-click="click(2)" class="tab">最新</tab-item>
       <tab-item @on-item-click="click(3)" class="tab">最热</tab-item>
@@ -29,6 +28,7 @@
 </template>
 <script>
   import {Flexbox, FlexboxItem, Tab, TabItem, ViewBox} from 'vux'
+
   export default {
     components: {
       Flexbox,
@@ -40,12 +40,12 @@
     data() {
       return {
         height: 0,
-        search: '123'
+        search: ''
       }
     },
     created() {
       this.height = document.documentElement.clientHeight;
-      var storage = window.localStorage;
+      let storage = window.localStorage;
       this.search = storage.getItem("searchKey");
     },
     methods: {
@@ -53,7 +53,11 @@
         this.search = '';
       },
       click(index) {
-        this.$router.push({path: '/result'});
+        if (index === 1) {
+          this.$router.push({path: '/result/'});
+        } else {
+          this.$router.push({path: '/result'});
+        }
       }
     }
   }
@@ -75,14 +79,13 @@
     margin-top: 10px;
   }
 
-  .button {
+  .search {
     float: left;
     width: 22px;
     height: 22px;
     margin-top: 3px;
     margin-right: 6px;
     outline: none;
-    background: url(../assets/search.png);
     background-size: 100% 100%;
     background-position: 50% 50%;
     border: 0;
@@ -109,8 +112,10 @@
 
   .back {
     margin-left: 20px;
-    margin-top: 20px;
     font-size: 13px;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+    border: 0;
   }
 
   .head {

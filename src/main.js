@@ -7,10 +7,10 @@ import axios from 'axios'
 import VueProgressBar from 'vue-progressbar'
 import VueScroller from 'vue-scroller'
 
-Vue.use(VueScroller)
-Vue.config.productionTip = false
-Vue.prototype.$http= axios
-Vue.use(router)
+Vue.use(VueScroller);
+Vue.config.productionTip = false;
+Vue.prototype.$http= axios;
+Vue.use(router);
 /* eslint-disable no-new */
 const options = {
   color: '#bffaf3',
@@ -26,10 +26,10 @@ const options = {
   location: 'top',
   inverse: false
 }
-Vue.use(VueProgressBar, options)
+Vue.use(VueProgressBar, options);
 new Vue({
   el: '#app',
   router,
   components: { App },
   template: '<App/>'
-}).$mount('#app')
+}).$mount('#app');

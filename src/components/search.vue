@@ -31,7 +31,7 @@
             <p class="hot">历史搜索</p>
           </FlexboxItem>
           <FlexboxItem :span="3">
-            <img alt="clear history search" src="../assets/trash.png" class="img-trash" @click="trash()" style="width:18px;height:18px">
+            <img alt="clear history search" src="../assets/trash.png" class="img-trash" @click="trash()">
             <p class="p-trash" @click="trash()">清空</p>
           </FlexboxItem>
         </Flexbox>
@@ -49,7 +49,7 @@
 
   export default {
     created: function () {
-      this.$http.get("http://localhost:8080/api/hotkey/").then(res => {
+      this.$http.get("http://192.168.4.236:8080/api/hotkey/").then(res => {
         console.log("success");
         if (res.data.code === "OK") {
           this.keys = res.data.data;
@@ -104,7 +104,7 @@
             storage.setItem("searchHistory", '{ "history": "' + searchKey + '" }');
           }
           // noinspection JSUnresolvedVariable
-          this.$router.push({path:'/result'})
+          this.$router.push({path: '/result'})
         }
       },
       select(key) {
@@ -206,6 +206,8 @@
   }
 
   .img-trash {
+    width: 18px;
+    height: 18px;
     float: right;
     margin-top: 32px;
     margin-right: 10px;
