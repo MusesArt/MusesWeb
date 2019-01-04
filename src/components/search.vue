@@ -3,7 +3,7 @@
     <div class="container">
       <Flexbox>
         <FlexboxItem :span="10">
-          <form action="" method="post">
+          <form method="post" @keydown.enter.prevent="detail()">
             <input type="button" class="button" @click="detail()">
             <input type="text" class="text" placeholder="搜索装饰画" v-model="search">
             <img src="../assets/clear.png" class="clear" @click="clear()">
@@ -98,7 +98,7 @@
           var searchHistory = storage.getItem("searchHistory");
           if (searchHistory !== "" && searchHistory != null) {
             if (searchHistory.search(searchKey) === -1) {
-              storage.setItem("searchHistory", searchHistory + ', { "history": "' + searchKey + '" }');
+              storage.setItem("searchHistory", '{ "history": "' + searchKey + '" } , ' + searchHistory);
             }
           } else {
             storage.setItem("searchHistory", '{ "history": "' + searchKey + '" }');
@@ -143,14 +143,15 @@
     padding: 3px 10px;
     border-radius: 20px;
     width: 98%;
+    vertical-align: center;
     background: #f6f6f6;
-    margin-top: 5px;
+    margin-top: 3px;
   }
 
   .button {
     float: left;
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     margin-top: 2px;
     margin-right: 10px;
     outline: none;
@@ -163,16 +164,16 @@
   .clear {
     width: 12px;
     height: 12px;
-    margin-top: 5px;
+    margin-top: 7px;
     float: right;
   }
 
   .text {
     float: left;
     color: #707070;
-    height: 20px;
+    height: 25px;
     width: 82%;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
     border: 0px;
     outline: none;
@@ -181,6 +182,7 @@
 
   .back {
     margin-left: 20px;
+    margin-top: 5px;
     font-size: 12px;
   }
 
@@ -204,7 +206,7 @@
 
   .img-trash {
     float: right;
-    margin-top: 30px;
+    margin-top: 40px;
     margin-right: 10px;
   }
 
