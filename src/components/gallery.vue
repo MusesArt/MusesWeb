@@ -69,8 +69,14 @@
 							<img :src="item.src">
 						</div>
 					</template>
+					<!-- <template v-for="(item,index) in today">
+						<div class="today">
+							<img :src="item.coverImage">
+						</div>
+					</template> -->
 				</div>
 			</scroller>
+			
 			<Flexbox>
 				<FlexboxItem :span="4">
 					<p class="recommend">新品上市</p>
@@ -84,6 +90,19 @@
 			<div class="img-box img-head">
 				<img :src="head">
 			</div>
+			<!-- <template v-for="(item,index) in image_news">
+				<div class="img-box img-head" v-if="index==0">
+					<img :src="item.coverImage">
+				</div>
+				<div class="news-bar" :class="{'news-bar2':index%2!=0}" v-if="index!=0">
+					<div class="img-box">
+						<img :src="item.coverImage">
+					</div>
+					<p v-text="item.name" class="title"></p>
+					<p v-text="item.brief" class="content"></p>
+					<p v-text="'￥'+item.discountPrice" class="price"></p>
+				</div>
+			</template> -->
 			<template v-for="(item,index) in news">
 				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
 					<div class="img-box">
@@ -117,6 +136,20 @@
 					<p v-text="'￥'+item.price" class="price"></p>
 				</div>
 			</template>
+
+			<!-- <template v-for="(item,index) in image_hots">
+				<div class="img-box img-head" v-if="index==0">
+					<img :src="item.coverImage">
+				</div>
+				<div class="news-bar" :class="{'news-bar2':index%2!=0}" v-if="index!=0">
+					<div class="img-box">
+						<img :src="item.coverImage">
+					</div>
+					<p v-text="item.name" class="title"></p>
+					<p v-text="item.brief" class="content"></p>
+					<p v-text="'￥'+item.discountPrice" class="price"></p>
+				</div>
+			</template> -->
 			<Flexbox>
 				<FlexboxItem>
 					<div class="bottom">
@@ -134,6 +167,9 @@ export default {
 		return {
 			width:0,
 			slider:[],
+			today:[],
+			image_news:[],
+			image_hots:[],
 			head:require("../assets/new.png"),
 			hot:require("../assets/new.png"),
 			images:[
@@ -213,11 +249,54 @@ export default {
 			}).catch(function(error){
 				console.log(error);
 			})
+
+			self.$http.get('http://localhost:8080/api/commodity/page/1',{
+				params:{
+					size:4,
+					sortType:4,
+					isASC:true,
+					keyword:""
+				}
+			}).then(function(res){
+				self.today = res.data.data.dataList;
+				console.log(self.today);
+			}).catch(function(error){
+				console.log(error);
+			})
+
+			self.$http.get('http://localhost:8080/api/commodity/page/1',{
+				params:{
+					size:5,
+					sortType:0,
+					isASC:false,
+					keyword:""
+				}
+			}).then(function(res){
+				self.image_news = res.data.data.dataList;
+				console.log(self.image_news);
+			}).catch(function(error){
+				console.log(error);
+			})
+
+			self.$http.get('http://localhost:8080/api/commodity/page/1',{
+				params:{
+					size:5,
+					sortType:2,
+					isASC:false,
+					keyword:""
+				}
+			}).then(function(res){
+				self.image_hots = res.data.data.dataList;
+				console.log(self.image_hots);
+			}).catch(function(error){
+				console.log(error);
+			})
 		})
 	},
 	computed:{
 		width2:function(){
-			return ((this.images.length)*170+'px');
+			return ((this.images.length)*173+'px');
+			// return ((this.today.length)*173+'px');
 		}
 	},
 	components: {
