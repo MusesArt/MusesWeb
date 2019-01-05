@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div align="center">
 		<Flexbox>
 			<FlexboxItem :span="10"></FlexboxItem>
 			<FlexboxItem>
@@ -9,63 +9,54 @@
 			</FlexboxItem>
 		</Flexbox>
 		<Flexbox>
-			<FlexboxItem :span="3"></FlexboxItem>
-			<FlexboxItem :span="6">
-				<img src="../assets/logo.png">
+			<FlexboxItem align="center">
+				<img src="../assets/logo.png" style="width: 150px" >
 			</FlexboxItem>
 		</Flexbox>
 		<Flexbox>
-			<FlexboxItem :span="11">
+			<FlexboxItem align="center">
 				<div class="form">
 					<input type="text" placeholder="手机号码" class="phone" v-model="u.username" required="required">
 				</div>
 			</FlexboxItem>
 		</Flexbox>
 		<Flexbox>
-			<FlexboxItem :span="11">
+			<FlexboxItem align="center">
 				<div class="form">
 					<input type="password" placeholder="密码" class="phone phone2" v-model="u.password" required="required">
 				</div>
 			</FlexboxItem>
 		</Flexbox>
 		<Flexbox>
-			<FlexboxItem :span="11">
+			<FlexboxItem align="center">
 				<div class="form">
-					<x-button style="border-radius:20px;margin:55px 10px 10px 15px;opacity:0.9" type="warn" @click.native="submit()">登录</x-button>
+					<x-button type="warn" style="width: 90%" @click.native="submit()">登录</x-button>
 				</div>
 			</FlexboxItem>
 		</Flexbox>
-		<Flexbox>
-			<FlexboxItem :span="4">
+		<Flexbox class="link">
+			<FlexboxItem>
 				<router-link to="/IC" class="left">验证码登录</router-link>
 			</FlexboxItem>
-			<FlexboxItem :span="4">
-				
-			</FlexboxItem>
-			<FlexboxItem :span="4">
+			<FlexboxItem align="right">
 				<router-link to="/register" class="right">注册账户</router-link>
 			</FlexboxItem>
 		</Flexbox>	
 		<Flexbox>
-		<FlexboxItem :span="1">	</FlexboxItem>
-		<FlexboxItem :span="10">
-			<div><divider><p>其他登录方式</p></divider></div>
-		</FlexboxItem>
-		<FlexboxItem></FlexboxItem>
+      <FlexboxItem :span="1">	</FlexboxItem>
+      <FlexboxItem :span="10" style="margin-left: 0px">
+        <div><divider class="other"><p>其他登录方式</p></divider></div>
+      </FlexboxItem>
+		<FlexboxItem :span="1"></FlexboxItem>
 
 		</Flexbox>
-			<Flexbox>
-			<FlexboxItem :span="2"></FlexboxItem>
-			<FlexboxItem :span="2">
-				<img src="../assets/qq.png">
-			</FlexboxItem>
-			<FlexboxItem :span="2">
-				<img src="../assets/weibo.png" class="chat1">
-			</FlexboxItem>
-			<FlexboxItem :span="2">
-				<img src="../assets/weixin.png" class="chat2">
-			</FlexboxItem>
-		</Flexbox>
+    <Flexbox>
+      <FlexboxItem class="images">
+        <img src="../assets/qq.png" class="img1">
+        <img src="../assets/weibo.png" class="img2">
+        <img src="../assets/weixin.png" class="img3">
+      </FlexboxItem>
+  </Flexbox>
 	</div>
 </template>
 <script>
@@ -107,31 +98,31 @@ export default {
 <style scoped>
 .main{
 	height:50px;
+  margin-top: 15px;
 }
 img{
-	width:100%;
+	width:15%;
 }
 .bar{
 	background:red;
 }
 .form{
-	width:100%;
+	width:90%;
 }
 .phone{
-	margin:70px 10px 20px 20px;
+	margin:70px 20px 20px 20px;
 	width:90%;
 	height:34px;
 	outline:none;
-	padding-left: 15px;
 	border:0px;
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid rgb(196, 196, 196);
 	font-size:16px;
 }
 .phone2{
 	margin-top:10px;
 }
 .submit{
-	margin:55px 10px 20px 15px;
+	margin:55px 10px 20px 0px;
 	width:100%;
 	height:55px;
 	background:#FF3030;
@@ -142,21 +133,46 @@ img{
 	opacity:0.9;
 	font-size:22px;
 }
-.left{
-	margin-left:15px;
-}
 .right{
-	text-align:left;
-	margin-left:20px;
+	text-align:right;
 }
-.chat1{
-	margin-left:15px;
+.img1{
+  margin-right: 15px;
 }
-.chat2{
-	margin-left:30px;
+.img2{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.img3{
+  margin-left: 15px;
 }
 a{
 	text-decoration: none;
 	color:black;
+}
+::-webkit-input-placeholder {
+  color: rgb(196, 196, 196);
+}
+input{
+  padding-left: 0px;
+  border-color: rgb(167, 171, 176);
+}
+button{
+  border-radius:20px;
+  margin-top:40px;
+  opacity:0.9;
+  background: rgb(254,78,91);
+  margin-bottom: 25px;
+}
+.link{
+  width: 80%;
+}
+.images{
+  display:block;
+  margin:0 auto;
+  text-align: center;
+}
+.other{
+  color: rgb(167, 171, 176) !important;
 }
 </style>
