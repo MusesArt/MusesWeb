@@ -14,29 +14,27 @@
 				<img src="../assets/logo.png">
 			</FlexboxItem>
 		</Flexbox>
-		<form action="" method="post">
-			<Flexbox>
-				<FlexboxItem :span="11">
-					<div class="form">
-						<input type="text" placeholder="手机号码" class="phone">
-					</div>
-				</FlexboxItem>
-			</Flexbox>
-			<Flexbox>
-				<FlexboxItem :span="11">
-					<div class="form">
-						<input type="password" placeholder="密码" class="phone phone2">
-					</div>
-				</FlexboxItem>
-			</Flexbox>
-			<Flexbox>
-				<FlexboxItem :span="11">
-					<div class="form">
-						<x-button style="border-radius:20px;margin:55px 10px 10px 15px;opacity:0.9" type="warn">登录</x-button>
-					</div>
-				</FlexboxItem>
-			</Flexbox>
-		</form>
+		<Flexbox>
+			<FlexboxItem :span="11">
+				<div class="form">
+					<input type="text" placeholder="手机号码" class="phone" v-model="u.username" required="required">
+				</div>
+			</FlexboxItem>
+		</Flexbox>
+		<Flexbox>
+			<FlexboxItem :span="11">
+				<div class="form">
+					<input type="password" placeholder="密码" class="phone phone2" v-model="u.password" required="required">
+				</div>
+			</FlexboxItem>
+		</Flexbox>
+		<Flexbox>
+			<FlexboxItem :span="11">
+				<div class="form">
+					<x-button style="border-radius:20px;margin:55px 10px 10px 15px;opacity:0.9" type="warn" @click.native="submit()">登录</x-button>
+				</div>
+			</FlexboxItem>
+		</Flexbox>
 		<Flexbox>
 			<FlexboxItem :span="4">
 				<router-link to="/IC" class="left">验证码登录</router-link>
@@ -74,12 +72,34 @@
 import { Flexbox, FlexboxItem, Divider, XButton } from 'vux'
 
 export default {
-  components: {
-    Flexbox,
-    FlexboxItem,
-    Divider,
-    XButton
-  }
+	data(){
+		return{
+			u:{
+				username:'',
+				password:''
+			}
+		}
+	},
+	methods:{
+		submit(){
+			let self = this;
+			self.$http.post('http://localhost:8080/api/user/login/username',self.u).then(function(res){
+				if(res.data.code=="OK"){
+					self.$router.push({path:'/main'});
+					localStorage.setItem("token",res.data.data.token);
+				}
+				console.log(res.data);
+			}).catch(function(error){
+				console.log(error);
+			})
+		}
+	},
+	components: {
+		Flexbox,
+		FlexboxItem,
+		Divider,
+		XButton
+	}
 }
 </script>
 
