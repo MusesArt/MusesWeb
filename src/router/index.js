@@ -21,6 +21,7 @@ import no_search from '../components/no_search.vue'
 import detail from '../components/detail.vue'
 import detail_main from '../components/detail_main.vue'
 import evaluate from '../components/evaluate.vue'
+import details from '../components/details.vue'
 import message from '../components/message.vue'
 import market from '../components/market.vue'
 import my_collect from '../components/my_collect.vue'
@@ -162,6 +163,11 @@ export default new Router({
           path: 'evaluate',
           name: 'evaluate',
           component: evaluate
+        },
+        {
+          path: 'details',
+          name: 'details',
+          component: details
         }
       ]
     },

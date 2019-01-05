@@ -7,7 +7,9 @@
         </FlexboxItem>
         <FlexboxItem :span="7"></FlexboxItem>
         <FlexboxItem :span="2">
-          <p class="head_right" @click="Edit">{{edit_text}}</p>
+			<template v-if="items.length>0">
+				<p class="head_right" @click="Edit">{{edit_text}}</p>
+			</template>
         </FlexboxItem>
       </Flexbox>
     </div>
