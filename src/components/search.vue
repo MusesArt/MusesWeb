@@ -49,7 +49,7 @@
 
   export default {
     created: function () {
-      this.$http.get("http://192.168.4.236:8080/api/hotkey/").then(res => {
+      this.$http.get("http://localhost:8080/api/hotkey/").then(res => {
         console.log("success");
         if (res.data.code === "OK") {
           this.keys = res.data.data;
@@ -104,7 +104,7 @@
             storage.setItem("searchHistory", '{ "history": "' + searchKey + '" }');
           }
           // noinspection JSUnresolvedVariable
-          this.$router.push({path: '/result'})
+          this.$router.push({path: '/result/default'})
         }
       },
       select(key) {
@@ -181,7 +181,7 @@
 
   .back {
     margin-left: 20px;
-    font-size: 12px;
+    font-size: 14px;
     background-size: 100% 100%;
     background-position: 50% 50%;
     border: 0;

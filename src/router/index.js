@@ -10,7 +10,7 @@ import create from '../components/create.vue'
 import my from '../components/my.vue'
 import search from '../components/search.vue'
 import result from '../components/result.vue'
-import result_main from '../components/result_main.vue'
+import result_main from '../components/result_default.vue'
 import assess from '../components/no_assess.vue'
 import network from '../components/no_network.vue'
 import vouchers from '../components/no_vouchers.vue'
@@ -32,7 +32,10 @@ import address from '../components/address.vue'
 import add_address from '../components/add_address.vue'
 import edit_address from '../components/edit_address.vue'
 import my_order from '../components/my_order.vue'
-import unpayed from '../components/unpayed.vue'
+import result_hot from "../components/result_hot";
+import result_price from "../components/result_price";
+import result_new from "../components/result_new";
+import result_default from "../components/result_default";
 
 
 Vue.use(Router)
@@ -42,168 +45,180 @@ export default new Router({
     {
       path: '/',
       name: 'login1',
-      component:login1
+      component: login1
     },
     {//需要跳转的页面
-        path:'/IC',
-        name:'login2',
-        component:login2//组件名字
+      path: '/IC',
+      name: 'login2',
+      component: login2//组件名字
     },
     {
-    	path:'/register',
-    	name:'register',
-    	component:login3
+      path: '/register',
+      name: 'register',
+      component: login3
     },
     {
-    	path:'/main',
-    	component:main,
-    	children: [
-      {
-      	path:'/',
-      	name: 'gallery',
-      	component:gallery
-      },
-      {
-      	path:'shop',
-      	name:'shop',
-      	component:shopping
-      },
-      {
-      	path:'create',
-      	name:'create',
-      	component:create
-      },
-      {
-      	path:'my',
-      	name:'my',
-      	component:my
-      }
+      path: '/main',
+      component: main,
+      children: [
+        {
+          path: '/',
+          name: 'gallery',
+          component: gallery
+        },
+        {
+          path: 'shop',
+          name: 'shop',
+          component: shopping
+        },
+        {
+          path: 'create',
+          name: 'create',
+          component: create
+        },
+        {
+          path: 'my',
+          name: 'my',
+          component: my
+        }
       ]
     },
     {
-      path:'/search',
-      name:'search',
-      component:search
+      path: '/search',
+      name: 'search',
+      component: search
     },
     {
-      path:'/result',
-      component:result,
-      children:[{
-      	path:'/',
-      	name:'result_main',
-      	component:result_main
-      }]
-    },
-    {
-      path:'/assess',
-      name:'assess',
-      component:assess
-    },
-    {
-      path:'/network',
-      name:'network',
-      component:network
-    },
-    {
-      path:'/vouchers',
-      name:'vouchers',
-      component:vouchers
-    },
-    {
-      path:'/collect',
-      name:'collect',
-      component:collect
-    },
-    {
-      path:'/thing',
-      name:'thing',
-      component:thing
-    },
-    {
-      path:'/empty',
-      name:'empty',
-      component:empty
-    },
-    {
-      path:'/no_search',
-      name:'no_search',
-      component:no_search
-    },
-    {
-      path:'/detail',
-      component:detail,
-      children:[
-      {
-        path:'/',
-        name:'detail_main',
-        component:detail_main
-      },
-      {
-        path:'evaluate',
-        name:'evaluate',
-        component:evaluate
-      }
+      path: '/result',
+      component: result,
+      children: [
+        {
+          path: '/result/default',
+          name: 'result_default',
+          component: result_default
+        },
+        {
+          path: '/result/new',
+          name: 'result_new',
+          component: result_new
+        },
+        {
+          path:'/result/hot',
+          name: 'result_hot',
+          component: result_hot
+        },
+        {
+          path:'/result/price',
+          name: 'result_price',
+          component: result_price
+        }
       ]
     },
     {
-    	path:'/message',
-    	name:'message',
-    	component:message
+      path: '/assess',
+      name: 'assess',
+      component: assess
     },
     {
-    	path:'/market',
-    	name:'market',
-    	component:market
+      path: '/network',
+      name: 'network',
+      component: network
     },
     {
-    	path:'/my_collect',
-    	name:'my_collect',
-    	component:my_collect
+      path: '/vouchers',
+      name: 'vouchers',
+      component: vouchers
     },
     {
-    	path:'/my_voucher',
-    	component:my_voucher,
-    	children:[
-    	{
-    		path:'/',
-    		name:'no_used',
-    		component:no_used
-    	},
-    	{
-    		path:'used',
-    		name:'used',
-    		component:used
-    	}]
+      path: '/collect',
+      name: 'collect',
+      component: collect
     },
     {
-    	path:'/refund',
-    	name:'refund',
-    	component:refund
+      path: '/thing',
+      name: 'thing',
+      component: thing
     },
     {
-      path: '/unpayed',
-      name: 'unpayed',
-      component: unpayed
+      path: '/empty',
+      name: 'empty',
+      component: empty
     },
     {
-    	path:'/address',
-    	name:'address',
-    	component:address
+      path: '/no_search',
+      name: 'no_search',
+      component: no_search
     },
     {
-      path:'/add_address',
-      name:'add_address',
-      component:add_address
+      path: '/detail',
+      component: detail,
+      children: [
+        {
+          path: '/',
+          name: 'detail_main',
+          component: detail_main
+        },
+        {
+          path: 'evaluate',
+          name: 'evaluate',
+          component: evaluate
+        }
+      ]
     },
     {
-      path:'/edit_address',
-      name:'edit_address',
-      component:edit_address
+      path: '/message',
+      name: 'message',
+      component: message
     },
     {
-    	path:'/my_order',
-    	name:'my_order',
-    	component:my_order
+      path: '/market',
+      name: 'market',
+      component: market
+    },
+    {
+      path: '/my_collect',
+      name: 'my_collect',
+      component: my_collect
+    },
+    {
+      path: '/my_voucher',
+      component: my_voucher,
+      children: [
+        {
+          path: '/',
+          name: 'no_used',
+          component: no_used
+        },
+        {
+          path: 'used',
+          name: 'used',
+          component: used
+        }]
+    },
+    {
+      path: '/refund',
+      name: 'refund',
+      component: refund
+    },
+    {
+      path: '/address',
+      name: 'address',
+      component: address
+    },
+    {
+      path: '/add_address',
+      name: 'add_address',
+      component: add_address
+    },
+    {
+      path: '/edit_address',
+      name: 'edit_address',
+      component: edit_address
+    },
+    {
+      path: '/my_order',
+      name: 'my_order',
+      component: my_order
     }
   ]
 })
