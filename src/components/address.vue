@@ -45,11 +45,22 @@ export default{
 			address:[]
 		}
 	},
+	watch:{
+		'$route'(from,to){
+			this.init();
+		}
+	},
 	beforeCreate () {
 		document.querySelector('body').setAttribute('style', 'background-color:#eee')
 	},
 	mounted(){
 		this.$nextTick(function(){
+			console.log('运行');
+			this.init();
+		})
+	},
+	methods:{
+		init(){
 			let self=this;
 			self.$http.get('http://localhost:8080/api/address/list?userId=1').then(function(res){
 				if(res.data.code == "OK"){
@@ -57,9 +68,7 @@ export default{
 				}
 				self.$set(self.address[0], 'checked', true);
 			})
-		})
-	},
-	methods:{
+		},
 		click(item){
 			let self=this;
 			var flag = item.checked;
@@ -75,8 +84,17 @@ export default{
 		},
 		deleteAddr(item,index){
 			let self = this;
+			console.log(item.id);
 			self.$http.delete('http://localhost:8080/api/address/'+item.id).then(function(res){
-				self.address.slice(index,1);
+				if(res.data.code=="OK"){
+					self.address.splice(index);
+				}
+				else{
+					console.log(res.data.code);
+					console.log(res.data.msg);
+				}
+			}).catch(function(error){
+				console.log(error);
 			})
 		},
 		edit(item){

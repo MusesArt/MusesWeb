@@ -77,16 +77,12 @@ export default{
 		},
 		deleteAddress(){
 			let self = this;
-			self.$http.delete('http://localhost:8080/api/address/list',{
-				params:{
-					Id:self.addressId
-				}
-			}).then(function(res){
-				alert("删除成功");
+			self.$http.delete('http://localhost:8080/api/address/'+self.addressId).then(function(res){
+				if(res.data.code=="OK")
+					self.$router.push({path:'/address'});
 			}).catch(function(error){
 				console.log(error);
 			})
-			this.$router.push({path:'/address'});
 		}
 	},
 	components: {
