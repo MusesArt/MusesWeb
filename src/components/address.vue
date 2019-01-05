@@ -99,7 +99,7 @@ export default{
 		},
 		edit(item){
 			let self = this;
-			this.$router.push({path:'/edit_address',query:{addressId:item.id}})
+			this.$router.push({path:'/edit_address',query:{addressId:item.id}});
 		}
 	}
 }
