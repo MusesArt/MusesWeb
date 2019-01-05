@@ -14,44 +14,42 @@
 				<img src="../assets/logo.png">
 			</FlexboxItem>
 		</Flexbox>
-		<form action="" method="post">
-			<Flexbox>
-				<FlexboxItem :span="11">
-					<div class="form">
-						<input type="text" placeholder="手机号码" class="phone">
-					</div>
-				</FlexboxItem>
-			</Flexbox>
-			<Flexbox>
-				<FlexboxItem :span="12">
-					<div class="formbar">
-						<Flexbox>
-							<FlexboxItem>
-								<input type="number" placeholder="请输入验证码" style="font-size:16px;padding-left:15px">
-							</FlexboxItem>
-							<FlexboxItem :span="3">
-								<input type="button" value="发送验证码" class="button">
-							</FlexboxItem>
-						</Flexbox>
-					</div>
-					
-				</FlexboxItem>
-			</Flexbox>
-			<Flexbox>
-				<FlexboxItem :span="11">
-					<div class="form">
-						<input type="text" placeholder="请输入密码" class="phone" style="margin-top:30px">
-					</div>
-				</FlexboxItem>
-			</Flexbox>
-			<Flexbox>
-				<FlexboxItem :span="11">
-					<div class="form">
-						<x-button style="border-radius:20px;margin:35px 10px 10px 15px;opacity:0.9" type="warn">登录</x-button>
-					</div>
-				</FlexboxItem>
-			</Flexbox>
-		</form>
+		<Flexbox>
+			<FlexboxItem :span="11">
+				<div class="form">
+					<input type="text" placeholder="手机号码" class="phone" v-model="u.mobile">
+				</div>
+			</FlexboxItem>
+		</Flexbox>
+		<Flexbox>
+			<FlexboxItem :span="12">
+				<div class="formbar">
+					<Flexbox>
+						<FlexboxItem>
+							<input type="number" placeholder="请输入验证码" style="font-size:16px;padding-left:15px" v-model="u.code">
+						</FlexboxItem>
+						<FlexboxItem :span="3">
+							<input type="button" value="发送验证码" class="button">
+						</FlexboxItem>
+					</Flexbox>
+				</div>
+				
+			</FlexboxItem>
+		</Flexbox>
+		<Flexbox>
+			<FlexboxItem :span="11">
+				<div class="form">
+					<input type="text" placeholder="请输入密码" class="phone" style="margin-top:30px" v-model="u.password">
+				</div>
+			</FlexboxItem>
+		</Flexbox>
+		<Flexbox>
+			<FlexboxItem :span="11">
+				<div class="form">
+					<x-button style="border-radius:20px;margin:35px 10px 10px 15px;opacity:0.9" type="warn" @click.native="regist()">注册</x-button>
+				</div>
+			</FlexboxItem>
+		</Flexbox>
 		<Flexbox>
 			<FlexboxItem :span="7"></FlexboxItem>
 			<FlexboxItem :span="5">
@@ -83,16 +81,44 @@
 <script>
 import { Flexbox, FlexboxItem, Divider, XButton } from 'vux'
 export default {
-  components: {
-    Flexbox,
-    FlexboxItem,
-    Divider,
-    XButton
-  }
+	data(){
+		return{
+			u:{
+				mobile:'',
+				password:'',
+				code:''
+			}
+		}
+	},
+	methods:{
+		regist(){
+			console.log('success');
+			let self = this;
+			console.log(self.u.mobile);
+			self.$http.post('http://localhost:8080/api/user/register',self.u).then(function(res){
+				if(res.data.data==null){
+					alert(res.data.message);
+				}
+				else{
+					localStorage.setItem("token",res.data.data.token);
+					self.$router.push({path:'/main'});
+				}
+				console.log(res.data);
+			}).catch(function(error){
+				console.log(error);
+			})
+		}
+	},
+	components: {
+		Flexbox,
+		FlexboxItem,
+		Divider,
+		XButton
+	}
 }
 </script>
 <style scoped>
-	.main{
+.main{
 	height:40px;
 }
 img{

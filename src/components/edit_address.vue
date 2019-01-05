@@ -28,7 +28,6 @@
 </template>
 <script>
 import { XSwitch, Group, Cell } from 'vux'
-
 export default{
 	data(){
 		return{
