@@ -17,11 +17,13 @@
 					</div>
 				</FlexboxItem>
 			</Flexbox>
+			<hr/>
+
 		</div>
 	</div>
 </template>
 <script>
-import { Flexbox, FlexboxItem } from 'vux'
+import { Flexbox, FlexboxItem, Divider } from 'vux'
 export default{
 	data(){
 		return {
@@ -46,7 +48,8 @@ export default{
 	},
 	components: {
       Flexbox,
-      FlexboxItem
+	  FlexboxItem,
+	  Divider
     }
 }
 </script>
@@ -178,5 +181,11 @@ div.title {
 	line-height: 50px;
 	box-sizing: border-box;
 	font-size: 16px;
+}
+hr {
+	height: 12px;
+	border: 0;
+	box-shadow: inset 0 6px 12px -12px rgba(0,0,0,0.5);
+	margin: -10px; 
 }
 </style>
