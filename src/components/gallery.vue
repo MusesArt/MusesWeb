@@ -79,10 +79,10 @@
 			<div class="img-box img-head">
 				<img :src="head">
 			</div>
-			<template v-for="(item,index) in news" @click="select(item.id)">
-				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
+			<template v-for="(item,index) in news" >
+				<div class="news-bar" :class="{'news-bar2':index%2!=0}" @click="select(item.id)">
 					<div class="img-box">
-						<img :src="item.coverImage" style="width: 180px; height: 180px">
+						<img :src="item.coverImage" style="width: 188px; height: 188px">
 					</div>
 					<p v-text="item.name.substr(0, 10) + '...'" class="title"></p>
 					<p v-text="item.brief.substr(0, 12)+ '...'" class="content"></p>
@@ -104,8 +104,8 @@
 			</div>
 			<template v-for="(item,index) in hots" @click="select(item.id)">
 				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
-					<div class="img-box" height="80%">
-            <img :src="item.coverImage" style="width: 180px; height: 180px">
+					<div class="img-box" height="80%" style="width: 188px; height: 188px">
+            <img :src="item.coverImage" >
 					</div>
           <p v-text="item.name.substr(0, 10) + '...'" class="title"></p>
           <p v-text="item.brief.substr(0, 12)+ '...'" class="content"></p>
@@ -219,10 +219,12 @@ export default {
 	},
   methods: {
     select(id) {
+      console.log("select");
       this.$router.push({
         path: '/detail/',
         query: {
-          id: id
+          id: id,
+          page: "gallery"
         }
       })
     }
