@@ -28,25 +28,28 @@
 							<img :src="item.head">
 						</div>
 					</div>
-					<div class="head_center">
-						<p style="font-size:14px" v-text="item.username"></p>
-						<rater v-model="item.star" :font-size="16" active-color="#770000" :disabled="true"></rater>
+					<div class="head_center" style="margin-left: 5px;margin-top: 3px;">
+						<p><b style="font-size:14px;margin-bottom: 10px" v-text="item.username"></b></p>
+						<rater v-model="item.star" :font-size="12" active-color="#FF0000" :disabled="true"></rater>
 					</div>
 					<div class="head_right" style="float:right;">
-						<p>{{new Date(item.date).getFullYear() + '-'}}{{new Date(item.date).getMonth() + 1}}{{'-' + new Date(item.date).getDate()}}</p>
+            <p style="color: #9e9e9e;font-size: 12px"><b>{{new Date(item.date).getFullYear() + '-'}}{{new Date(item.date).getMonth() + 1}}{{'-' + new Date(item.date).getDate()}}</b></p>
 					</div>
 				</div>
 				<div>
-					<p v-text="item.content" style="" class="content_p"></p>
+					<b v-text="item.content" style="width: 95%" class="content_p"></b>
 				</div>
-				<div class="imgs">
+				<div class="imgs" style="margin-top: 10px">
 					<template v-for="(data,num) in item.images">
-						<img :src="data" class="img" :class="{'img_other':num%3!=0}">
+						<img :src="data" class="img" :class="{'img_other':num%3!==0}">
 					</template>
 				</div>
-				<div style="height:50px;margin-top:8px">
+				<div style="height:30px">
 					<div class="bottom_left">
-						<p style="font-size:11px;color:#797979" v-text="item.commodityInfo"></p>
+            <template v-for="(text) in item.commodityInfo.toString().split(' ')">
+              <b style="font-size:10px;color:#9e9e9e;margin-left: 1px" v-text="text.toString().split(':')[1]"></b>
+            </template>
+
 					</div>
 					<div class="bottom_right">
 						<!--<img src="../assets/comment.svg" class="bottom_img" style="width:18px;height:18px;margin-right: 10px">-->
@@ -128,19 +131,18 @@ export default{
 		},
 		changeTitle(index){
 			let self=this;
-			if(index==-1){
+			if(index===-1){
 				self.currentTitle='全部';
 			}
-			else if(index==-2){
+			else if(index===-2){
 				self.currentTitle='最新';
 			}
-			else if(index==-3){
+			else if(index===-3){
 				self.currentTitle='最热';
 			}
-			else if(index==-4){
+			else if(index===-4){
 				self.currentTitle='图片';
-			}
-			else{
+			} else{
 				self.currentTitle=self.title[index].title;
 			}
 		}
@@ -159,8 +161,8 @@ export default{
 			}
 		}
 	},
-	computed:{
-		praise:function(){
+	computed: {
+		praise:function() {
 			return ((this.high_opinion)/(this.totalNum)*100).toFixed(0);
 		}
 	}
@@ -168,7 +170,7 @@ export default{
 </script>
 <style scoped>
 p{
-	margin:0px;
+	margin:0;
 }
 img{
 	width:100%;
@@ -255,8 +257,8 @@ img{
 	line-height:40px;
 }
 .content_p{
-	font-size:15px;
-	color:#333;
+	font-size:12px;
+	color:#000;
 	overflow: hidden;  
     display: -webkit-box;  
     -webkit-line-clamp: 4;

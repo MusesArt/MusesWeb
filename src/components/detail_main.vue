@@ -85,8 +85,8 @@
                     </div>
                   </div>
                   <div class="box_name">
-                    <p v-text="item.username"></p>
-                    <p v-text="new Date(item.date).getFullYear() + '-' + new Date(item.date).getMonth() + '-' + new Date(item.date).getDate()"></p>
+                    <p style="color: black; font-size: 14px"><b v-text="item.username"></b></p>
+                    <p style="color: #9e9e9e; font-size: 12px;margin-top: 5px"><b v-text="new Date(item.date).getFullYear() + '-' + new Date(item.date).getMonth() + '-' + new Date(item.date).getDate()"></b></p>
                   </div>
                   <!--<div class="box_active">-->
                   <!--<div class="box_active_left">-->
@@ -100,7 +100,7 @@
                   <!--</div>-->
                 </div>
                 <div class="assess_box_center">
-                  <p v-text="item.content"></p>
+                  <p><b v-text="item.content"></b></p>
                 </div>
                 <div class="assess_box_bottom" style="margin-bottom: 10px">
                   <template v-for="image in item.images" class="test">
@@ -109,10 +109,19 @@
                     </div>
                   </template>
                 </div>
-                <div style="clear:both; margin-top: 15px;margin-left: 10px;;height: 10px"></div>
-                <div style="clear:both; margin-top: 5px;margin-left:15px"><p style="font-size:11px;color:#797979" v-text="item.commodityInfo.toString().split(' ')[0]"></p></div>
+                <div style="clear:both; margin-top: 10px;margin-left: 10px;;height: 5px"></div>
+                <div style="clear:both; margin-top: 5px;margin-left:15px">
+                  <p style="font-size:10px;color:#9e9e9e">
+                    <b v-text="item.commodityInfo.toString().split(' ')[0]"></b>
+                  </p>
+                </div>
               </div>
+            <div style="clear:both;height: 1px">
+              <hr class="hr">
+            </div>
+
           </template>
+
         </div>
       <!--</scroller>-->
     </div>
@@ -638,6 +647,8 @@
   }
 
   .box_name {
+    margin-top: 2px;
+    margin-left: 5px;
     width: 100px;
     height: 100%;
     float: left;
@@ -685,14 +696,15 @@
   }
 
   .assess_box_center {
-    min-height: 30px;
+    width: 85%;
+    margin-top: 2px;
   }
 
   .assess_box_center p {
     margin-left: 13px;
     margin-bottom: 5px;
-    font-size: 15px;
-    color: #333;
+    font-size: 12px;
+    color: black;
   }
 
   .bottom_img {
@@ -946,5 +958,11 @@
     height: 20px;
     margin: 0 auto;
     margin-bottom: 10px
+  }
+
+  .hr {
+    border: 0;
+    height: 0.5px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
   }
 </style>
