@@ -143,15 +143,15 @@
     </div>
     <div class="footer">
       <div class="footer_left">
-        <img src="../assets/trash.png">
+        <img src="../assets/heart-regular.svg" type="image/svg+xml">
         <p>收藏</p>
       </div>
       <div class="footer_left">
-        <img src="../assets/trash.png">
+        <img src="../assets/client_service.svg" type="image/svg+xml">
         <p>客服</p>
       </div>
       <div class="footer_left">
-        <img src="../assets/trash.png">
+        <img src="../assets/21.png">
         <p>购物车</p>
       </div>
       <div class="hide_button">
@@ -258,6 +258,7 @@
 </template>
 <script>
   import {Swiper, SwiperItem, Scroller, Sticky, Tab, TabItem, Popup, TransferDom, Flexbox, FlexboxItem} from 'vux'
+  import detail from '../js/detail.js' 
 
   export default {
     data() {
@@ -296,6 +297,7 @@
             for (var i = 0; i < self.images.attributes.length; i++) {
               self.current.push(self.images.attributes[i].parameters[0].value);
             }
+            detail.set(res.data.data.description)
           } else {
             console.log(res.data.code);
             console.log(res.data.msg);
@@ -316,7 +318,7 @@
             console.log(res.data.msg);
           }
         });
-        self.$http.get('http://localhost:8080/api/commodity/page/1', {
+        self.$http.get('http://localhost:8080/api/commodity/1', {
           params: {
             size: 4,
             sortType: 4,
@@ -457,7 +459,6 @@
   }
 
   .head {
-    border: 1px dashed #aaa;
     margin: 0 auto;
     margin-top: 10px;
     width: 92%;
@@ -500,7 +501,6 @@
 
   .bar {
     margin: 0 10px;
-    border: 1px dashed #aaa;
     height: 100%;
   }
 
