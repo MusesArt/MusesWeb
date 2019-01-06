@@ -242,7 +242,7 @@
 <script>
   import {Swiper, SwiperItem, Scroller, Sticky, Tab, TabItem, Popup, TransferDom, Flexbox, FlexboxItem} from 'vux'
   import detail from '../js/detail.js' 
-
+  import $ from 'jquery'
   export default {
     data() {
       return {
@@ -351,6 +351,10 @@
       },
       buying() {
         this.isShow = true;
+        setTimeout(function(){
+          $('.popup_bar:nth-of-type(2) input').first().click()
+          $('.popup_bar:nth-of-type(3) input').first().click()
+        }, 200)
       },
       change(index) {
         this.indexs = index + 1;
