@@ -72,6 +72,12 @@
         this.isShow = false;
       }
     },
+    mounted: function() {
+      let key = this.$route.params.key;
+      if (key !== null || key !== "") {
+        this.search = key;
+      }
+    },
     data() {
       return {
         search: '',
