@@ -1,30 +1,30 @@
 <template>
-	<div>
-		<div class="head">
+	<div class="page-background">
+		<div class="address-head">
 			<img src="../assets/back2.png" @click="back()">
 			<p>收货地址</p>
 		</div>
 		<div class="container">
 			<template v-for="(item,index) in address">
 				<div class="body">
-					<div class="title">
+					<div class="address-title">
 						<span v-text="item.district"></span>
 						<p v-text="item.signerName"></p>
 						<p v-text="item.signerMobile"></p>
 					</div>
-					<div class="content">
-						<p>地址:{{item.province}}{{item.city}} {{item.address}}</p>
+					<div class="address-content">
+						<p>地址：{{item.province}}{{item.city}} {{item.address}}</p>
 					</div>
 					<hr color="#eee">
-					<div class="bottom">
+					<div class="address-bottom">
 						<div class="circle" @click="click(item)" :class="{'clicked':item.checked}">
 							<img src="../assets/true.png" v-if="item.checked" style="width:18px;height:18px;">
 						</div>
 						<p>设为默认</p>
 						<p @click="deleteAddr(item,index)">删除</p>
-						<img src="../assets/trash.png">
-						<p style="margin-right:20px" @click="edit(item)">编辑</p>	
-						<img src="../assets/trash.png">
+						<img src="../assets/trash.png" class="address-image">
+						<p style="margin-right:20px" @click="edit(item)">编辑</p>
+            <img src="../assets/edit.svg" type="image/svg+xml" class="address-image">
 					</div>
 				</div>
 			</template>
@@ -50,9 +50,9 @@ export default{
 			this.init();
 		}
 	},
-	beforeCreate () {
-		document.querySelector('body').setAttribute('style', 'background-color:#eee')
-	},
+	// beforeCreate () {
+	// 	document.querySelector('body').setAttribute('style', 'background-color:#eee')
+	// },
 	mounted(){
 		this.$nextTick(function(){
 			console.log('运行');
@@ -62,7 +62,8 @@ export default{
 	methods:{
 		init(){
 			let self=this;
-			self.$http.get('/api/address/list/3').then(function(res){
+			var userId = localStorage.getItem("userId");
+			self.$http.get('/api/address/list/'+userId).then(function(res){
 				if(res.data.code == "OK"){
 					self.address = res.data.data;
 				}
@@ -117,70 +118,72 @@ p{
 hr{
 	margin-bottom:10px;
 }
-.head{
-    width:100%;
+.address-head{
+  width:100%;
 	height:50px;
 	margin-bottom:5px;
 	background:white;
 	/*border:1px solid #aaa;*/
 }
-.head img{
+.address-head img{
 	margin:10px 0 0 10px;
 	width:30px;
 	height:30px;
 	float:left;
 }
-.head p{
+.address-head p{
 	text-align:center;
 	color:#333;
 	font-size:16px;
 	font-weight: bold;
 	line-height:50px;
-	margin-right:22px;
+	margin-right:33px;
+
 }
 .container{
-	margin:0 10px;
+	margin:0 15px;
 }
 .body{
 	width:100%;
-	height:137px;
 	background-color: white;
 	margin-bottom:10px;
+  /*padding-bottom: 10px;*/
 	box-sizing: border-box;
 	padding:10px;
 	border-radius: 10px;
+  margin-top: 10px;
 }
-.title span{
+.address-title span{
 	display:inline-block;
 	height:16px;
-	color:#e9967a;
+	color:rgb(231,105,49);
 	font-size:12px;
-	background:#eed5b7;
+	background:rgb(255,242,236);
 	text-align:center;
 	line-height:16px;
 	border:1px solid #e9967a;
 	border-radius: 10px;
 	min-width: 28px;
-	padding:0 3px;
+	padding:0 5px;
 }
-.title p{
+.address-title p{
 	display:inline-block;
 	color:#333;
 	font-size:15px;
 }
-.title p:nth-child(2){
+.address-title p:nth-child(2){
 	font-weight:bold;
 	margin-left:10px;
 }
-.title p:nth-child(3){
+.address-title p:nth-child(3){
 	font-weight:bold;
 	margin-left:30px;
 }
-.content{
+.address-content{
 	height:50px;
 }
-.content p{
-	margin-top:5px;
+.address-content p{
+	margin-top:10px;
 	font-size:15px;
 }
 .circle{
@@ -193,16 +196,16 @@ hr{
 	margin-top:2px;
 	margin-right:10px;
 }
-.bottom p,img{
+.address-bottom p,img{
 	float:right;
 	font-size:15px;
 	color:#797979;
 }
-.bottom img{
+.address-bottom img{
 	width:20px;
 	height:20px;
 }
-.bottom p:nth-child(2){
+.address-bottom p:nth-child(2){
 	float:none;
 	display:inline-block;
 }
@@ -226,5 +229,14 @@ hr{
 	line-height: 50px;
 	box-sizing: border-box;
 	font-size: 16px;
+}
+.page-background{
+  background: #EEE;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+.address-image {
+  margin-right: 5px;
 }
 </style>
