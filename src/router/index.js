@@ -40,6 +40,7 @@ import checkout from '../components/checkout.vue'
 import order from '../components/order.vue'
 import order_main from '../components/order_main.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
