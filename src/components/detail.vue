@@ -28,8 +28,8 @@
 		</view-box>
 		<div v-transfer-dom style="background:white">
 			<popup v-model="isShare">
-				<div>
-					<p style="text-align:center;margin-top:5px;margin-bottom:10px;color:#797979">分享给好友</p>
+				<div style="background: white">
+					<p class="share-detail" style="padding-top: 20px">分享给好友</p>
 					<Flexbox>
 						<FlexboxItem>
 							<div class="share_bar">
@@ -203,5 +203,11 @@ p{
 	height:20px;
 	margin:0 auto;
 	margin-bottom:10px;
+}
+.share-detail{
+  text-align:center;
+  /*margin-top:10px !important;*/
+  margin-bottom:10px;
+  color:#797979
 }
 </style>
