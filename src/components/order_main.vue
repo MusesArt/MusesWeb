@@ -57,7 +57,6 @@ export default{
 	methods:{
 		init(){
 			let self = this;
-			 localStorage.setItem("userId",1);
 			var id = localStorage.getItem("userId");
 			self.userId = parseInt(id);
 			//父路由传递点击的是哪个tabItem
