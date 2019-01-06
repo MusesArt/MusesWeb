@@ -154,7 +154,7 @@ export default {
 	mounted(){
 		this.$nextTick(function(){
 			let self = this;
-			self.$http.get('http://localhost:8080/api/banner/').then(function(res){
+			self.$http.get('/api/banner/').then(function(res){
 				if(res.data.code=="OK"){
 					self.slider = res.data.data;
 					console.log(self.slider.imageUrl);
@@ -170,7 +170,7 @@ export default {
 			var searchModel1 = JSON.parse(JSON.stringify(self.data));
 			searchModel1.size=4;
 			searchModel1.sortType=4;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel1).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel1).then(function(res){
 				if(res.data.code=="OK"){
           let data = res.data.data;
           for (let i = 0; i < data.dataList.length; i++) {
@@ -188,7 +188,7 @@ export default {
 			var searchModel2 = JSON.parse(JSON.stringify(self.data));
 			searchModel2.size=4;
 			searchModel2.sortType=0;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel2).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel2).then(function(res){
 				if(res.data.code==="OK"){
           let data = res.data.data;
           for (let i = 0; i < data.dataList.length; i++) {
