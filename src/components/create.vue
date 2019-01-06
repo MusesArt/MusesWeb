@@ -12,10 +12,10 @@
     </div>
     <div class="filters">
       <template v-for="category in categories">
-        <div align="center" class="item">
+        <div align="center" class="create-item">
           <div class="item-area">
-            <img :src=category.image class="image">
-            <div class="content" v-text="category.categoryName"></div>
+            <img :src=category.image class="image-cover">
+            <div class="content-name" v-text="category.categoryName"></div>
           </div>
         </div>
       </template>
@@ -82,17 +82,11 @@ export default {
     margin-left: 20px;
     font-weight: 400;
   }
-  .title .title_left{
-    font-size: 16px;
-    margin-top: 5px;
-    margin-left: 20px;
-    font-weight: 400;
-  }
-  .image {
+  .image-cover {
     width: 100%;
     height: 100%;
   }
-  .item{
+  .create-item{
     float:left;
     width:28%;
     box-sizing: border-box;
@@ -109,7 +103,7 @@ export default {
     margin-left: 10px;
     margin-right: 10px;
   }
-  .content {
+  .content-name {
     position: absolute;
     left: 0px;
     bottom: 0px;

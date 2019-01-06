@@ -10,13 +10,13 @@
 		</Flexbox>
 		<Flexbox>
       <FlexboxItem align="center">
-        <img src="../assets/logo.png" style="width: 150px" >
+        <img src="../assets/logo.png" style="width: 150px" class="logo-icon">
       </FlexboxItem>
 		</Flexbox>
 		<Flexbox>
 			<FlexboxItem align="center">
 				<div class="form">
-					<input type="text" placeholder="手机号码" class="phone" v-model="u.mobile" required="required">
+					<input type="text" placeholder="手机号码" class="phone login-input" v-model="u.mobile" required="required">
 				</div>
 			</FlexboxItem>
 		</Flexbox>
@@ -25,10 +25,10 @@
 				<div class="formbar">
 					<Flexbox>
 						<FlexboxItem>
-							<input type="number" placeholder="请输入验证码" v-model="u.password">
+							<input type="number" placeholder="请输入验证码" v-model="u.password" class="login-input">
 						</FlexboxItem>
 						<FlexboxItem :span="3">
-							<input type="button" value="获取验证码" class="button">
+							<input type="button" value="获取验证码" class="button login-input">
 						</FlexboxItem>
 					</Flexbox>
 				</div>
@@ -38,7 +38,7 @@
     <Flexbox>
       <FlexboxItem align="center">
         <div class="form">
-          <x-button type="warn" style="width: 90%" @click.native="submit()">登录</x-button>
+          <x-button type="warn" style="width: 90%" @click.native="submit()" class="login-btn">登录</x-button>
         </div>
       </FlexboxItem>
     </Flexbox>
@@ -107,11 +107,8 @@ export default {
   height:50px;
   margin-top: 15px;
 }
-img{
+.logo-icon{
   width:15%;
-}
-.bar{
-	background:red;
 }
 .form{
   width:90%;
@@ -123,7 +120,7 @@ img{
 	/*margin:0 0 10px 20px;*/
   width: 80%;
 }
-input{
+.login-input{
 	border:0px;
 	outline:none;
   font-size: 16px;
@@ -145,9 +142,6 @@ input{
   border-bottom: 1px solid rgb(196, 196, 196);
   font-size:16px;
 }
-.phone2{
-	margin-top:10px;
-}
 .right{
   text-align:right;
 }
@@ -157,24 +151,23 @@ input{
 }
 .img1{
   margin-right: 15px;
+  width:15%;
 }
 .img2{
   margin-left: 15px;
   margin-right: 15px;
+  width:15%;
 }
 .img3{
   margin-left: 15px;
-}
-a{
-	text-decoration: none;
-	color:black;
+  width:15%;
 }
 .images{
   display:block;
   margin:0 auto;
   text-align: center;
 }
-button{
+.login-btn{
   border-radius:20px;
   margin-top:40px;
   opacity:0.9;
