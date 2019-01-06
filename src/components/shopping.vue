@@ -39,10 +39,10 @@
               <p class="box_title box_hide_title" v-text="item.commodity.name"></p>
               <div class="box_hide_message" ontouchstart="this.div.img.toggle('hover')">
                 <p>{{item.detail}}
-					<div class="angle">
-						<img src="../assets/angle_down.png"/>
-					</div>
-				</p>
+                  <div class="angle">
+                    <img src="../assets/angle_down.png"/>
+                  </div>
+                </p>
               </div>
               <p class="box_price box_hide_price">¥{{item.commodity.discountPrice}}</p>
             </div>
@@ -99,9 +99,9 @@
               <p class="all">合计:</p>
               <p class="footer_price">￥{{totalPrice | fixed}}</p>
             </div>
-            <router-link to="/checkout" v-if="totalNum!=0">
+            <div v-if="totalNum!=0" @click="checkout()">
               <input type="submit" :value="'结算('+totalNum+')'" class="submit">
-            </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -110,6 +110,7 @@
 </template>
 <script>
 import { Flexbox, FlexboxItem, Scroller } from "vux";
+import cart from "../js/cart.js"
 export default {
   data() {
     return {
@@ -204,6 +205,17 @@ export default {
       for (var i = 0; i < this.len; i++) {
         box[i].style.left = "0px";
       }
+    },
+    checkout() {
+      var ids = []
+      self.items.forEach(function(item, index) {
+        if(item.checked==true) {
+          ids.push(item.id)
+        } 
+      })
+      cart.setId(ids)
+      cart.setPrice(self.totalPrice)
+      self.$router.push({path:'/checkout'})
     },
     touchstart: function(index, e) {
       var div = document.getElementsByClassName("box")[index];
