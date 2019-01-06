@@ -100,7 +100,7 @@
                   <!--</div>-->
                 </div>
                 <div class="assess_box_center">
-                  <p><b v-text="item.content"></b></p>
+                  <p class="comment-content" v-text="item.content"></p>
                 </div>
                 <div class="assess_box_bottom" style="margin-bottom: 10px">
                   <template v-for="image in item.images" class="test">
@@ -109,9 +109,9 @@
                     </div>
                   </template>
                 </div>
-                <div style="clear:both; margin-top: 10px;margin-left: 10px;;height: 5px"></div>
-                <div style="clear:both; margin-top: 5px;margin-left:15px">
-                  <p style="font-size:10px;color:#9e9e9e">
+                <!--<div style="clear:both; margin-top: 10px;margin-left: 10px;;height: 5px"></div>-->
+                <div style="clear:both; margin-top: 5px;margin-left:12px">
+                  <p style="font-size:12px;color:#9e9e9e">
                     <b v-text="item.commodityInfo.toString().split(' ')[0]"></b>
                   </p>
                 </div>
@@ -155,7 +155,7 @@
     </div>
     <div class="footer">
       <div class="footer_left">
-        <img src="../assets/favorite_border.svg" type="image/svg+xml">
+        <img src="../assets/favorite_border.svg" type="image/svg+xml" style="margin-left: 1px">
         <p>收藏</p>
       </div>
       <div class="footer_left">
@@ -163,7 +163,7 @@
         <p>客服</p>
       </div>
       <div class="footer_left" @click="goToShoppingCart()">
-        <img src="../assets/shopping_cart.svg" type="image/svg+xml">
+        <img src="../assets/shopping_cart.svg" type="image/svg+xml" style="margin-left: 5px">
         <p>购物车</p>
       </div>
       <div class="hide_button">
@@ -250,7 +250,7 @@
 </template>
 <script>
   import {Swiper, SwiperItem, Scroller, Sticky, Tab, TabItem, Popup, TransferDom, Flexbox, FlexboxItem} from 'vux'
-  import detail from '../js/detail.js' 
+  import detail from '../js/detail.js'
   import $ from 'jquery'
   export default {
     data() {
@@ -404,13 +404,13 @@
         let storage = window.localStorage;
         storage.setItem("selectIndex", 1);
         this.selectIndex = 1;
-        this.$router.push({name: 'details'});
+        this.$router.push({name: '/detail/details'});
       },
       goToEvaluate() {
         let storage = window.localStorage;
         this.selectIndex = 2;
         storage.setItem("selectIndex", 2);
-        this.$router.push({name: 'evaluate'});
+        this.$router.push({name: '/detail/evaluate'});
       }
     },
     components: {
@@ -700,8 +700,9 @@
   }
 
   .assess_box_center {
-    width: 85%;
+    width: 100%;
     margin-top: 2px;
+    tab-size: 16px;
   }
 
   .assess_box_center p {
@@ -712,13 +713,13 @@
   }
 
   .bottom_img {
-    width: 90px;
-    height: 50px;
-    margin-top: 10px;
+    width: 114px;
+    height: 114px;
     float: left;
-    margin-left: 15px;
-    border-radius: 5px;
+    margin-left: 10px;
+    border-radius: 2px;
     overflow: hidden;
+    margin-bottom: 10px;
   }
 
   .all_assess {
@@ -814,6 +815,7 @@
     float: left;
     width: 85px;
     height: 30px;
+    margin-bottom: 3px;
   }
 
   .left_button {
@@ -967,6 +969,12 @@
   .hr {
     border: 0;
     height: 0.5px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    background: #EEE;
+    /*background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));*/
+  }
+
+  .comment-content {
+    font-size: 16px !important;
+    margin-bottom: 15px !important;
   }
 </style>

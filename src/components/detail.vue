@@ -10,11 +10,6 @@
             <tab-item style="font-size:16px;" v-if="selectIndex === index"  @on-item-click="click(index)" v-text="item.name" selected/>
             <tab-item style="font-size:16px;" v-if="selectIndex !== index"  @on-item-click="click(index)" v-text="item.name"/>
           </template>
-
-					<!--<tab-item style="font-size:16px;" v-if="selected2" selected  @on-item-click="click(2)">详情</tab-item>-->
-          <!--<tab-item style="font-size:16px;" v-else="selected2" @on-item-click="click(2)">详情</tab-item>-->
-					<!--<tab-item style="font-size:16px;" v-if="selected3" selected @on-item-click="click(3)">评价</tab-item>-->
-          <!--<tab-item style="font-size:16px;" v-else="selected3" @on-item-click="click(3)">评价</tab-item>-->
 					<tab-item disabled>
 						<img src="../assets/share.png" style="width:25px;height:25px;margin-top:7px" @click="share()">
 					</tab-item>
@@ -129,9 +124,7 @@ export default {
 				  this.show=1.0;
           window.removeEventListener('scroll',this.scroll);
 					this.$router.push({path:'/detail/evaluate'});
-
 			}
-
 		},
 		back() {
       if (this.$route.query.page === "gallery") {
