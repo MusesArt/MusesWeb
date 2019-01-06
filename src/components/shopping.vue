@@ -67,7 +67,7 @@
             <div class="hide_left">
               <input type="button" value="收藏" class="collect">
             </div>
-            <div class="hide_left" style="background-color: #FF4013">
+            <div class="hide_left" style="background-color: #FF4013" @click="deleteCart(item.id)">
               <input type="button" value="删除" class="collect" style="background-color: #ff4013">
             </div>
           </div>
@@ -90,7 +90,7 @@
         <div v-show="!edit">
           <div class="hide_button">
             <input type="button" class="left_button" value="收藏">
-            <input type="button" class="right_button" value="删除">
+            <input type="button" class="right_button" value="删除" @click="deleteSelected()">
           </div>
         </div>
         <div v-show="edit">
@@ -138,32 +138,26 @@ export default {
     document
       .querySelector("body")
       .setAttribute("style", "background-color:white");
-    this.$http
-      .get("/api/cart/list/3")
-      .then(res => {
-        if (res.data.code == "ERROR") console.log(res.data.msg);
-        console.log("success");
-        console.log(res.data.data);
-        this.items = res.data.data;
-        if (this.item == []) {
-        }
-      })
-      .catch(response => {
-        console.log("error");
-      });
   },
   created: function() {
     this.width = document.documentElement.clientWidth;
   },
   mounted() {
     this.$nextTick(function() {
-      let self = this;
-      self.$http.get("../static/shopping.json").then(function(res) {
-        self.len = res.data.shopping.length;
-        for (var i = 0; i < self.len; i++) {
-          self.items.push(res.data.shopping[i]);
-        }
-      });
+      window.self = this;
+      this.$http
+        .get("/api/cart/list/" + localStorage.getItem("userId"))
+        .then(res => {
+          if (res.data.code == "ERROR") console.log(res.data.msg);
+          console.log("success");
+          console.log(res.data.data);
+          this.items = res.data.data;
+          if (this.item == []) {
+          }
+        })
+        .catch(response => {
+          console.log("error");
+        });
     });
     // this.$router.push('/empty');
   },
@@ -171,6 +165,33 @@ export default {
     document.querySelector("body").removeAttribute("style");
   },
   methods: {
+    deleteSelected() {
+      this.items.forEach(function(item, index) {
+        if(item.checked==true) {
+          self.deleteCart(item.id)
+        }
+      })
+    },
+    deleteCart(cart_id) {
+      self.$http.delete('/api/cart/'+cart_id).then(function(res){
+				if(res.data.code == "OK"){
+					self.$http
+            .get("/api/cart/list/" + localStorage.getItem("userId"))
+            .then(res => {
+              if (res.data.code == "ERROR") console.log(res.data.msg);
+              console.log("success");
+              console.log(res.data.data);
+              self.items = res.data.data;
+              if (self.item == []) {
+              }
+            })
+          .catch(response => {
+            console.log("error");
+          });
+				}
+				self.$set(self.address[0], 'checked', true);
+			})
+    },
     Edit: function() {
       this.edit = !this.edit;
       if (this.edit_text == "编辑") {
@@ -183,7 +204,6 @@ export default {
       for (var i = 0; i < this.len; i++) {
         box[i].style.left = "0px";
       }
-      this.AllCheck();
     },
     touchstart: function(index, e) {
       var div = document.getElementsByClassName("box")[index];
@@ -208,7 +228,7 @@ export default {
       else if (div.offsetLeft < -59) div.style.left = "-118px";
     },
     onClick: function(item) {
-      let self = this;
+      window.self = this;
       if (typeof item.checked === "undefined") {
         self.$set(item, "checked", true);
       } else {
@@ -235,14 +255,15 @@ export default {
       this.colacNum();
     },
     change(item, way) {
-      let self = this;
       if (way < 0) {
         item.number--;
+        self.$http.put('/api/cart/'+item.id, {"number": item.number})
         if (item.number < 1) {
           item.number = 1;
         }
       } else {
         item.number++;
+        self.$http.put('/api/cart/'+item.id, {"number": item.number})
       }
       this.colacNum();
     },
@@ -256,13 +277,13 @@ export default {
           _this.totalPrice += item.number * item.commodity.discountPrice;
         }
       });
-    }
+    },
   },
   filters: {
     fixed: function(value) {
       return value.toFixed(2);
     }
-  }
+  },
 };
 </script>
 <style scoped>

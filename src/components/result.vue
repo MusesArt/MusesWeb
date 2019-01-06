@@ -1,5 +1,5 @@
 <template>
-  <div style="margin:0 10px">
+  <div style="margin:0 10px; background: #FFF">
     <Flexbox>
       <FlexboxItem :span="10">
         <form action="" method="post">
@@ -18,9 +18,6 @@
         <tab-item @on-item-click="click(index)" class="tab" v-if="index === tabIndex" v-text="item.name" aria-selected="true" selected/>
         <tab-item @on-item-click="click(index)" class="tab" v-if="index !== tabIndex" v-text="item.name" aria-selected="true"/>
       </template>
-      <!--<tab-item @on-item-click="click(2)" class="tab" id="new">最新</tab-item>-->
-      <!--<tab-item @on-item-click="click(3)" class="tab" id="hot">最热</tab-item>-->
-      <!--<tab-item @on-item-click="click(4)" class="tab" id="price">价格</tab-item>-->
     </tab>
     <view-box :style="{height:height+'px'}">
       <keep-alive>
@@ -53,6 +50,9 @@
         ]
       }
     },
+    beforeCreate(){
+      document.querySelector('body').setAttribute('style', 'background-color:#FFF')
+    },
     created() {
       this.height = document.documentElement.clientHeight;
       let storage = window.localStorage;
@@ -61,7 +61,7 @@
       if (index !== null || index !== '') {
         this.tabIndex = parseInt(index);
       } else {
-
+        this.tabIndex = 0;
       }
     },
     methods: {
@@ -147,7 +147,9 @@
 
   .back {
     margin-left: 20px;
-    font-size: 13px;
+    font-size: 15px;
+    /*margin-top: 25px;*/
+    padding-top: 10px;
     background-size: 100% 100%;
     background-position: 50% 50%;
     border: 0;

@@ -45,7 +45,7 @@
             <p class="small font">参数</p>
           </div>
           <div class="right">
-            <p class="explain font">查看产品相关信息</p>
+            <p class="explain font" @click="buying()">查看产品相关信息</p>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
             <p class="small font">款式</p>
           </div>
           <div class="right">
-            <p class="explain font">查看产品相关信息</p>
+            <p class="explain font" @click="buying()">查看产品相关信息</p>
           </div>
         </div>
         <div class="footer_bottom">
@@ -74,7 +74,7 @@
       <p>产品评价</p>
     </div>
     <div class="assess_body">
-      <scroller lock-y :scrollbar-x=false>
+      <!--<scroller lock-y :scrollbar-x=false>-->
         <div :style="{width:width2+'px'}">
           <template v-for="(item,index) in images_assess">
             <div class="assess_box" :style="{width:width*0.92+'px'}">
@@ -86,58 +86,62 @@
                 </div>
                 <div class="box_name">
                   <p v-text="item.username"></p>
-                  <p v-text="item.date"></p>
+                  <p v-text="new Date(item.date).getFullYear() + '-' + new Date(item.date).getMonth() + '-' + new Date(item.date).getDate()"></p>
                 </div>
-                <div class="box_active">
-                  <div class="box_active_left">
-                    <img src="../assets/trash.png">
-                    <p>{{item.praise}}</p>
-                  </div>
-                  <div class="box_active_left">
-                    <img src="../assets/trash.png">
-                    <p>{{item.message}}</p>
-                  </div>
-                </div>
+                <!--<div class="box_active">-->
+                  <!--<div class="box_active_left">-->
+                    <!--<img src="../assets/comment.svg">-->
+                    <!--<p>{{item.praise}}</p>-->
+                  <!--</div>-->
+                  <!--<div class="box_active_left">-->
+                    <!--<img src="../assets/thumb_up.svg">-->
+                    <!--<p>{{item.message}}</p>-->
+                  <!--</div>-->
+                <!--</div>-->
               </div>
               <div class="assess_box_center">
                 <p v-text="item.content"></p>
               </div>
-              <div class="assess_box_bottom">
+              <div class="assess_box_bottom" style="margin-bottom: 10px">
                 <template v-for="image in item.images" class="test">
                   <div class="bottom_img">
                     <img :src="image">
                   </div>
                 </template>
               </div>
+              <div style="clear:both; margin-top: 15px;margin-left: 10px;;height: 10px"></div>
+              <div style="clear:both; margin-top: 5px;margin-left:15px"><p style="font-size:11px;color:#797979" v-text="item.commodityInfo.toString().split(' ')[0]"></p></div>
             </div>
+
           </template>
         </div>
-      </scroller>
+      <!--</scroller>-->
     </div>
     <div class="all_assess">
       <p>查看全部评论 ></p>
     </div>
-    <div class="container">
-      <p>为你推荐</p>
-    </div>
-    <div class="recommend_box">
-      <template v-for="(item,index) in foryou">
-        <div :class="index%2==0? 'recommend_bar_left' : 'recommend_bar_right'">
-          <div class="recommend_image">
-            <img :src="item.coverImage">
-          </div>
-          <div class="recommend_title">
-            <p v-text="item.name"></p>
-          </div>
-          <div class="recommend_price">
-            <p>￥{{item.discountPrice}}</p>
-          </div>
-        </div>
-      </template>
-    </div>
-    <div class="all_assess">
-      <p>查看全部为你推荐 ></p>
-    </div>
+    <!--推荐部分-->
+    <!--<div class="container">-->
+      <!--<p>为你推荐</p>-->
+    <!--</div>-->
+    <!--<div class="recommend_box">-->
+      <!--<template v-for="(item,index) in foryou">-->
+        <!--<div :class="index%2==0? 'recommend_bar_left' : 'recommend_bar_right'">-->
+          <!--<div class="recommend_image">-->
+            <!--<img :src="item.coverImage">-->
+          <!--</div>-->
+          <!--<div class="recommend_title">-->
+            <!--<p v-text="item.name"></p>-->
+          <!--</div>-->
+          <!--<div class="recommend_price">-->
+            <!--<p>￥{{item.discountPrice}}</p>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</template>-->
+    <!--</div>-->
+    <!--<div class="all_assess">-->
+      <!--<p>查看全部为你推荐 ></p>-->
+    <!--</div>-->
     <div class="end">
       查看图文详情
     </div>
@@ -150,7 +154,7 @@
         <img src="../assets/client_service.svg" type="image/svg+xml">
         <p>客服</p>
       </div>
-      <div class="footer_left">
+      <div class="footer_left" @click="goToShoppingCart()">
         <img src="../assets/shopping_cart.svg" type="image/svg+xml">
         <p>购物车</p>
       </div>
@@ -196,7 +200,7 @@
             <input type="button" value="+" class="popup_button popup_decrease" @click="numchange(1)">
           </div>
           <div class="popup_bar" style="width:100%;height:40px">
-            <input type="button" class="buy_button left_button" value="加入购物车" style="width:50%;height:40px">
+            <input type="button" class="buy_button left_button" value="加入购物车" @click="addToCart()" style="width:50%;height:40px">
             <input type="button" class="buy_button right_button" value="立即购买" style="width:50%;height:40px">
           </div>
         </div>
@@ -207,26 +211,6 @@
         <div>
           <p style="text-align:center;margin-top:15px;margin-bottom:10px;color:#797979">分享给好友</p>
           <Flexbox>
-            <FlexboxItem>
-              <div class="share_bar">
-                <img src="../assets/qq.png">
-                <p>qq好友</p>
-              </div>
-            </FlexboxItem>
-            <FlexboxItem>
-              <div class="share_bar">
-                <img src="../assets/weixin.png">
-                <p>微信好友</p>
-              </div>
-            </FlexboxItem>
-            <FlexboxItem>
-              <div class="share_bar">
-                <img src="../assets/weibo.png">
-                <p>微博好友</p>
-              </div>
-            </FlexboxItem>
-          </Flexbox>
-          <Flexbox style="margin-top:-20px">
             <FlexboxItem>
               <div class="share_bar">
                 <img src="../assets/qq.png">
@@ -275,7 +259,9 @@
         len: 0,
         width: 0,
         isShow: false,
-        foryou: []
+        foryou: [],
+        params: [],
+        paramId: [],
       }
     },
     beforeCreate() {
@@ -286,10 +272,12 @@
     },
     mounted() {
       this.$nextTick(function () {
-        let self = this;
+        window.self = this;
         var id = this.$route.query.id;
+        let storage = window.localStorage;
+        storage.setItem("CommodityId", id);
         self.$http.get('/api/commodity/' + id).then(function (res) {
-          if (res.data.code == "OK") {
+          if (res.data.code === "OK") {
             self.images = res.data.data;
             self.len = self.images.imageUrls.length;
             self.currentImage = self.images.coverImage;
@@ -304,13 +292,14 @@
           }
         }).catch(function (error) {
           console.log(error);
-        })
+        });
+        // 评论
         self.$http.get("/api/comment/" + id + "/1/", {
           params: {
             size: 10
           }
         }).then(function (res) {
-          if (res.data.code == "OK") {
+          if (res.data.code === "OK") {
             self.images_assess = res.data.data.dataList;
             detail.setComment(self.images_assess);
             console.log(self.images_assess);
@@ -319,17 +308,39 @@
             console.log(res.data.msg);
           }
         });
-        self.$http.get('/api/commodity/1', {
-          params: {
-            size: 4,
-            sortType: 4,
-            isASC: true,
-            keyword: ""
-          }
+        // 为你推荐
+        // self.$http.get('/api/commodity/1', {
+        //   params: {
+        //     size: 4,
+        //     sortType: 4,
+        //     isASC: true,
+        //     keyword: ""
+        //   }
+        // }).then(function (res) {
+        //   if (res.data.code === "OK") {
+        //     self.foryou = res.data.data.dataList;
+        //     console.log(self.foryou);
+        //   } else {
+        //     console.log(res.data.code);
+        //     console.log(res.data.msg);
+        //   }
+        // }).catch(function (error) {
+        //   console.log(error);
+        // })
+      })
+    },
+    methods: {
+      addToCart() {
+        self.$http.post('/api/cart/1', {
+          "userId": localStorage.getItem("userId"),
+          "number": self.num,
+          "commodityId": self.images.id,
+          "detail": `尺寸:${self.params[0]};颜色:${self.params[1]};`,
+          "parameterId": self.paramId[1]
         }).then(function (res) {
           if (res.data.code == "OK") {
-            self.foryou = res.data.data.dataList;
-            console.log(self.foryou);
+            self.close()
+            console.log("加入购物车成功")
           } else {
             console.log(res.data.code);
             console.log(res.data.msg);
@@ -337,9 +348,7 @@
         }).catch(function (error) {
           console.log(error);
         })
-      })
-    },
-    methods: {
+      },
       buying() {
         this.isShow = true;
       },
@@ -362,6 +371,9 @@
       },
       changeColor(index1, index2, item1, item2) {
         this.current[index1 + 1] = item2.value;
+        self.paramId[index1] = item2.id
+        self.params[index1] = item2.value
+        console.log(index1 +item2.value)
         if (item1.imageFlag == true)
           this.currentImage = item2.image;
         this.$forceUpdate();
@@ -371,6 +383,9 @@
       },
       close_share() {
         this.isShare = false;
+      },
+      goToShoppingCart() {
+        this.$router.push({name: 'shop'});
       }
     },
     components: {
@@ -749,7 +764,7 @@
 
   .footer {
     width: 100%;
-    height: 50px;
+    height: 60px;
     position: fixed;
     left: 0px;
     background-color: white;
@@ -773,12 +788,14 @@
   }
 
   .left_button {
+    margin-top: 5px;
     background: #333;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
   }
 
   .right_button {
+    margin-top: 5px;
     background: #ff4013;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -786,6 +803,8 @@
 
   .footer_left {
     width: 50px;
+    margin-left: 15px;
+    margin-top: 10px;
     float: left;
     height: 100%;
     font-size: 13px;
@@ -829,7 +848,7 @@
   .popup_head p:nth-child(1) {
     color: #ff0000;
     font-size: 17px;
-    font-weight: 550;
+    font-weight: 500;
   }
 
   .color {
