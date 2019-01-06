@@ -55,7 +55,7 @@ export default {
 				self.items.city = places[1];
 				self.items.district = places[2];
 				var data = self.items;
-				self.$http.post('http://localhost:8080/api/address/',data).then(function(res){
+				self.$http.post('/api/address/',data).then(function(res){
 					if(res.data.code=="OK"){
 						alert("添加成功");
 					}

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="head">
-			<img src="../assets/back2.png">
+			<img src="../assets/back2.png" @click="back()">
 			<p>收货地址</p>
 		</div>
 		<div class="container">
@@ -62,7 +62,7 @@ export default{
 	methods:{
 		init(){
 			let self=this;
-			self.$http.get('http://localhost:8080/api/address/list?userId=1').then(function(res){
+			self.$http.get('/api/address/list/3').then(function(res){
 				if(res.data.code == "OK"){
 					self.address = res.data.data;
 				}
@@ -85,7 +85,7 @@ export default{
 		deleteAddr(item,index){
 			let self = this;
 			console.log(item.id);
-			self.$http.delete('http://localhost:8080/api/address/'+item.id).then(function(res){
+			self.$http.delete('/api/address/'+item.id).then(function(res){
 				if(res.data.code=="OK"){
 					self.address.splice(index);
 				}
@@ -99,7 +99,10 @@ export default{
 		},
 		edit(item){
 			let self = this;
-			this.$router.push({path:'/edit_address',query:{addressId:item.id}})
+			this.$router.push({path:'/edit_address',query:{addressId:item.id}});
+		},
+		back() {
+			this.$router.go(-1)
 		}
 	}
 }
