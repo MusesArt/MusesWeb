@@ -65,9 +65,6 @@ import { Sticky, Tab, TabItem, ViewBox, TransferDom, Popup, Flexbox, FlexboxItem
 export default {
 	data(){
 		return{
-			// selected1:false,
-			// selected2:false,
-			// selected3:false,
       selectIndex:0,
 			show:0,
 			isShare:false,
