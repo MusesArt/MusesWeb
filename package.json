@@ -1,8 +1,8 @@
 {
-  "name": "mypack",
+  "name": "muses",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Emotiongt <854797945@qq.com>",
+  "description": "Muses Web Project",
+  "author": "Muses Team",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js",
