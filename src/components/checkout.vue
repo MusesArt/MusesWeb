@@ -57,7 +57,6 @@ export default{
 }
 </script>
 <style scoped>
-
 .head{
     width:100%;
 	height:50px;
@@ -70,6 +69,7 @@ export default{
 	float:left;
 }
 .head p{
+	margin: 0;
 	margin-left: 5px;
 	color:#333;
 	font-size:16px;
