@@ -90,7 +90,7 @@ export default{
 	border-radius: 10px;
 }
 div.title {
-	height: 18px;
+	height: 48px;
 }
 .title span{
 	display:inline-block;
