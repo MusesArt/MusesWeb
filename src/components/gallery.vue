@@ -14,7 +14,7 @@
 					<img src="../assets/message.png" class="message">
 				</FlexboxItem>
 			</Flexbox>
-			<swiper auto loop dots-position="center" class="swiper">
+			<swiper auto loop dots-position="center" class="swiper" aspect-ratio="0.5625">
 					<swiper-item class="images">
 						<img src="../assets/cubism.png">
 					</swiper-item>
@@ -84,8 +84,8 @@
 					<div class="img-box">
 						<img :src="item.coverImage" style="width: 188px; height: 188px">
 					</div>
-					<p v-text="item.name.substr(0, 10) + '...'" class="title"></p>
-					<p v-text="item.brief.substr(0, 12)+ '...'" class="content"></p>
+					<p v-text="item.name.substr(0, 12) + '...'" class="title"></p>
+					<p v-text="item.brief.substr(0, 14)+ '...'" class="content"></p>
 					<p v-text="'￥'+item.discountPrice" class="price"></p>
 				</div>
 			</template>
@@ -107,8 +107,8 @@
 					<div class="img-box" height="80%" style="width: 188px; height: 188px">
             <img :src="item.coverImage" >
 					</div>
-          <p v-text="item.name.substr(0, 10) + '...'" class="title"></p>
-          <p v-text="item.brief.substr(0, 12)+ '...'" class="content"></p>
+          <p v-text="item.name.substr(0, 12) + '...'" class="title"></p>
+          <p v-text="item.brief.substr(0, 14)+ '...'" class="content"></p>
           <p v-text="'￥'+item.discountPrice" class="price"></p>
 				</div>
 			</template>
