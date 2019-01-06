@@ -36,9 +36,7 @@ import result_hot from "../components/result_hot";
 import result_price from "../components/result_price";
 import result_new from "../components/result_new";
 import result_default from "../components/result_default";
-import checkout from '../components/checkout.vue'
-import order from '../components/order.vue'
-import order_main from '../components/order_main.vue'
+import checkout from "../components/checkout.vue";
 
 Vue.use(Router)
 
