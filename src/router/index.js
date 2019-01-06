@@ -37,6 +37,8 @@ import result_price from "../components/result_price";
 import result_new from "../components/result_new";
 import result_default from "../components/result_default";
 import checkout from '../components/checkout.vue'
+import order from '../components/order.vue'
+import order_main from '../components/order_main.vue'
 
 Vue.use(Router)
 
@@ -229,6 +231,16 @@ export default new Router({
       path: '/checkout',
       name: 'checkout',
       component: checkout
+    },
+    {
+      path:'/order',
+      component:order,
+      children:[
+      {
+        path:'/',
+        name:'order_main',
+        component:order_main
+      }]
     }
   ]
 })
