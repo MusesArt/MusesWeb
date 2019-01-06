@@ -1,5 +1,5 @@
 <template>
-  <div class="body" :style="{width:width+'px'}">
+  <div class="body cart" :style="{width:width+'px'}">
     <div class="head">
       <Flexbox>
         <FlexboxItem :span="3">
@@ -287,12 +287,13 @@ export default {
 };
 </script>
 <style scoped>
+@import url(../style/normalize.css);
+p {
+  margin: 0px;
+}
 img {
   max-width: 100%;
   object-fit: cover;
-}
-p {
-  margin: 0px;
 }
 .body {
   position: relative;
@@ -387,6 +388,9 @@ p {
 .box .box_message {
   color: #797979;
   margin-left: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-size: 12px;
   margin-top: 4px;
   padding: 3px 0 3px 0;
