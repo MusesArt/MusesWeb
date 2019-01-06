@@ -1,143 +1,120 @@
-<template>
-
+<template xmlns:flexbox-item="http://www.w3.org/1999/html">
+  <div>
+    <div class="head">
+      <Flexbox>
+        <FlexboxItem :span="4">
+          <p class="head_left">创作</p>
+        </FlexboxItem>
+        <FlexboxItem :span="6"></FlexboxItem>
+        <FlexboxItem :span="2">
+        </FlexboxItem>
+      </Flexbox>
+    </div>
+    <div class="filters">
+      <template v-for="category in categories">
+        <div align="center" class="create-item">
+          <div class="item-area">
+            <img :src=category.image class="image-cover">
+            <div class="content-name" v-text="category.categoryName"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
 </template>
 <script>
-import { Grid, GridItem } from 'vux'
+  import { Flexbox, FlexboxItem, Swiper } from 'vux'
 
 export default {
+  data() {
+    return {
+      categories: [{
+        image:"https://s2.ax1x.com/2019/01/06/FbCHyD.png",
+        categoryName:"经典"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/Fb9OP0.png",
+        categoryName:"现代"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPkwj.png",
+        categoryName:"素描"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPnpV.png",
+        categoryName:"马赛克"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPulT.png",
+        categoryName:"迷幻"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPhng.png",
+        categoryName:"印象派"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/Fb9sDH.png",
+        categoryName:"油画"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbCNLQ.png",
+        categoryName:"抽象"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/Fb9orQ.png",
+        categoryName:"中国风"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPlm4.png",
+        categoryName:"最新"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPdXD.png",
+        categoryName:"我的滤镜"
+      },{
+        image:"https://s2.ax1x.com/2019/01/06/FbPRc8.png",
+        categoryName:"自定义滤镜"
+      }
+      ]
+    }
+  },
   components: {
-    Grid,
-    GridItem
+    Flexbox,
+    FlexboxItem,
+    Swiper
   }
 }
 </script>
-<style scoped>
-@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+<style>
+  .head .head_left {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: 400;
+  }
+  .image-cover {
+    width: 100%;
+    height: 100%;
+  }
+  .create-item{
+    float:left;
+    width:28%;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }
+  .item-area{
+    width: 110px;
+    height: 100px;
+    position: relative;
+  }
+  .filters {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .content-name {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 20px;
+    background: rgba(255,255,255,0.8);
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
 
-@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400, 500);
-@keyframes roll {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-    transform: translate(-150%, -50%) rotate(-90deg) scale(0.3);
-    box-shadow: none;
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(0deg) scale(1);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  }
-}
-* {
-  box-sizing: border-box;
-}
-.wrapper {
-  animation: roll 1.5s;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 25px;
-  background: #eee;
-  border-radius: 50%;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-}
-.wrapper:active #img-result {
-  margin-top: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-.wrapper #img-result {
-  cursor: pointer;
-  margin: 0;
-  position: relative;
-  background: #f7f7fa;
-  background-size: cover;
-  background-position: center;
-  display: block;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  color: rgba(0, 0, 0, 0);
-  transition: box-shadow 0.3s, margin 0.3s, background-image 1.5s;
-}
-.wrapper #img-result.no-image:before {
-  font-family: "FontAwesome";
-  content: "\f030";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  color: #fff;
-  font-size: 48px;
-  opacity: 0.8;
-  transform: translate(-50%, -50%);
-  text-shadow: 0 0px 5px rgba(0, 0, 0, 0.4);
-}
-.wrapper button {
-  margin-top: 20px;
-  display: block;
-  font-family: "Open Sans Condensed", sans-serif;
-  background: #eee;
-  width: 100%;
-  border: none;
-  color: #fff;
-  padding: 10px;
-  letter-spacing: 1.3px;
-  font-size: 1.05em;
-  border-radius: 5px;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-  outline: 0;
-  transition: box-shadow 0.3s, margin-top 0.3s, padding 0.3s;
-}
-.wrapper button:active {
-  box-shadow: none;
-  margin-top: 24px;
-  padding: 8px;
-}
-.show-button {
-  background: #264974;
-  border: none;
-  color: #fff;
-  padding: 10px 20px;
-  float: right;
-  display: none;
-}
-.upload-result {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  overflow-y: auto;
-}
-.upload-result__content {
-  word-break: break-all;
-  font-family: "Source Code Pro";
-  overflow-wrap: break-word;
-}
-div#bg-img {
-  height: -webkit-fill-available;
-}
 </style>
-<script>
-import { Flexbox } from "vux";
-import upload from "../js/upload.js";
-export default {
-  data() {},
-  beforeCreate() {},
-  mounted() {
-    this.$nextTick(function() {
-      upload.upload();
-      $();
-    });
-  },
-  updated() {
-    upload.upload();
-  },
-  methods: {}
-};
-</script>
