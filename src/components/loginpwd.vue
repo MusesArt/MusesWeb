@@ -79,6 +79,7 @@ export default {
 				if(res.data.code=="OK"){
 					self.$router.push({path:'/main'});
 					localStorage.setItem("token",res.data.data.token);
+          localStorage.setItem("userId", res.data.data.userId);
 				}
 				console.log(res.data);
 			}).catch(function(error){
