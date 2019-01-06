@@ -1,5 +1,5 @@
 <template>
-	<div class="content">
+	<div class="content" style="background-color: #eee">
 		<div class="head">
 			<p>用户评论({{evaluate.length}})</p>
 			<div class="praise">
@@ -79,9 +79,9 @@ export default{
 	components:{
 		Rater
 	},
-	beforeCreate(){
-		document.querySelector('body').setAttribute('style', 'background-color:#eee');
-	},
+	// beforeCreate(){
+	// 	document.querySelector('body').setAttribute('style', 'background-color:#eee');
+	// },
 	mounted(){
 		this.$nextTick(function(){
 			let self=this;
@@ -100,7 +100,7 @@ export default{
 			let id = storage.getItem("CommodityId");
       self.$http.get("/api/comment/" + id + "/1/", {
         params: {
-          size: 10
+          size: 20
         }
       }).then(function (res) {
         if (res.data.code === "OK") {
@@ -112,9 +112,7 @@ export default{
       });
 		})
 	},
-  beforeRouteLeave() {
-    document.querySelector('body').setAttribute('style', 'background-color:#FFF');
-  },
+
 	methods:{
 		more(){
 			let self=this;
