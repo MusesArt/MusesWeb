@@ -27,6 +27,17 @@ export default{
 </script>
 <style scoped>
 .content {
-    zoom: 0.5;
+    zoom: 0.52;
+  /*width: 100%;*/
 }
+.img-ks-lazyload{
+  width: 100%;
+
+}
+/*p{*/
+  /*margin: 0px;*/
+/*}*/
+/*img{*/
+  /*width: 100% !important;*/
+/*}*/
 </style>

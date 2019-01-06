@@ -80,6 +80,7 @@ export default {
     font-size: 24px;
     margin-top: 20px;
     margin-left: 20px;
+    margin-bottom: 20px;
     font-weight: 400;
   }
   .image-cover {
@@ -116,5 +117,6 @@ export default {
     padding-top: 2px;
     padding-bottom: 2px;
   }
+
 
 </style>

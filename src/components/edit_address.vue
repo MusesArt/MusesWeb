@@ -1,8 +1,8 @@
 <template>
-	<div>
-		<div class="head">
-			<img src="../assets/back2.png">
-			<p>编辑收货地址</p>
+	<div class="page-background">
+		<div class="edit-address-head">
+			<img src="../assets/back2.png" @click="back()">
+			<p class="address-title">编辑收货地址</p>
 			<p @click="updateAddress()">保存</p>
 		</div>
 		<div>
@@ -16,7 +16,7 @@
 		<div style="background: white;margin-bottom:10px">
 			<group>
 				<cell title="地址标签" :is-link="true" class="label"></cell>
-				<x-switch title="设为默认地址" style="height: 25px"class="label"></x-switch>
+				<x-switch title="设为默认地址" class="label label-address"></x-switch>
 			</group>
 		</div>
 		<div>
@@ -51,7 +51,7 @@ export default{
 			this.addressId = this.$route.query.addressId;
 			self.$http.get('/api/address/'+self.addressId).then(function(res){
 				self.myaddress = res.data.data;
-				self.place = self.myaddress.province+self.myaddress.city+self.myaddress.district;
+				self.place = self.myaddress.province+" "+self.myaddress.city+" "+self.myaddress.district;
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -59,17 +59,23 @@ export default{
 	},
 	methods:{
 		updateAddress(){
-			let self=this;
-			self.items.id=self.addressId;
-			self.items.signerName=self.myaddress.signerName;
-			self.items.signerMobile=self.myaddress.signerMobile;
-			self.items.province=self.myaddress.province;
-			self.items.city=self.myaddress.city;
-			self.items.district=self.myaddress.district;
-			self.items.address=self.myaddress.address;
-			var data = self.items;
-			self.$http.put('/api/address/list',data).then(function(res){
+			let self = this;
+			self.items.id = self.addressId;
+			console.log(self.items.id)
+			self.items.signerName = self.myaddress.signerName;
+      console.log(self.items.signerName)
+			self.items.signerMobile = self.myaddress.signerMobile;
+      console.log(self.items.signerMobile)
+      let list = self.place.split(" ");
+			self.items.province = list[0];
+			self.items.city = list[1];
+			self.items.district = list[2];
+			self.items.address = self.myaddress.address;
+      self.items.userId = localStorage.getItem("userId");
+      let data = self.items;
+			self.$http.post('/api/address/'+self.addressId, data).then(function(res){
 				self.myaddress = res.data;
+				self.back();
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -78,11 +84,14 @@ export default{
 			let self = this;
 			self.$http.delete('/api/address/'+self.addressId).then(function(res){
 				if(res.data.code=="OK")
-					self.$router.push({path:'/address'});
+					self.back();
 			}).catch(function(error){
 				console.log(error);
 			})
-		}
+		},
+    back() {
+      this.$router.go(-1)
+    }
 	},
 	components: {
 		XSwitch,
@@ -91,14 +100,14 @@ export default{
 	}
 }
 </script>
-<style>
+<style scoped>
 p{
 	margin:0px;
 }
 hr{
 	margin-bottom:3px;
 }
-.head{
+.edit-address-head{
     width:100%;
 	height:50px;
 	margin-bottom:5px;
@@ -108,22 +117,25 @@ hr{
 	text-align: center;
 	/*border:1px solid #aaa;*/
 }
-.head img{
+.edit-address-head img{
 	width:30px;
 	height:30px;
 	float:left;
 }
-.head p:nth-child(2){
+.edit-address-head p:nth-child(2){
 	color:#333;
 	font-size:16px;
 	font-weight: bold;
 	display: inline-block;
 }
-.head p:nth-child(3){
+.edit-address-head p:nth-child(3){
 	float:right;
 	color:#ff8c00;
 	font-size: 14px;
 	margin-top:5px;
+}
+.address-title{
+  margin-top: 5px;
 }
 .container{
 	margin:0 10px;
@@ -137,8 +149,19 @@ form input{
 	font-size: 13px;
 }
 .label{
-	height:20px;
+	height:25px !important;
 	font-size: 13px;
-	padding-left:5px;
+	padding-left:12px;
+  /*margin-left: 12px;*/
+}
+.page-background{
+  background: #EEE;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+.label-address{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
 </style>

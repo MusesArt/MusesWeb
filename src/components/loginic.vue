@@ -59,7 +59,7 @@
       <FlexboxItem :span="1"></FlexboxItem>
     </Flexbox>
 
-    <Flexbox> 
+    <Flexbox>
       <FlexboxItem class="images">
         <img src="../assets/qq.png" class="img1">
         <img src="../assets/weibo.png" class="img2">
@@ -87,6 +87,8 @@ export default {
 					self.$router.push({path:'/main'});
 					localStorage.setItem("token",res.data.data.token);
 					localStorage.setItem("userId", res.data.data.userId);
+					localStorage.setItem("username", res.data.data.username);
+          localStorage.setItem("avatar", res.data.data.avatar);
 				}
 				console.log(res.data);
 			}).catch(function(error){
