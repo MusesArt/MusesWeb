@@ -9,8 +9,8 @@
 					<tab-item style="font-size:16px;" :selected="selected1" @on-item-click="click(1)">
 						商品
 					</tab-item>
-					<tab-item style="font-size:16px;" :selected="selected2">详情</tab-item>
-					<tab-item style="font-size:16px;" :selected="selected3" @on-item-click="click(2)">
+					<tab-item style="font-size:16px;" :selected="selected2"  @on-item-click="click(2)">详情</tab-item>
+					<tab-item style="font-size:16px;" :selected="selected3" @on-item-click="click(3)">
 						评价
 					</tab-item>
 					<tab-item disabled>
@@ -95,19 +95,28 @@ export default {
 	},
 	mounted(){
 		this.selected1=true;
-		if(this.$route.name=='evaluate'){
-			this.selected1=false;
-			this.selected2=false;
-			this.selected3=true;
-			this.show=1.0;
-			window.removeEventListener('scroll',this.scroll);
-		}
-		else if(this.$route.name=='detail_main'){
-			this.selected1=true;
-			this.selected2=false;
-			this.selected3=false;
-			this.show=0;
-			window.addEventListener('scroll',this.scroll);
+		switch(this.$route.name) {
+			case 'evaluate':
+				this.selected1=false;
+				this.selected2=false;
+				this.selected3=true;
+				this.show=1.0;
+				window.removeEventListener('scroll',this.scroll);
+				break;
+			case 'detail_main':
+				this.selected1=true;
+				this.selected2=false;
+				this.selected3=false;
+				this.show=0;
+				window.addEventListener('scroll',this.scroll);
+				break;
+			case 'details':
+				this.selected1=fasle;
+				this.selected2=true;
+				this.selected3=false;
+				this.show=1;
+				window.addEventListener('scroll',this.scroll);
+				break;
 		}
 	},
 	methods:{
@@ -117,20 +126,27 @@ export default {
 			this.show=scrollTop/330;
 		},
 		click(idx){
-			if(idx==1){
-				this.$router.push({path:'/detail'});
-				window.addEventListener('scroll',this.scroll);
-				this.show=0;
-			}
-			else{
-				this.$router.push({path:'/detail/evaluate'});
-				this.show=1.0;
-				window.removeEventListener('scroll',this.scroll);
+			switch(idx) {
+				case 1:
+					this.$router.push({path:'/detail'});
+					window.addEventListener('scroll',this.scroll);
+					this.show=0;
+					break;
+				case 2:
+					this.$router.push({path:'/detail/details'});
+					this.show=1;
+					window.removeEventListener('scroll',this.scroll);
+					break;
+				case 3:
+					this.$router.push({path:'/detail/evaluate'});
+					this.show=1.0;
+					window.removeEventListener('scroll',this.scroll);
 			}
 
 		},
 		back(){
-			this.$router.push({path:'/result'});
+			this.$router.push({path:'/result/default'});
+      // this.$router.go(-1)
 		},
 		close_share(){
 			this.isShare=false;
