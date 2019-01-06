@@ -41,15 +41,16 @@
 			<FlexboxItem align="right">
 				<router-link to="/register" class="right">注册账户</router-link>
 			</FlexboxItem>
-		</Flexbox>	
+		</Flexbox>
+
 		<Flexbox>
       <FlexboxItem :span="1">	</FlexboxItem>
       <FlexboxItem :span="10" style="margin-left: 0px">
         <div><divider class="other"><p>其他登录方式</p></divider></div>
       </FlexboxItem>
-		<FlexboxItem :span="1"></FlexboxItem>
-
+		  <FlexboxItem :span="1"></FlexboxItem>
 		</Flexbox>
+
     <Flexbox>
       <FlexboxItem class="images">
         <img src="../assets/qq.png" class="img1">
@@ -119,7 +120,8 @@ img{
 	font-size:16px;
 }
 .phone2{
-	margin-top:10px;
+	margin-top:19px;
+  margin-bottom: 0px;
 }
 .submit{
 	margin:55px 10px 20px 0px;
@@ -155,7 +157,7 @@ a{
 }
 input{
   padding-left: 0px;
-  border-color: rgb(167, 171, 176);
+  border-color: rgb(196, 196, 196);
 }
 button{
   border-radius:20px;
@@ -173,6 +175,6 @@ button{
   text-align: center;
 }
 .other{
-  color: rgb(167, 171, 176) !important;
+  color: rgb(196, 196, 196) !important;
 }
 </style>
