@@ -36,7 +36,7 @@
       <div class="footer">
         <span class="all">合计:</span>
         <span class="footer_price">￥{{totalPrice | fixed}}</span>
-        <span class="order">提交订单</span>
+        <span class="order" @click="confirm()">提交订单</span>
       </div>
     </div>
   </div>
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       address: {},
+      addressId: 0,
       cartIds: [],
       carts: [],
       totalPrice: 0,
@@ -57,11 +58,12 @@ export default {
   beforeCreate() {},
   mounted() {
     this.$nextTick(function() {
-      let self = this;
+      window.self = this;
       self.$http
         .get("/api/address/list/" + localStorage.getItem("userId"))
         .then(function(res) {
           self.address = res.data.data[0];
+          self.addressId = res.data.data[0].id
         });
       cart.data.cartIds.forEach(element => {
         self.$http.get("/api/cart/" + element).then(function(res) {
@@ -75,7 +77,21 @@ export default {
     back() {
       this.$router.go(-1);
     },
-    selectAddress() {}
+    selectAddress() {},
+    confirm() {
+      self.$http.post('/api/order/', {"cartIds": cart.data.cartIds, "addressId": self.addressId, "userId": localStorage.getItem("userId")})
+      .then(res => {
+          if (res.data.code == "ERROR") console.log(res.data.msg);
+          console.log("success");
+          self.$router.go(-1)
+          this.items = res.data.data;
+          if (this.item == []) {
+          }
+        })
+        .catch(response => {
+          console.log("error");
+        });
+    }
   },
   components: {
     Flexbox,
@@ -85,6 +101,9 @@ export default {
 };
 </script>
 <style scoped>
+html, body {
+  margin: 0; height: 100%; overflow: hidden;
+}
 p {
   margin: 0;
 }
