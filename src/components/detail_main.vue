@@ -62,7 +62,7 @@
         </div>
         <div class="footer_bottom">
           <div class="footer_bar">
-            <img src="../assets/true.png">
+            <img src="../assets/true.png" >
             <p class="small" style="float:left">7天无理由退货</p>
             <img src="../assets/true.png" style="margin-left:30px">
             <p class="small" style="float:left">15天质量问题包退换</p>
@@ -78,41 +78,40 @@
         <div :style="{width:width2+'px'}">
           <template v-for="(item,index) in images_assess">
             <div class="assess_box" :style="{width:width*0.92+'px'}">
-              <div class="assess_box_top">
-                <div class="box_head">
-                  <div class="head_image">
-                    <img :src="item.head">
+                <div class="assess_box_top">
+                  <div class="box_head">
+                    <div class="head_image">
+                      <img :src="item.head">
+                    </div>
                   </div>
-                </div>
-                <div class="box_name">
-                  <p v-text="item.username"></p>
-                  <p v-text="new Date(item.date).getFullYear() + '-' + new Date(item.date).getMonth() + '-' + new Date(item.date).getDate()"></p>
-                </div>
-                <!--<div class="box_active">-->
+                  <div class="box_name">
+                    <p v-text="item.username"></p>
+                    <p v-text="new Date(item.date).getFullYear() + '-' + new Date(item.date).getMonth() + '-' + new Date(item.date).getDate()"></p>
+                  </div>
+                  <!--<div class="box_active">-->
                   <!--<div class="box_active_left">-->
-                    <!--<img src="../assets/comment.svg">-->
-                    <!--<p>{{item.praise}}</p>-->
+                  <!--<img src="../assets/comment.svg">-->
+                  <!--<p>{{item.praise}}</p>-->
                   <!--</div>-->
                   <!--<div class="box_active_left">-->
-                    <!--<img src="../assets/thumb_up.svg">-->
-                    <!--<p>{{item.message}}</p>-->
+                  <!--<img src="../assets/thumb_up.svg">-->
+                  <!--<p>{{item.message}}</p>-->
                   <!--</div>-->
-                <!--</div>-->
+                  <!--</div>-->
+                </div>
+                <div class="assess_box_center">
+                  <p v-text="item.content"></p>
+                </div>
+                <div class="assess_box_bottom" style="margin-bottom: 10px">
+                  <template v-for="image in item.images" class="test">
+                    <div class="bottom_img">
+                      <img :src="image">
+                    </div>
+                  </template>
+                </div>
+                <div style="clear:both; margin-top: 15px;margin-left: 10px;;height: 10px"></div>
+                <div style="clear:both; margin-top: 5px;margin-left:15px"><p style="font-size:11px;color:#797979" v-text="item.commodityInfo.toString().split(' ')[0]"></p></div>
               </div>
-              <div class="assess_box_center">
-                <p v-text="item.content"></p>
-              </div>
-              <div class="assess_box_bottom" style="margin-bottom: 10px">
-                <template v-for="image in item.images" class="test">
-                  <div class="bottom_img">
-                    <img :src="image">
-                  </div>
-                </template>
-              </div>
-              <div style="clear:both; margin-top: 15px;margin-left: 10px;;height: 10px"></div>
-              <div style="clear:both; margin-top: 5px;margin-left:15px"><p style="font-size:11px;color:#797979" v-text="item.commodityInfo.toString().split(' ')[0]"></p></div>
-            </div>
-
           </template>
         </div>
       <!--</scroller>-->
@@ -276,7 +275,8 @@
         var id = this.$route.query.id;
         let storage = window.localStorage;
         storage.setItem("CommodityId", id);
-        self.$http.get('/api/commodity/' + id).then(function (res) {
+        var commodityId = storage.getItem("CommodityId");
+        self.$http.get('/api/commodity/' + commodityId).then(function (res) {
           if (res.data.code === "OK") {
             self.images = res.data.data;
             self.len = self.images.imageUrls.length;
@@ -294,7 +294,7 @@
           console.log(error);
         });
         // 评论
-        self.$http.get("/api/comment/" + id + "/1/", {
+        self.$http.get("/api/comment/" + commodityId + "/1/", {
           params: {
             size: 10
           }
@@ -560,8 +560,9 @@
   .get {
     float: left;
     border: 1px solid red;
-    border-radius: 15px;
     color: red;
+    border-radius: 15px;
+    background-color: #F7E4DF;
     font-size: 10px;
     margin-right: 5px;
   }
