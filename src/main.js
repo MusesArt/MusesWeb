@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http= axios;
 Vue.use(router);
 Object.assign(axios.defaults,{
-  baseURL:'https://jiji.utools.club'
+  baseURL:'https://vanxnf.utools.club'
   // headers:{
   //   common:{'Authorization':"AUTH_TOKEN"}
   // }
