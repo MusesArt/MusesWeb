@@ -6,7 +6,7 @@
 		</div>
 		<div class="container">
 			<Flexbox>
-				<FlexboxItem @click="">
+				<FlexboxItem @click="selectAddress()">
 					<div class="title">
 						<span v-text="address.district"></span>
 						<p v-text="`收货人：${address.signerName}`"></p>
@@ -17,11 +17,13 @@
 					</div>
 				</FlexboxItem>
 			</Flexbox>
+			<hr/>
+
 		</div>
 	</div>
 </template>
 <script>
-import { Flexbox, FlexboxItem } from 'vux'
+import { Flexbox, FlexboxItem, Divider } from 'vux'
 export default{
 	data(){
 		return {
@@ -42,21 +44,20 @@ export default{
 	methods:{
 		back() {
 			this.$router.go(-1)
+		},
+		selectAddress() {
+			
 		}
 	},
 	components: {
       Flexbox,
-      FlexboxItem
+	  FlexboxItem,
+	  Divider
     }
 }
 </script>
 <style scoped>
-p{
-	margin:0px;
-}
-hr{
-	margin:2px 0px;
-}
+
 .head{
     width:100%;
 	height:50px;
@@ -76,15 +77,6 @@ hr{
 	line-height:50px;
 }
 
-a{
-	text-decoration: none;
-}
-p{
-	margin:0px;
-}
-hr{
-	margin-bottom:10px;
-}
 .container{
 	margin:0 10px;
 }
@@ -98,7 +90,7 @@ hr{
 	border-radius: 10px;
 }
 div.title {
-	height: 18px;
+	height: 48px;
 }
 .title span{
 	display:inline-block;
@@ -178,5 +170,11 @@ div.title {
 	line-height: 50px;
 	box-sizing: border-box;
 	font-size: 16px;
+}
+hr {
+	height: 12px;
+	border: 0;
+	box-shadow: inset 0 6px 12px -12px rgba(0,0,0,0.5);
+	margin: -10px; 
 }
 </style>
