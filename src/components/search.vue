@@ -109,6 +109,7 @@
           } else {
             storage.setItem("searchHistory", '{ "history": "' + searchKey + '" }');
           }
+          storage.setItem("tabIndex", 0);
           // noinspection JSUnresolvedVariable
           this.$router.push({path: '/result/default'})
         }

@@ -144,9 +144,12 @@ export default {
 			}
 
 		},
-		back(){
-			this.$router.push({path:'/result/default'});
-      // this.$router.go(-1)
+		back() {
+      if (this.$route.query.page === "gallery") {
+        this.$router.push({path:'/main'});
+      } else {
+        this.$router.go(-1);
+      }
 		},
 		close_share(){
 			this.isShare=false;
