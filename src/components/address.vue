@@ -57,7 +57,7 @@ export default{
 	methods:{
 		init(){
 			let self=this;
-			self.$http.get('http://localhost:8080/api/address/list?userId=1').then(function(res){
+			self.$http.get('/api/address/list/3').then(function(res){
 				if(res.data.code == "OK"){
 					self.address = res.data.data;
 				}
@@ -80,7 +80,7 @@ export default{
 		deleteAddr(item,index){
 			let self = this;
 			console.log(item.id);
-			self.$http.delete('http://localhost:8080/api/address/'+item.id).then(function(res){
+			self.$http.delete('/api/address/'+item.id).then(function(res){
 				if(res.data.code=="OK"){
 					self.address.splice(index);
 				}

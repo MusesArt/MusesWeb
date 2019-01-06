@@ -17,7 +17,7 @@
 			</template>
 		</div>
 		<div class="more">
-			<img src="../assets/clear.png" style="margin:0 auto;width:20px;height:20px;display:block" @click="more">
+			<img src="../assets/angle_down.png" style="margin:0 auto;width:20px;height:20px;display:block" @click="more">
 		</div>
 		<div class="container">
 			<template v-for="(item,index) in evaluate">
@@ -61,6 +61,7 @@
 	</div>
 </template>
 <script>
+import detail from '../js/detail.js'
 import { Rater } from 'vux'
 export default{
 	data(){
@@ -157,6 +158,7 @@ p{
 img{
 	width:100%;
 	height:100%;
+	object-fit: cover;
 }
 .praise{
 	float:right;

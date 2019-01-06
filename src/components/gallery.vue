@@ -14,13 +14,7 @@
 					<img src="../assets/message.png" class="message">
 				</FlexboxItem>
 			</Flexbox>
-			<swiper auto loop dots-position="center" class="swiper">
-				<!-- <template v-for="(item,index) in slider">
-					<swiper-item class="images">
-						<img :src="item.imageUrl">
-					</swiper-item>
-				</template> -->
-
+			<swiper auto loop dots-position="center" class="swiper" aspect-ratio="0.5625">
 					<swiper-item class="images">
 						<img src="../assets/cubism.png">
 					</swiper-item>
@@ -63,17 +57,12 @@
 				</FlexboxItem>
 			</Flexbox>
 			<scroller lock-y :scrollbar-x=false>
-				<div class="box1"  :style="{width:width2}">
+				<div class="box1" :style="{width:width2}">
 					<template v-for="(item,index) in images">
-						<div class="today">
-							<img :src="item.src">
-						</div>
-					</template>
-					<!-- <template v-for="(item,index) in today">
 						<div class="today">
 							<img :src="item.coverImage">
 						</div>
-					</template> -->
+					</template>
 				</div>
 			</scroller>
 			
@@ -87,30 +76,17 @@
 					<p class="more_font">更多</p>
 				</FlexboxItem>
 			</Flexbox>
-			<!-- <template v-for="(item,index) in image_news">
-				<div class="img-box img-head" v-if="index==0">
-					<img :src="item.coverImage">
-				</div>
-				<div class="news-bar" :class="{'news-bar2':index%2==0}" v-if="index!=0">
-					<div class="img-box">
-						<img :src="item.coverImage">
-					</div>
-					<p v-text="item.name" class="title"></p>
-					<p v-text="item.brief" class="content"></p>
-					<p v-text="'￥'+item.discountPrice" class="price"></p>
-				</div>
-			</template> -->
 			<div class="img-box img-head">
 				<img :src="head">
 			</div>
-			<template v-for="(item,index) in news">
-				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
+			<template v-for="(item,index) in news" >
+				<div class="news-bar" :class="{'news-bar2':index%2!=0}" @click="select(item.id)">
 					<div class="img-box">
-						<img :src="item.src">
+						<img :src="item.coverImage" style="width: 188px; height: 188px">
 					</div>
-					<p v-text="item.title" class="title"></p>
-					<p v-text="item.content" class="content"></p>
-					<p v-text="'￥'+item.price" class="price"></p>
+					<p v-text="item.name.substr(0, 12) + '...'" class="title"></p>
+					<p v-text="item.brief.substr(0, 14)+ '...'" class="content"></p>
+					<p v-text="'￥'+item.discountPrice" class="price"></p>
 				</div>
 			</template>
 			<Flexbox>
@@ -126,37 +102,16 @@
 			<div class="img-box img-head">
 				<img :src="hot">
 			</div>
-			<template v-for="(item,index) in hots">
+			<template v-for="(item,index) in hots" @click="select(item.id)">
 				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
-					<div class="img-box" height="80%">
-						<img :src="item.src">
+					<div class="img-box" height="80%" style="width: 188px; height: 188px">
+            <img :src="item.coverImage" >
 					</div>
-					<p v-text="item.title" class="title"></p>
-					<p v-text="item.content" class="content"></p>
-					<p v-text="'￥'+item.price" class="price"></p>
+          <p v-text="item.name.substr(0, 12) + '...'" class="title"></p>
+          <p v-text="item.brief.substr(0, 14)+ '...'" class="content"></p>
+          <p v-text="'￥'+item.discountPrice" class="price"></p>
 				</div>
 			</template>
-
-			<!-- <template v-for="(item,index) in image_hots">
-				<div class="img-box img-head" v-if="index==0">
-					<img :src="item.coverImage">
-				</div>
-				<div class="news-bar" :class="{'news-bar2':index%2!=0}" v-if="index!=0">
-					<div class="img-box">
-						<img :src="item.coverImage">
-					</div>
-					<p v-text="item.name" class="title"></p>
-					<p v-text="item.brief" class="content"></p>
-					<p v-text="'￥'+item.discountPrice" class="price"></p>
-				</div>
-			</template> -->
-			<Flexbox>
-				<FlexboxItem>
-					<div class="bottom">
-						<p>我是有底线的</p>
-					</div>
-				</FlexboxItem>
-			</Flexbox>
 		</div>
 	</div>
 </template>
@@ -180,67 +135,17 @@ export default {
 			hot:require("../assets/new.png"),
 			images:[
 			{
-				src:require("../assets/recommend1.png")
+        coverImage:require("../assets/recommend1.png")
 			},
 			{
-				src:require("../assets/recommend2.png")
+        coverImage:require("../assets/recommend2.png")
 			},
 			{
-				src:require("../assets/recommend3.png")
+        coverImage:require("../assets/recommend3.png")
 			}
 			],
-			news:[
-			{
-				src:require("../assets/new1.png"),
-				title:"客厅北欧风格装饰画",
-				content:"现代简约 高档三联 风景挂画",
-				price:716
-			},
-			{
-				src:require("../assets/new2.png"),
-				title:"荷花禅意装饰画",
-				content:"实木挂轴画 简约现代 挂轴墙壁画",
-				price:439
-			},
-			{
-				src:require("../assets/new1.png"),
-				title:"客厅北欧风格装饰画",
-				content:"现代简约 高档三联 风景挂画",
-				price:716
-			},
-			{
-				src:require("../assets/new2.png"),
-				title:"荷花禅意装饰画",
-				content:"实木挂轴画 简约现代 挂轴墙壁画",
-				price:439
-			}
-			],
-			hots:[
-			{
-				src:require("../assets/new1.png"),
-				title:"客厅北欧风格装饰画",
-				content:"现代简约 高档三联 风景挂画",
-				price:716
-			},
-			{
-				src:require("../assets/new2.png"),
-				title:"荷花禅意装饰画",
-				content:"实木挂轴画 简约现代 挂轴墙壁画",
-				price:439
-			},
-			{
-				src:require("../assets/new1.png"),
-				title:"客厅北欧风格装饰画",
-				content:"现代简约 高档三联 风景挂画",
-				price:716
-			},
-			{
-				src:require("../assets/new2.png"),
-				title:"荷花禅意装饰画",
-				content:"实木挂轴画 简约现代 挂轴墙壁画",
-				price:439
-			}
-			]
+			news:[],
+			hots:[]
 		}
 	},
 	created(){
@@ -249,7 +154,7 @@ export default {
 	mounted(){
 		this.$nextTick(function(){
 			let self = this;
-			self.$http.get('http://localhost:8080/api/banner/').then(function(res){
+			self.$http.get('/api/banner/').then(function(res){
 				if(res.data.code=="OK"){
 					self.slider = res.data.data;
 					console.log(self.slider.imageUrl);
@@ -265,10 +170,13 @@ export default {
 			var searchModel1 = JSON.parse(JSON.stringify(self.data));
 			searchModel1.size=4;
 			searchModel1.sortType=4;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel1).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel1).then(function(res){
 				if(res.data.code=="OK"){
-					self.today = res.data.data.dataList;
-					console.log(self.today);
+          let data = res.data.data;
+          for (let i = 0; i < data.dataList.length; i++) {
+            self.news.push(data.dataList[i]);
+          }
+					console.log(data);
 				}
 				else{
 					console.log(res.data.code);
@@ -278,27 +186,15 @@ export default {
 				console.log(error);
 			})
 			var searchModel2 = JSON.parse(JSON.stringify(self.data));
-			searchModel2.size=5;
+			searchModel2.size=4;
 			searchModel2.sortType=0;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel2).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel2).then(function(res){
 				if(res.data.code==="OK"){
-					self.image_news = res.data.data.dataList;
-					console.log(self.image_news);
-				}
-				else{
-					console.log(res.data.code);
-					console.log(res.data.msg);
-				}
-			}).catch(function(error){
-				console.log(error);
-			})
-			var searchModel3 = JSON.parse(JSON.stringify(self.data));
-			searchModel2.size=5;
-			searchModel2.sortType=2;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel3).then(function(res){
-				if(res.data.code=="OK"){
-					self.image_hots = res.data.data.dataList;
-					console.log(self.image_hots);
+          let data = res.data.data;
+          for (let i = 0; i < data.dataList.length; i++) {
+            self.hots.push(data.dataList[i]);
+          }
+          console.log(data);
 				}
 				else{
 					console.log(res.data.code);
@@ -312,7 +208,6 @@ export default {
 	computed:{
 		width2:function(){
 			return ((this.images.length)*173+'px');
-			// return ((this.today.length)*173+'px');
 		}
 	},
 	components: {
@@ -321,6 +216,18 @@ export default {
 		Swiper,
 		SwiperItem,
 		Scroller
+	},
+  methods: {
+    select(id) {
+      console.log("select");
+      this.$router.push({
+        path: '/detail/',
+        query: {
+          id: id,
+          page: "gallery"
+        }
+      })
+    }
 	}
 }
 </script>
@@ -454,6 +361,7 @@ form{
 	color:#707070;
 	font-size:11px;
 	min-height: 20px;
+  margin-top: 3px;
 }
 .price{
 	margin-bottom:15px;

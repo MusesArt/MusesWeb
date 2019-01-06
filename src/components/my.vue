@@ -5,13 +5,13 @@
 				<FlexboxItem :span="9">
 				</FlexboxItem>
 				<FlexboxItem :span="1" class="head_img">
-					<img src="../assets/share.png">
+					<img src="../assets/setting.svg" type="image/svg+xml">
 				</FlexboxItem>
 				<FlexboxItem :span="1">
 					
 				</FlexboxItem>
 				<FlexboxItem :span="1" class="head_img">
-					<img src="../assets/share.png">
+					<img src="../assets/notification.svg" type="image/svg+xml">
 				</FlexboxItem>
 			</Flexbox>
 			<Flexbox :gutter="0">
@@ -45,45 +45,45 @@
 		</div>
 		<div class="body">
 			<Flexbox>
-				<FlexboxItem class="body_bar">
-					<img src="../assets/trash.png">
+				<FlexboxItem class="body_bar" @click.native="unpayed()">
+					<img src="../assets/unpayed.svg" type="image/svg+xml"/>
 					<p>待付款</p>
 				</FlexboxItem>
 				<FlexboxItem class="body_bar">
-					<img src="../assets/trash.png">
+					<img src="../assets/undelivered.svg" type="image/svg+xml"/>
 					<p>待发货</p>
 				</FlexboxItem>
 				<FlexboxItem class="body_bar">
-					<img src="../assets/trash.png">
+					<img src="../assets/unconfirmed.svg" type="image/svg+xml"/>
 					<p>待收货</p>
 				</FlexboxItem>
 				<FlexboxItem class="body_bar">
-					<img src="../assets/trash.png">
+					<img src="../assets/uncommented.svg" type="image/svg+xml"/>
 					<p>待评价</p>
 				</FlexboxItem>
 				<FlexboxItem class="body_bar" @click.native="refund()">
-					<img src="../assets/trash.png">
+					<img src="../assets/refund.svg" type="image/svg+xml"/>
 					<p>退换/售后</p>
 				</FlexboxItem>
 			</Flexbox>
 		</div>
 		<group>
 			<cell title="分享APP" :is-link="true" style="height:40px">
-				<img slot="icon" src="../assets/share.png" class="icon">
+				<img slot="icon" src="../assets/share.svg" type="image/svg+xml" class="icon">
 			</cell>
 			<cell title="地址管理" :is-link="true" style="height:40px" @click.native="address()">
-				<img slot="icon" src="../assets/share.png" class="icon">
+				<img slot="icon" src="../assets/address.svg" type="image/svg+xml" class="icon">
 			</cell>
 			<cell title="我的评价" :is-link="true" style="height:40px">
-				<img slot="icon" src="../assets/share.png" class="icon">
+				<img slot="icon" src="../assets/my_comment.svg" type="image/svg+xml" class="icon">
 			</cell>
 		</group>
 		<group>
-			<cell title="分享APP" :is-link="true" style="height:40px">
-				<img slot="icon" src="../assets/share.png" class="icon">
+			<cell title="客户服务" :is-link="true" style="height:40px">
+				<img slot="icon" src="../assets/client_service.svg" type="image/svg+xml" class="icon">
 			</cell>
-			<cell title="地址管理" :is-link="true" style="height:40px">
-				<img slot="icon" src="../assets/share.png" class="icon">
+			<cell title="意见反馈" :is-link="true" style="height:40px">
+				<img slot="icon" src="../assets/feedback.svg" type="image/svg+xml" class="icon">
 			</cell>
 		</group>
 	</div>
@@ -103,6 +103,9 @@ export default {
 		},
 		refund(){
 			this.$router.push({path:'/refund'});
+		},
+		unpayed(){
+			this.$router.push({path:'/unpayed'});
 		}
 	}
 }
@@ -111,6 +114,7 @@ export default {
 img{
 	width:100%;
 	height:100%;
+	object-fit: cover;
 }
 p{
 	margin:0px;
