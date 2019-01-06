@@ -143,7 +143,7 @@
     </div>
     <div class="footer">
       <div class="footer_left">
-        <img src="../assets/heart-regular.svg" type="image/svg+xml">
+        <img src="../assets/favorite_border.svg" type="image/svg+xml">
         <p>收藏</p>
       </div>
       <div class="footer_left">
@@ -151,7 +151,7 @@
         <p>客服</p>
       </div>
       <div class="footer_left">
-        <img src="../assets/21.png">
+        <img src="../assets/shopping_cart.svg" type="image/svg+xml">
         <p>购物车</p>
       </div>
       <div class="hide_button">
@@ -312,6 +312,7 @@
         }).then(function (res) {
           if (res.data.code == "OK") {
             self.images_assess = res.data.data.dataList;
+            detail.setComment(self.images_assess);
             console.log(self.images_assess);
           } else {
             console.log(res.data.code);
@@ -583,7 +584,7 @@
   }
 
   .assess_box {
-    background: #eee;
+    background: white;
     float: left;
     margin-left: 10px;
     padding-bottom: 20px;

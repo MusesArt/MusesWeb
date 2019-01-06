@@ -22,9 +22,6 @@ export default {
       $();
     });
   },
-  updated() {
-    upload.upload();
-  },
   methods: {}
 };
 </script>
