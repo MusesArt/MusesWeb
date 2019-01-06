@@ -37,7 +37,7 @@ import result_hot from "../components/result_hot";
 import result_price from "../components/result_price";
 import result_new from "../components/result_new";
 import result_default from "../components/result_default";
-
+import checkout from '../components/checkout.vue'
 
 Vue.use(Router)
 
@@ -225,6 +225,11 @@ export default new Router({
       path: '/my_order',
       name: 'my_order',
       component: my_order
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: checkout
     }
   ]
 })
