@@ -2,17 +2,19 @@
 	<div>
 		<div style="height:0px;">			
 			<sticky>
-				<tab :line-width="3" offset="40" default-color="#797979" bar-active-color="red" active-color="#333" custom-bar-width="30px" :scroll-threshold="5" style="z-index:110;" id="tab" :style="{opacity:show}">
+				<tab :line-width="3" offset="40" default-color="#797979" bar-active-color="#333" active-color="#333" custom-bar-width="0px" :scroll-threshold="5" style="z-index:110;" id="tab" :style="{opacity:show}">
 					<tab-item disabled>
 						<img src="../assets/back.png" style="width:25px;height:25px;margin-top:7px" @click="back">
 					</tab-item>
-					<tab-item style="font-size:16px;" :selected="selected1" @on-item-click="click(1)">
-						商品
-					</tab-item>
-					<tab-item style="font-size:16px;" :selected="selected2"  @on-item-click="click(2)">详情</tab-item>
-					<tab-item style="font-size:16px;" :selected="selected3" @on-item-click="click(3)">
-						评价
-					</tab-item>
+          <template v-for="(item, index) in tabs">
+            <tab-item style="font-size:16px;" v-if="selectIndex === index"  @on-item-click="click(index)" v-text="item.name" selected/>
+            <tab-item style="font-size:16px;" v-if="selectIndex !== index"  @on-item-click="click(index)" v-text="item.name"/>
+          </template>
+
+					<!--<tab-item style="font-size:16px;" v-if="selected2" selected  @on-item-click="click(2)">详情</tab-item>-->
+          <!--<tab-item style="font-size:16px;" v-else="selected2" @on-item-click="click(2)">详情</tab-item>-->
+					<!--<tab-item style="font-size:16px;" v-if="selected3" selected @on-item-click="click(3)">评价</tab-item>-->
+          <!--<tab-item style="font-size:16px;" v-else="selected3" @on-item-click="click(3)">评价</tab-item>-->
 					<tab-item disabled>
 						<img src="../assets/share.png" style="width:25px;height:25px;margin-top:7px" @click="share()">
 					</tab-item>
@@ -63,37 +65,43 @@ import { Sticky, Tab, TabItem, ViewBox, TransferDom, Popup, Flexbox, FlexboxItem
 export default {
 	data(){
 		return{
-			selected1:false,
-			selected2:false,
-			selected3:false,
+			// selected1:false,
+			// selected2:false,
+			// selected3:false,
+      selectIndex:0,
 			show:0,
-			isShare:false
+			isShare:false,
+      tabs: [
+        { name: "商品"},
+        { name: "详情"},
+        { name: "评价"}
+      ]
 		}
 	},
 	created(){
 		this.width=document.documentElement.clientWidth;
 	},
 	mounted(){
-		this.selected1=true;
+	  let storage = window.localStorage;
+	  let flag = storage.getItem("selectIndex");
+	  if (flag !== "" && flag !== null) {
+	    this.selectIndex = parseInt(flag);
+    } else {
+      this.selectIndex = 0;
+    }
 		switch(this.$route.name) {
 			case 'evaluate':
-				this.selected1=false;
-				this.selected2=false;
-				this.selected3=true;
+        this.selectIndex = 2;
 				this.show=1.0;
 				window.removeEventListener('scroll',this.scroll);
 				break;
 			case 'detail_main':
-				this.selected1=true;
-				this.selected2=false;
-				this.selected3=false;
+        this.selectIndex = 0;
 				this.show=0;
 				window.addEventListener('scroll',this.scroll);
 				break;
 			case 'details':
-				this.selected1=fasle;
-				this.selected2=true;
-				this.selected3=false;
+        this.selectIndex = 1;
 				this.show=1;
 				window.addEventListener('scroll',this.scroll);
 				break;
@@ -106,21 +114,25 @@ export default {
 			this.show=scrollTop/330;
 		},
 		click(idx){
+      let storage = window.localStorage;
+      storage.setItem("selectIndex", idx);
+      console.log("idx: " + idx);
 			switch(idx) {
-				case 1:
-					this.$router.push({path:'/detail'});
+				case 0:
 					window.addEventListener('scroll',this.scroll);
 					this.show=0;
+					this.$router.push({path:'/detail'});
 					break;
-				case 2:
-					this.$router.push({path:'/detail/details'});
+				case 1:
 					this.show=1;
 					window.removeEventListener('scroll',this.scroll);
+					this.$router.push({path:'/detail/details'});
 					break;
-				case 3:
+				case 2:
+				  this.show=1.0;
+          window.removeEventListener('scroll',this.scroll);
 					this.$router.push({path:'/detail/evaluate'});
-					this.show=1.0;
-					window.removeEventListener('scroll',this.scroll);
+
 			}
 
 		},
@@ -169,6 +181,7 @@ a{
 }
 .active{
 	color:#333;
+  selected: selected;
 }
 img{
 	width:100%;

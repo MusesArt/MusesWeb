@@ -117,7 +117,7 @@
       <!--</scroller>-->
     </div>
     <div class="all_assess">
-      <p>查看全部评论 ></p>
+      <p @click="goToEvaluate()">查看全部评论 ></p>
     </div>
     <!--推荐部分-->
     <!--<div class="container">-->
@@ -142,7 +142,7 @@
       <!--<p>查看全部为你推荐 ></p>-->
     <!--</div>-->
     <div class="end">
-      查看图文详情
+      <p @click="goToDetails()">查看图文详情</p>
     </div>
     <div class="footer">
       <div class="footer_left">
@@ -338,7 +338,7 @@
           "detail": `尺寸:${self.params[0]};颜色:${self.params[1]};`,
           "parameterId": self.paramId[1]
         }).then(function (res) {
-          if (res.data.code == "OK") {
+          if (res.data.code === "OK") {
             self.close()
             console.log("加入购物车成功")
           } else {
@@ -374,7 +374,7 @@
         self.paramId[index1] = item2.id
         self.params[index1] = item2.value
         console.log(index1 +item2.value)
-        if (item1.imageFlag == true)
+        if (item1.imageFlag === true)
           this.currentImage = item2.image;
         this.$forceUpdate();
       },
@@ -386,6 +386,18 @@
       },
       goToShoppingCart() {
         this.$router.push({name: 'shop'});
+      },
+      goToDetails() {
+        let storage = window.localStorage;
+        storage.setItem("selectIndex", 1);
+        this.selectIndex = 1;
+        this.$router.push({name: 'details'});
+      },
+      goToEvaluate() {
+        let storage = window.localStorage;
+        this.selectIndex = 2;
+        storage.setItem("selectIndex", 2);
+        this.$router.push({name: 'evaluate'});
       }
     },
     components: {
