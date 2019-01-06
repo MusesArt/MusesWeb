@@ -103,7 +103,7 @@
 				<img :src="hot">
 			</div>
 			<template v-for="(item,index) in hots" @click="select(item.id)">
-				<div class="news-bar" :class="{'news-bar2':index%2!=0}">
+				<div class="news-bar" :class="{'news-bar2':index%2!=0}" @click="select(item.id)">
 					<div class="img-box" height="80%" style="width: 188px; height: 188px">
             <img :src="item.coverImage" >
 					</div>
