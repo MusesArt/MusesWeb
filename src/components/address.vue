@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="head">
-			<img src="../assets/back2.png">
+			<img src="../assets/back2.png" @click="back()">
 			<p>收货地址</p>
 		</div>
 		<div class="container">
@@ -43,11 +43,6 @@ export default{
 	data(){
 		return {
 			address:[]
-		}
-	},
-	watch:{
-		'$route'(from,to){
-			this.init();
 		}
 	},
 	beforeCreate () {
@@ -98,8 +93,10 @@ export default{
 			})
 		},
 		edit(item){
-			let self = this;
 			this.$router.push({path:'/edit_address',query:{addressId:item.id}})
+		},
+		back(){
+			this.$router.push({path:'/main/my'});
 		}
 	}
 }

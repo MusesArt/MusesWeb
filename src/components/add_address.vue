@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="head">
-			<img src="../assets/back2.png">
+			<img src="../assets/back2.png" @click="back()">
 			<p>添加收货地址</p>
 			<p @click="addAddress()">保存</p>
 		</div>
@@ -42,6 +42,9 @@ export default {
 		document.querySelector('body').setAttribute('style', 'background-color:#eee')
 	},
 	methods:{
+		back(){
+			this.$router.push({path:'/address'})
+		},
 		addAddress(){
 			let self = this;
 			var flag = true;
@@ -72,7 +75,11 @@ export default {
 	}
 }
 </script>
-<style>
+<style scoped>
+img{
+	width:100%;
+	height:100%;
+}
 p{
 	margin:0px;
 }
