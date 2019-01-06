@@ -80,7 +80,7 @@ export default{
 		Rater
 	},
 	beforeCreate(){
-		document.querySelector('body').setAttribute('style', 'background-color:#eee')
+		document.querySelector('body').setAttribute('style', 'background-color:#eee');
 	},
 	mounted(){
 		this.$nextTick(function(){
@@ -112,6 +112,9 @@ export default{
       });
 		})
 	},
+  beforeRouteLeave() {
+    document.querySelector('body').setAttribute('style', 'background-color:#FFF');
+  },
 	methods:{
 		more(){
 			let self=this;
