@@ -97,6 +97,7 @@ export default {
 				}
 				else{
 					localStorage.setItem("token",res.data.data.token);
+          localStorage.setItem("userId", res.data.data.userId);
 					self.$router.push({path:'/main'});
 				}
 				console.log(res.data);
