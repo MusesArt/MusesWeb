@@ -34,8 +34,8 @@
 					<p class="head_p">抵用券</p>
 				</FlexboxItem>
 				<FlexboxItem :span="3">
-					<p class="head_num">289</p>
-					<p class="head_p">收藏</p>
+					<p class="head_num" @click="goToCollection()">{{favNumber}}</p>
+					<p class="head_p" @click="goToCollection()">收藏</p>
 				</FlexboxItem>
 				<FlexboxItem :span="3">
 					<p class="head_num">520</p>
@@ -98,7 +98,8 @@ export default {
 			height: 0,
       avatar: localStorage.getItem("avatar"),
       username: localStorage.getItem("username"),
-      userId: localStorage.getItem("userId")
+      userId: localStorage.getItem("userId"),
+      favNumber: 0
 		}
 	},
 	components:{
@@ -110,6 +111,15 @@ export default {
 	created(){
 		document.querySelector('body').setAttribute('style', 'background-color:white');
 		this.height=document.documentElement.clientHeight;
+		let self = this;
+    self.$http.post('/api/favorite/commodity/count/'+self.userId).then(function(res){
+      if(res.data.code=="OK"){
+        self.favNumber = this.data.data;
+      }
+      console.log(res.data);
+    }).catch(function(error){
+      console.log(error);
+    })
 	},
 	methods:{
 	  login() {
@@ -123,7 +133,11 @@ export default {
 		},
 		order(num){
 			this.$router.push({path:'/order',query:{num:num}});
-		}
+		},
+    goToCollection(){
+	    console.log("点击中");
+      this.$router.push({name: 'my_collect'});
+    }
 	}
 }
 </script>
