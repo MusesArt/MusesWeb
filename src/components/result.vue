@@ -18,9 +18,6 @@
         <tab-item @on-item-click="click(index)" class="tab" v-if="index === tabIndex" v-text="item.name" aria-selected="true" selected/>
         <tab-item @on-item-click="click(index)" class="tab" v-if="index !== tabIndex" v-text="item.name" aria-selected="true"/>
       </template>
-      <!--<tab-item @on-item-click="click(2)" class="tab" id="new">最新</tab-item>-->
-      <!--<tab-item @on-item-click="click(3)" class="tab" id="hot">最热</tab-item>-->
-      <!--<tab-item @on-item-click="click(4)" class="tab" id="price">价格</tab-item>-->
     </tab>
     <view-box :style="{height:height+'px'}">
       <keep-alive>
@@ -61,7 +58,7 @@
       if (index !== null || index !== '') {
         this.tabIndex = parseInt(index);
       } else {
-
+        this.tabIndex = 0;
       }
     },
     methods: {
