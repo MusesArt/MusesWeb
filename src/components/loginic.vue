@@ -90,7 +90,7 @@ export default {
 	methods:{
 		submit(){
 			let self = this;
-			self.$http.post('http://localhost:8080/api/user/login/mobile',self.u).then(function(res){
+			self.$http.post('/api/user/login/mobile',self.u).then(function(res){
 				if(res.data.code=="OK"){
 					self.$router.push({path:'/main'});
 					localStorage.setItem("token",res.data.data.token);

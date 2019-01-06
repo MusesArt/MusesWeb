@@ -85,7 +85,7 @@ export default{
 		deleteAddr(item,index){
 			let self = this;
 			console.log(item.id);
-			self.$http.delete('http://localhost:8080/api/address/'+item.id).then(function(res){
+			self.$http.delete('/api/address/'+item.id).then(function(res){
 				if(res.data.code=="OK"){
 					self.address.splice(index);
 				}
