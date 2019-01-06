@@ -1,8 +1,8 @@
 <template>
-	<div>
+	<div class="page-background">
 		<div class="head">
-			<img src="../assets/back2.png">
-			<p>添加收货地址</p>
+			<img src="../assets/back2.png" @click="back()">
+			<p class="address-title">添加收货地址</p>
 			<p @click="addAddress()">保存</p>
 		</div>
 		<div>
@@ -16,7 +16,7 @@
 		<div style="background: white;margin-top:20px">
 			<group>
 				<cell title="地址标签" :is-link="true" class="label"></cell>
-				<x-switch title="设为默认地址" style="height: 25px"class="label"></x-switch>
+				<x-switch title="设为默认地址" class="label label-address"></x-switch>
 			</group>
 		</div>
 	</div>
@@ -38,9 +38,6 @@ export default {
 			place:""
 		}
 	},
-	beforeCreate () {
-		document.querySelector('body').setAttribute('style', 'background-color:#eee')
-	},
 	methods:{
 		addAddress(){
 			let self = this;
@@ -50,20 +47,26 @@ export default {
 			if(flag==false)
 				alert("请填写完整");
 			else{
-				var places = self.place.split(" ");
+				let places = self.place.split(" ");
 				self.items.province = places[0];
 				self.items.city = places[1];
 				self.items.district = places[2];
-				var data = self.items;
+				self.items.userId = localStorage.getItem("userId");
+				let data = self.items;
 				self.$http.post('/api/address/',data).then(function(res){
 					if(res.data.code=="OK"){
+					  console.log(res.data);
 						alert("添加成功");
+						self.back();
 					}
 				}).catch(function(error){
 					console.log(error);
 				})
 			}
-		}
+		},
+    back() {
+      this.$router.go(-1)
+    }
 	},
 	components: {
 		XSwitch,
@@ -72,7 +75,13 @@ export default {
 	}
 }
 </script>
-<style>
+<style scoped>
+.page-background{
+  background: #EEE;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
 p{
 	margin:0px;
 }
@@ -100,6 +109,9 @@ hr{
 	font-weight: bold;
 	display: inline-block;
 }
+.address-title{
+  margin-top: 5px;
+}
 .head p:nth-child(3){
 	float:right;
 	color:#ff8c00;
@@ -118,8 +130,13 @@ form input{
 	font-size: 13px;
 }
 .label{
-	height:20px;
-	font-size: 13px;
-	padding-left:5px;
+  height:25px !important;
+  font-size: 13px;
+  padding-left:12px !important;
+  /*margin-left: 12px;*/
+}
+.label-address{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
 </style>
