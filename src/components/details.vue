@@ -12,7 +12,7 @@ export default{
 		}
 	},
 	beforeCreate(){
-		document.querySelector('body').setAttribute('style', 'background-color:#eee')
+		document.querySelector('body').setAttribute('style', 'background-color:#FFF')
 	},
 	mounted(){
 		this.$nextTick(function(){

@@ -48,26 +48,6 @@
 							</div>
 						</FlexboxItem>
 					</Flexbox>
-					<Flexbox style="margin-top:-20px">
-						<FlexboxItem>
-							<div class="share_bar">
-								<img src="../assets/qq.png">
-								<p>qq好友</p>
-						    </div>
-						</FlexboxItem>
-						<FlexboxItem>
-							<div class="share_bar">
-								<img src="../assets/weixin.png">
-								<p>微信好友</p>
-							</div>
-						</FlexboxItem>
-						<FlexboxItem>
-							<div class="share_bar">
-								<img src="../assets/weibo.png">
-								<p>微博好友</p>
-							</div>
-						</FlexboxItem>
-					</Flexbox>
 					<Flexbox>
 						<div class="share_close" @click="close_share">
 							<img src="../assets/clear.png">
@@ -148,7 +128,17 @@ export default {
       if (this.$route.query.page === "gallery") {
         this.$router.push({path:'/main'});
       } else {
-        this.$router.go(-1);
+        let storage = window.localStorage;
+        let index = parseInt(storage.getItem("tabIndex"));
+        if (index === 0) {
+          this.$router.push({path:'/result/default'});
+        } else if (index === 1) {
+          this.$router.push({path:'/result/new'});
+        }  else if (index === 2) {
+          this.$router.push({path:'/result/hot'});
+        } else {
+          this.$router.push({path:'/result/price'});
+        }
       }
 		},
 		close_share(){

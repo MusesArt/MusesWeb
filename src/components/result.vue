@@ -1,5 +1,5 @@
 <template>
-  <div style="margin:0 10px">
+  <div style="margin:0 10px; background: #FFF">
     <Flexbox>
       <FlexboxItem :span="10">
         <form action="" method="post">
@@ -49,6 +49,9 @@
           { "name": "价格"}
         ]
       }
+    },
+    beforeCreate(){
+      document.querySelector('body').setAttribute('style', 'background-color:#FFF')
     },
     created() {
       this.height = document.documentElement.clientHeight;
@@ -144,7 +147,9 @@
 
   .back {
     margin-left: 20px;
-    font-size: 13px;
+    font-size: 15px;
+    /*margin-top: 25px;*/
+    padding-top: 10px;
     background-size: 100% 100%;
     background-position: 50% 50%;
     border: 0;

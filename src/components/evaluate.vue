@@ -1,10 +1,10 @@
 <template>
 	<div class="content">
 		<div class="head">
-			<p>用户评论({{totalNum}})</p>
+			<p>用户评论({{evaluate.length}})</p>
 			<div class="praise">
-				<p>好评度</p>
-				<p>{{praise}}%</p>
+				<!--<p>好评度</p>-->
+				<!--<p>{{praise}}%</p>-->
 			</div>
 		</div>
 		<div class="title" id="title" :style="{height:height}">
@@ -29,30 +29,30 @@
 						</div>
 					</div>
 					<div class="head_center">
-						<p style="font-size:14px" v-text="item.name"></p>
-						<rater v-model="item.stars" :font-size="16" active-color="#770000" :disabled="true"></rater>
+						<p style="font-size:14px" v-text="item.username"></p>
+						<rater v-model="item.star" :font-size="16" active-color="#770000" :disabled="true"></rater>
 					</div>
 					<div class="head_right" style="float:right;">
-						<p v-text="item.data"></p>
+						<p>{{new Date(item.date).getFullYear() + '-'}}{{new Date(item.date).getMonth() + 1}}{{'-' + new Date(item.date).getDate()}}</p>
 					</div>
 				</div>
 				<div>
 					<p v-text="item.content" style="" class="content_p"></p>
 				</div>
 				<div class="imgs">
-					<template v-for="(data,num) in item.imgs">
-						<img :src="data.src" class="img" :class="{'img_other':num%3!=0}">
+					<template v-for="(data,num) in item.images">
+						<img :src="data" class="img" :class="{'img_other':num%3!=0}">
 					</template>
 				</div>
 				<div style="height:50px;margin-top:8px">
-					<div class="botttom_left">
-						<p style="font-size:14px;color:#797979" v-text="item.shopping">{{item.shopping|more}}</p>
+					<div class="bottom_left">
+						<p style="font-size:11px;color:#797979" v-text="item.commodityInfo"></p>
 					</div>
 					<div class="bottom_right">
-						<img src="../assets/trash.png" class="bottom_img" style="width:18px;height:18px">
-						<p style="margin-right: 10px;font-size:13px" v-text="item.assess"></p>
-						<img src="../assets/trash.png" class="bottom_img" style="width:18px;height:18px">
-						<p style="font-size:13px">{{item.message | more}}</p>
+						<!--<img src="../assets/comment.svg" class="bottom_img" style="width:18px;height:18px;margin-right: 10px">-->
+						<!--<p style="margin-right: 10px;font-size:13px" v-text="item.assess"></p>-->
+            <!--<img src="../assets/thumb_up.svg" class="bottom_img" style="width:18px;height:18px;">-->
+						<!--<p style="font-size:13px">{{item.message | more}}</p>-->
 					</div>
 				</div>
 			</div>
@@ -71,7 +71,7 @@ export default{
 			high_opinion:0,
 			bad_opinion:0,
 			totalNum:0,
-			height:"90px",
+			height:"50px",
 			title_len:0,
 			currentTitle:'全部'
 		}
@@ -85,24 +85,38 @@ export default{
 	mounted(){
 		this.$nextTick(function(){
 			let self=this;
-			self.$http.get("../static/evaluate.json").then(function(res){
-				self.high_opinion=res.data.high_opinion;
-				self.bad_opinion=res.data.bad_opinion;
-				self.totalNum=res.data.totalNum;
-				for(var i=0;i<res.data.evaluates.length;i++){
-					self.evaluate.push(res.data.evaluates[i]);
-				};
-				for(var i=0;i<res.data.titles.length;i++){
-					self.title.push(res.data.titles[i]);
-				}
-			})
+			// self.$http.get("../static/evaluate.json").then(function(res){
+			// 	self.high_opinion=res.data.high_opinion;
+			// 	self.bad_opinion=res.data.bad_opinion;
+			// 	self.totalNum=res.data.totalNum;
+			// 	for(var i=0;i<res.data.evaluates.length;i++){
+			// 		self.evaluate.push(res.data.evaluates[i]);
+			// 	};
+			// 	for(var i=0;i<res.data.titles.length;i++){
+			// 		self.title.push(res.data.titles[i]);
+			// 	}
+			// });
+			let storage = window.localStorage;
+			let id = storage.getItem("CommodityId");
+      self.$http.get("/api/comment/" + id + "/1/", {
+        params: {
+          size: 10
+        }
+      }).then(function (res) {
+        if (res.data.code === "OK") {
+          self.evaluate = res.data.data.dataList;
+        } else {
+          console.log(res.data.code);
+          console.log(res.data.msg);
+        }
+      });
 		})
 	},
 	methods:{
 		more(){
 			let self=this;
 			var title=document.getElementById("title");
-			if(self.height=="90px"){
+			if(self.height==="90px"){
 				title.style.overflow='';
 				this.height="auto";
 			}
