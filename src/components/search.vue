@@ -49,7 +49,7 @@
 
   export default {
     created: function () {
-      this.$http.get("http://192.168.4.236:8080/api/hotkey/").then(res => {
+      this.$http.get("/api/hotkey/").then(res => {
         console.log("success");
         if (res.data.code === "OK") {
           this.keys = res.data.data;
