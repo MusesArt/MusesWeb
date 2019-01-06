@@ -14,10 +14,13 @@
       </FlexboxItem>
     </Flexbox>
     <tab active-color="#333" default-color="#333" custom-bar-width="30px" style="margin-bottom: 5px" ref="tab">
-      <tab-item @on-item-click="click(1)" class="tab" selected>综合</tab-item>
-      <tab-item @on-item-click="click(2)" class="tab">最新</tab-item>
-      <tab-item @on-item-click="click(3)" class="tab">最热</tab-item>
-      <tab-item @on-item-click="click(4)" class="tab">价格</tab-item>
+      <template v-for="(item, index) in tabs">
+        <tab-item @on-item-click="click(index)" class="tab" v-if="index === tabIndex" v-text="item.name" aria-selected="true" selected/>
+        <tab-item @on-item-click="click(index)" class="tab" v-if="index !== tabIndex" v-text="item.name" aria-selected="true"/>
+      </template>
+      <!--<tab-item @on-item-click="click(2)" class="tab" id="new">最新</tab-item>-->
+      <!--<tab-item @on-item-click="click(3)" class="tab" id="hot">最热</tab-item>-->
+      <!--<tab-item @on-item-click="click(4)" class="tab" id="price">价格</tab-item>-->
     </tab>
     <view-box :style="{height:height+'px'}">
       <keep-alive>
@@ -41,30 +44,44 @@
       return {
         height: 0,
         search: '',
-        tabIndex: 1
+        tabIndex: 0,
+        tabs: [
+          { "name": "综合"},
+          { "name": "最新"},
+          { "name": "最热"},
+          { "name": "价格"}
+        ]
       }
     },
     created() {
       this.height = document.documentElement.clientHeight;
       let storage = window.localStorage;
       this.search = storage.getItem("searchKey");
+      let index = storage.getItem("tabIndex");
+      if (index !== null || index !== '') {
+        this.tabIndex = parseInt(index);
+      } else {
+
+      }
     },
     methods: {
       clear() {
         this.search = '';
       },
       click(index) {
+        let storage = window.localStorage;
+        storage.setItem("tabIndex", index);
         switch (index) {
-          case 1:
+          case 0:
             this.$router.push({path: '/result/default'});
             break;
-          case 2:
+          case 1:
             this.$router.push({path: '/result/new'});
             break;
-          case 3:
+          case 2:
             this.$router.push({path: '/result/hot'});
             break;
-          case 4:
+          case 3:
             this.$router.push({path: '/result/price'});
             break;
         }

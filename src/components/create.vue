@@ -1,29 +1,15 @@
 <template>
-  <div id="content">
-    <div id="bg-img"></div>
-    <div class="wrapper" id="button">
-      <button class="no-image" id="img-result"></button>
-    </div>
-    <div class="upload-result">
-      <button class="hide-button">Close</button>
-      <pre class="upload-result__content"></pre>
-    </div>
-  </div>
+
 </template>
 <script>
-import { Flexbox } from "vux";
-import upload from "../js/upload.js";
+import { Grid, GridItem } from 'vux'
+
 export default {
-  data() {},
-  beforeCreate() {},
-  mounted() {
-    this.$nextTick(function() {
-      upload.upload();
-      $();
-    });
-  },
-  methods: {}
-};
+  components: {
+    Grid,
+    GridItem
+  }
+}
 </script>
 <style scoped>
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
