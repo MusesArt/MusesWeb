@@ -229,6 +229,16 @@ export default new Router({
       path: '/checkout',
       name: 'checkout',
       component: checkout
+    },
+    {
+      path:'/order',
+      component:order,
+      children:[
+      {
+        path:'/',
+        name:'order_main',
+        component:order_main
+      }]
     }
   ]
 })

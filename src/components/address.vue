@@ -13,7 +13,7 @@
 						<p v-text="item.signerMobile"></p>
 					</div>
 					<div class="address-content">
-						<p>地址：{{item.province}}{{item.city}} {{item.address}}</p>
+						<p>地址：{{item.province}}{{item.city}}{{item.district}} {{item.address}}</p>
 					</div>
 					<hr color="#eee">
 					<div class="address-bottom">
@@ -99,11 +99,10 @@ export default{
 			})
 		},
 		edit(item){
-			let self = this;
-			this.$router.push({path:'/edit_address',query:{addressId:item.id}});
+			this.$router.push({path:'/edit_address',query:{addressId:item.id}})
 		},
-		back() {
-			this.$router.go(-1)
+		back(){
+			this.$router.push({path:'/main/my'});
 		}
 	}
 }
@@ -141,7 +140,7 @@ hr{
 
 }
 .container{
-	margin:0 15px;
+	margin:15px;
 }
 .body{
 	width:100%;
@@ -235,6 +234,7 @@ hr{
   height:100%;
   width:100%;
   position:absolute;
+  padding-bottom: 180px;
 }
 .address-image {
   margin-right: 5px;

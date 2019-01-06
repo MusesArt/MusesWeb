@@ -51,7 +51,7 @@ export default{
 			this.addressId = this.$route.query.addressId;
 			self.$http.get('/api/address/'+self.addressId).then(function(res){
 				self.myaddress = res.data.data;
-				self.place = self.myaddress.province+self.myaddress.city+self.myaddress.district;
+				self.place = self.myaddress.province+" "+self.myaddress.city+" "+self.myaddress.district;
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -59,17 +59,23 @@ export default{
 	},
 	methods:{
 		updateAddress(){
-			let self=this;
-			self.items.id=self.addressId;
-			self.items.signerName=self.myaddress.signerName;
-			self.items.signerMobile=self.myaddress.signerMobile;
-			self.items.province=self.myaddress.province;
-			self.items.city=self.myaddress.city;
-			self.items.district=self.myaddress.district;
-			self.items.address=self.myaddress.address;
-			var data = self.items;
-			self.$http.put('/api/address/list',data).then(function(res){
+			let self = this;
+			self.items.id = self.addressId;
+			console.log(self.items.id)
+			self.items.signerName = self.myaddress.signerName;
+      console.log(self.items.signerName)
+			self.items.signerMobile = self.myaddress.signerMobile;
+      console.log(self.items.signerMobile)
+      let list = self.place.split(" ");
+			self.items.province = list[0];
+			self.items.city = list[1];
+			self.items.district = list[2];
+			self.items.address = self.myaddress.address;
+      self.items.userId = localStorage.getItem("userId");
+      let data = self.items;
+			self.$http.post('/api/address/'+self.addressId, data).then(function(res){
 				self.myaddress = res.data;
+				self.back();
 			}).catch(function(error){
 				console.log(error);
 			})
@@ -78,7 +84,7 @@ export default{
 			let self = this;
 			self.$http.delete('/api/address/'+self.addressId).then(function(res){
 				if(res.data.code=="OK")
-					self.$router.push({path:'/address'});
+					self.back();
 			}).catch(function(error){
 				console.log(error);
 			})
