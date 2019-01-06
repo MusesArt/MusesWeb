@@ -6,9 +6,9 @@
         <ul>
           <template v-for="(item,index) in items">
             <li :class="{'right':index % 2 === 1}" @click="select(item.id)">
-              <img :src="item.coverImage" alt="src" style="width: 180px; height: 180px">
+              <img :src="item.coverImage" alt="src" class="image">
               <p v-text="item.name.substr(0, 12) + '...'" class="title"></p>
-              <p v-text="item.brief.substr(0, 14) + '...'" class="content"></p>
+              <p v-text="item.brief.substr(0, 16) + '...'" class="content"></p>
               <p v-text="'￥'+item.discountPrice" class="price"></p>
             </li>
           </template>
@@ -45,7 +45,7 @@
           setTimeout(() => {
             console.log("load end");
             done && done(true);
-          }, 1000);
+          }, 500);
         } else {
           setTimeout(() => {
             this.loadMore();
@@ -54,7 +54,7 @@
               self.$refs.Scroll.finishPullUp()
             });
             done();
-          }, 1500)
+          }, 500)
 
         }
       },
@@ -113,7 +113,6 @@
 
   li {
     float: left;
-    width: 50%;
     padding-right: 5px;
     box-sizing: border-box;
   }
@@ -128,6 +127,11 @@
     border-radius: 5px;
   }
 
+  .image {
+    width: 190px;
+    height: 190px;
+  }
+
   .title {
     color: #333333;
     font-size: 14px;
@@ -137,7 +141,9 @@
 
   .content {
     color: #707070;
+    margin-top: 5px;
     font-size: 11px;
+    margin-left: 1px;
     min-height: 20px;
   }
 
