@@ -90,7 +90,7 @@
         <div v-show="!edit">
           <div class="hide_button">
             <input type="button" class="left_button" value="收藏">
-            <input type="button" class="right_button" value="删除">
+            <input type="button" class="right_button" value="删除" @click="deleteSelected()">
           </div>
         </div>
         <div v-show="edit">
@@ -144,9 +144,9 @@ export default {
   },
   mounted() {
     this.$nextTick(function() {
-      let self = this;
+      window.self = this;
       this.$http
-        .get("/api/cart/list/3")
+        .get("/api/cart/list/" + localStorage.getItem("userId"))
         .then(res => {
           if (res.data.code == "ERROR") console.log(res.data.msg);
           console.log("success");
@@ -165,11 +165,18 @@ export default {
     document.querySelector("body").removeAttribute("style");
   },
   methods: {
+    deleteSelected() {
+      this.items.forEach(function(item, index) {
+        if(item.checked==true) {
+          self.deleteCart(item.id)
+        }
+      })
+    },
     deleteCart(cart_id) {
       self.$http.delete('/api/cart/'+cart_id).then(function(res){
 				if(res.data.code == "OK"){
 					self.$http
-            .get("/api/cart/list/3")
+            .get("/api/cart/list/" + localStorage.getItem("userId"))
             .then(res => {
               if (res.data.code == "ERROR") console.log(res.data.msg);
               console.log("success");
@@ -197,7 +204,6 @@ export default {
       for (var i = 0; i < this.len; i++) {
         box[i].style.left = "0px";
       }
-      this.AllCheck();
     },
     touchstart: function(index, e) {
       var div = document.getElementsByClassName("box")[index];
@@ -249,14 +255,15 @@ export default {
       this.colacNum();
     },
     change(item, way) {
-      let self = this;
       if (way < 0) {
         item.number--;
+        self.$http.put('/api/cart/'+item.id, {"number": item.number})
         if (item.number < 1) {
           item.number = 1;
         }
       } else {
         item.number++;
+        self.$http.put('/api/cart/'+item.id, {"number": item.number})
       }
       this.colacNum();
     },
