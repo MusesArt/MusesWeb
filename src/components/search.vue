@@ -48,6 +48,9 @@
   import {Flexbox, FlexboxItem} from 'vux'
 
   export default {
+    beforeCreate(){
+      document.querySelector('body').setAttribute('style', 'background-color:#FFF')
+    },
     created: function () {
       this.$http.get("/api/hotkey/").then(res => {
         console.log("success");
