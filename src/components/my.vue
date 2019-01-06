@@ -21,7 +21,7 @@
 				</FlexboxItem>
 				<FlexboxItem :span="6"></FlexboxItem>
 				<FlexboxItem :span="2">
-						<img src="../assets/recommend1.png" style="border-radius: 100px;height:60px;width:60px">
+						<img src="../assets/recommend1.png" style="border-radius: 100px;height:60px;width:60px" @click="login()">
 				</FlexboxItem>
 			</Flexbox>
 			<Flexbox>
@@ -98,6 +98,9 @@ export default {
 		Group
 	},
 	methods:{
+	  login() {
+	    this.$router.push({name: 'login1'});
+    },
 		address(){
 			this.$router.push({path:'/address'});
 		},
