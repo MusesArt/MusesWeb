@@ -99,7 +99,9 @@
               <p class="all">合计:</p>
               <p class="footer_price">￥{{totalPrice | fixed}}</p>
             </div>
-            <input type="submit" :value="'结算('+totalNum+')'" class="submit">
+            <router-link to="/checkout" v-if="totalNum!=0">
+              <input type="submit" :value="'结算('+totalNum+')'" class="submit">
+            </router-link>
           </div>
         </div>
       </div>
@@ -137,7 +139,7 @@ export default {
       .querySelector("body")
       .setAttribute("style", "background-color:white");
     this.$http
-      .get("/api/cart/list/1")
+      .get("/api/cart/list/3")
       .then(res => {
         if (res.data.code == "ERROR") console.log(res.data.msg);
         console.log("success");

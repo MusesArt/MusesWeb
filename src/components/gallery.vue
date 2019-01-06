@@ -249,7 +249,7 @@ export default {
 	mounted(){
 		this.$nextTick(function(){
 			let self = this;
-			self.$http.get('http://localhost:8080/api/banner/').then(function(res){
+			self.$http.get('/api/banner/').then(function(res){
 				if(res.data.code=="OK"){
 					self.slider = res.data.data;
 					console.log(self.slider.imageUrl);
@@ -265,7 +265,7 @@ export default {
 			var searchModel1 = JSON.parse(JSON.stringify(self.data));
 			searchModel1.size=4;
 			searchModel1.sortType=4;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel1).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel1).then(function(res){
 				if(res.data.code=="OK"){
 					self.today = res.data.data.dataList;
 					console.log(self.today);
@@ -280,7 +280,7 @@ export default {
 			var searchModel2 = JSON.parse(JSON.stringify(self.data));
 			searchModel2.size=5;
 			searchModel2.sortType=0;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel2).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel2).then(function(res){
 				if(res.data.code==="OK"){
 					self.image_news = res.data.data.dataList;
 					console.log(self.image_news);
@@ -295,7 +295,7 @@ export default {
 			var searchModel3 = JSON.parse(JSON.stringify(self.data));
 			searchModel2.size=5;
 			searchModel2.sortType=2;
-			self.$http.post('http://localhost:8080/api/commodity/page/1',searchModel3).then(function(res){
+			self.$http.post('/api/commodity/page/1',searchModel3).then(function(res){
 				if(res.data.code=="OK"){
 					self.image_hots = res.data.data.dataList;
 					console.log(self.image_hots);

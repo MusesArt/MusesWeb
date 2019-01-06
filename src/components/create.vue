@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="wrapper">
-      <button class="no-image" id="img-result">Upload Image</button>
+  <div id="content">
+    <div id="bg-img"></div>
+    <div class="wrapper" id="button">
+      <button class="no-image" id="img-result"></button>
     </div>
-    <button class="show-button">Show server request</button>
     <div class="upload-result">
       <button class="hide-button">Close</button>
       <pre class="upload-result__content"></pre>
@@ -11,14 +11,19 @@
   </div>
 </template>
 <script>
-import upload from '../js/upload.js'
+import { Flexbox } from "vux";
+import upload from "../js/upload.js";
 export default {
-	mounted() {
-		this.$nextTick(function(){
-			upload.upload()
-		})
-	}
-}
+  data() {},
+  beforeCreate() {},
+  mounted() {
+    this.$nextTick(function() {
+      upload.upload();
+      $();
+    });
+  },
+  methods: {}
+};
 </script>
 <style scoped>
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
@@ -38,9 +43,6 @@ export default {
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   }
-}
-body {
-  background: #1abc9c;
 }
 * {
   box-sizing: border-box;
@@ -131,6 +133,25 @@ body {
   font-family: "Source Code Pro";
   overflow-wrap: break-word;
 }
+div#bg-img {
+  height: -webkit-fill-available;
+}
 </style>
 <script>
+import { Flexbox } from "vux";
+import upload from "../js/upload.js";
+export default {
+  data() {},
+  beforeCreate() {},
+  mounted() {
+    this.$nextTick(function() {
+      upload.upload();
+      $();
+    });
+  },
+  updated() {
+    upload.upload();
+  },
+  methods: {}
+};
 </script>
