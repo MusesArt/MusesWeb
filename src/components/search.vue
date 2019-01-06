@@ -49,7 +49,7 @@
 
   export default {
     created: function () {
-      this.$http.get("http://localhost:8080/api/hotkey/").then(res => {
+      this.$http.get("/api/hotkey/").then(res => {
         console.log("success");
         if (res.data.code === "OK") {
           this.keys = res.data.data;
@@ -70,6 +70,12 @@
         console.log(this.historyList)
       } else {
         this.isShow = false;
+      }
+    },
+    mounted: function() {
+      let key = this.$route.params.key;
+      if (key !== null || key !== "") {
+        this.search = key;
       }
     },
     data() {

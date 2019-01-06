@@ -49,7 +49,7 @@ export default{
 		this.$nextTick(function(){
 			let self=this;
 			this.addressId = this.$route.query.addressId;
-			self.$http.get('http://localhost:8080/api/address/'+self.addressId).then(function(res){
+			self.$http.get('/api/address/'+self.addressId).then(function(res){
 				self.myaddress = res.data.data;
 				self.place = self.myaddress.province+self.myaddress.city+self.myaddress.district;
 			}).catch(function(error){
@@ -68,7 +68,7 @@ export default{
 			self.items.district=self.myaddress.district;
 			self.items.address=self.myaddress.address;
 			var data = self.items;
-			self.$http.put('http://localhost:8080/api/address/list',data).then(function(res){
+			self.$http.put('/api/address/list',data).then(function(res){
 				self.myaddress = res.data;
 			}).catch(function(error){
 				console.log(error);
@@ -76,7 +76,7 @@ export default{
 		},
 		deleteAddress(){
 			let self = this;
-			self.$http.delete('http://localhost:8080/api/address/'+self.addressId).then(function(res){
+			self.$http.delete('/api/address/'+self.addressId).then(function(res){
 				if(res.data.code=="OK")
 					self.$router.push({path:'/address'});
 			}).catch(function(error){

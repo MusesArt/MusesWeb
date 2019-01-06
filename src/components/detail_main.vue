@@ -288,7 +288,7 @@
       this.$nextTick(function () {
         let self = this;
         var id = this.$route.query.id;
-        self.$http.get('http://localhost:8080/api/commodity/' + id).then(function (res) {
+        self.$http.get('/api/commodity/' + id).then(function (res) {
           if (res.data.code == "OK") {
             self.images = res.data.data;
             self.len = self.images.imageUrls.length;
@@ -305,7 +305,7 @@
         }).catch(function (error) {
           console.log(error);
         })
-        self.$http.get("http://localhost:8080/api/comment/" + id + "/1/", {
+        self.$http.get("/api/comment/" + id + "/1/", {
           params: {
             size: 10
           }
@@ -318,7 +318,7 @@
             console.log(res.data.msg);
           }
         });
-        self.$http.get('http://localhost:8080/api/commodity/1', {
+        self.$http.get('/api/commodity/1', {
           params: {
             size: 4,
             sortType: 4,

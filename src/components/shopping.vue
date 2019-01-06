@@ -137,7 +137,7 @@ export default {
       .querySelector("body")
       .setAttribute("style", "background-color:white");
     this.$http
-      .get("http://localhost:8080/api/cart/list/1")
+      .get("/api/cart/list/1")
       .then(res => {
         if (res.data.code == "ERROR") console.log(res.data.msg);
         console.log("success");
