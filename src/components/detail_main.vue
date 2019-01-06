@@ -196,7 +196,7 @@
             <input type="button" value="+" class="popup_button popup_decrease" @click="numchange(1)">
           </div>
           <div class="popup_bar" style="width:100%;height:40px">
-            <input type="button" class="buy_button left_button" value="加入购物车" style="width:50%;height:40px">
+            <input type="button" class="buy_button left_button" value="加入购物车" @click="addToCart()" style="width:50%;height:40px">
             <input type="button" class="buy_button right_button" value="立即购买" style="width:50%;height:40px">
           </div>
         </div>
@@ -275,7 +275,9 @@
         len: 0,
         width: 0,
         isShow: false,
-        foryou: []
+        foryou: [],
+        params: [],
+        paramId: [],
       }
     },
     beforeCreate() {
@@ -286,7 +288,7 @@
     },
     mounted() {
       this.$nextTick(function () {
-        let self = this;
+        window.self = this;
         var id = this.$route.query.id;
         self.$http.get('/api/commodity/' + id).then(function (res) {
           if (res.data.code == "OK") {
@@ -340,6 +342,25 @@
       })
     },
     methods: {
+      addToCart() {
+        self.$http.post('/api/cart/1', {
+          "userId": localStorage.getItem("userId"),
+          "number": self.num,
+          "commodityId": self.images.id,
+          "detail": `尺寸:${self.params[0]};颜色:${self.params[1]};`,
+          "parameterId": self.paramId[1]
+        }).then(function (res) {
+          if (res.data.code == "OK") {
+            self.close()
+            console.log("加入购物车成功")
+          } else {
+            console.log(res.data.code);
+            console.log(res.data.msg);
+          }
+        }).catch(function (error) {
+          console.log(error);
+        })
+      },
       buying() {
         this.isShow = true;
       },
@@ -362,6 +383,9 @@
       },
       changeColor(index1, index2, item1, item2) {
         this.current[index1 + 1] = item2.value;
+        self.paramId[index1] = item2.id
+        self.params[index1] = item2.value
+        console.log(index1 +item2.value)
         if (item1.imageFlag == true)
           this.currentImage = item2.image;
         this.$forceUpdate();

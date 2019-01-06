@@ -5,44 +5,23 @@
 			<p>结算</p>
 		</div>
 		<div class="container">
-			<template v-for="(item,index) in refund">
-				<div class="body">
-					<div class="body_head">
-						<p style="float:left" v-text="item.title"></p>
-						<img src="../assets/trash.png" style="width:16px;height:16px;float:right;">
-						<p style="float:right;margin-right:18px" v-text="item.flag"></p>
+			<Flexbox>
+				<FlexboxItem>
+					<div class="title">
+						<span v-text="item.district"></span>
+						<p v-text="item.signerName"></p>
+						<p v-text="item.signerMobile"></p>
 					</div>
-					<div class="body_content">
-						<scroller lock-x :scroller-y="false" :bounce="false" :height="item.images.length>1?height1:height2">
-							<div class="box">
-								<template v-for="(r_item,r_index) in item.images">
-									<div class="box_bar">
-										<div class="left">
-											<img :src="r_item.image" style="width:70px;height:70px;">
-										</div>
-										<div class="center">
-											<p v-text="r_item.title"></p>
-											<p v-text="r_item.content"></p>
-											<p v-text="'¥'+r_item.price"></p>
-										</div>
-										<p style="position:absolute;right:0;bottom:0;color:#797979;font-size:14px" v-text="'x'+r_item.number"></p>
-									</div>
-								</template>
-							</div>
-						</scroller>
+					<div class="content">
+						<p>地址:{{item.province}}{{item.city}} {{item.address}}</p>
 					</div>
-					<hr color="#eee">
-					<div class="body_bottom">				
-						<input type="button" value="查看详情" class="button selected">
-						<input type="button" value="取消售后" class="button" v-if="item.flag=='进行中'">
-					</div>
-				</div>
-			</template>
+				</FlexboxItem>
+			</Flexbox>
 		</div>
 	</div>
 </template>
 <script>
-import { Scroller } from 'vux'
+import { Flexbox, FlexboxItem } from 'vux'
 export default{
 	data(){
 		return {
@@ -71,9 +50,10 @@ export default{
 			this.$router.go(-1)
 		}
 	},
-	components:{
-		Scroller
-	}
+	components: {
+      Flexbox,
+      FlexboxItem
+    }
 }
 </script>
 <style scoped>

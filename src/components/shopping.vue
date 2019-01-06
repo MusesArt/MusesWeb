@@ -67,7 +67,7 @@
             <div class="hide_left">
               <input type="button" value="收藏" class="collect">
             </div>
-            <div class="hide_left" style="background-color: #FF4013">
+            <div class="hide_left" style="background-color: #FF4013" @click="deleteCart(item.id)">
               <input type="button" value="删除" class="collect" style="background-color: #ff4013">
             </div>
           </div>
@@ -138,19 +138,6 @@ export default {
     document
       .querySelector("body")
       .setAttribute("style", "background-color:white");
-    this.$http
-      .get("/api/cart/list/3")
-      .then(res => {
-        if (res.data.code == "ERROR") console.log(res.data.msg);
-        console.log("success");
-        console.log(res.data.data);
-        this.items = res.data.data;
-        if (this.item == []) {
-        }
-      })
-      .catch(response => {
-        console.log("error");
-      });
   },
   created: function() {
     this.width = document.documentElement.clientWidth;
@@ -158,12 +145,19 @@ export default {
   mounted() {
     this.$nextTick(function() {
       let self = this;
-      self.$http.get("../static/shopping.json").then(function(res) {
-        self.len = res.data.shopping.length;
-        for (var i = 0; i < self.len; i++) {
-          self.items.push(res.data.shopping[i]);
-        }
-      });
+      this.$http
+        .get("/api/cart/list/3")
+        .then(res => {
+          if (res.data.code == "ERROR") console.log(res.data.msg);
+          console.log("success");
+          console.log(res.data.data);
+          this.items = res.data.data;
+          if (this.item == []) {
+          }
+        })
+        .catch(response => {
+          console.log("error");
+        });
     });
     // this.$router.push('/empty');
   },
@@ -171,6 +165,26 @@ export default {
     document.querySelector("body").removeAttribute("style");
   },
   methods: {
+    deleteCart(cart_id) {
+      self.$http.delete('/api/cart/'+cart_id).then(function(res){
+				if(res.data.code == "OK"){
+					self.$http
+            .get("/api/cart/list/3")
+            .then(res => {
+              if (res.data.code == "ERROR") console.log(res.data.msg);
+              console.log("success");
+              console.log(res.data.data);
+              self.items = res.data.data;
+              if (self.item == []) {
+              }
+            })
+          .catch(response => {
+            console.log("error");
+          });
+				}
+				self.$set(self.address[0], 'checked', true);
+			})
+    },
     Edit: function() {
       this.edit = !this.edit;
       if (this.edit_text == "编辑") {
@@ -208,7 +222,7 @@ export default {
       else if (div.offsetLeft < -59) div.style.left = "-118px";
     },
     onClick: function(item) {
-      let self = this;
+      window.self = this;
       if (typeof item.checked === "undefined") {
         self.$set(item, "checked", true);
       } else {
@@ -256,13 +270,13 @@ export default {
           _this.totalPrice += item.number * item.commodity.discountPrice;
         }
       });
-    }
+    },
   },
   filters: {
     fixed: function(value) {
       return value.toFixed(2);
     }
-  }
+  },
 };
 </script>
 <style scoped>
