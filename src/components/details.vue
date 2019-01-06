@@ -14,10 +14,10 @@ export default{
 	beforeCreate(){
 		document.querySelector('body').setAttribute('style', 'background-color:#FFF')
 	},
-	mounted(){
+	mounted() {
 		this.$nextTick(function(){
-            let description = detail.data.description
-            console.log(description)
+            let description = detail.data.description;
+            console.log(description);
             document.getElementsByClassName('content')[0].innerHTML = description;
         })
 	},
