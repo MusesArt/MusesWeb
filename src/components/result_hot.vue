@@ -25,7 +25,7 @@
         items: [],
         search: '',
         size: 6, //每次请求每页数量
-        sortType: 2, //默认搜索
+        sortType: 2, //默认销量
         currentPage: 0, //当前页面
         totalPages: 1, //总页数
         totalNum: 0, //总商品数
