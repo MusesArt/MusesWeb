@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div id="head">
-			<img src="../assets/back2.png">
+			<img src="../assets/back2.png" @click="back()">
 			<p>我的订单</p>
 			<img src="../assets/search.png">
 		</div>
@@ -34,11 +34,21 @@ export default {
 		}
 		document.querySelector('body').setAttribute('style', 'background-color:#ededed');
 	},
+	mounted(){
+		this.$nextTick(function(){
+			this.select = this.$route.query.num;
+			console.log("success"+this.select);
+			this.$router.push({path:'/order',query:{num:this.select}});
+		})
+	},
 	methods:{
 		click(num){
 			this.select=num;
 			localStorage.setItem("selected",num);
 			this.$router.push({path:'/order',query:{num:num}});
+		},
+		back(){
+			this.$router.push({path:'/main/my'});
 		}
 	},
 	components: {

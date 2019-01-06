@@ -67,19 +67,21 @@ export default{
 			if(self.$route.query.num!=undefined){
 				self.num = self.$route.query.num;
 				self.load(self.num);
-				console.log(self.num);
+				console.log("status"+self.num);
 			}
 			//因此初始加载全部订单的数据
 			else{
 				self.load(0);
 			}
-			console.log("12")
 		},
 		load(status){
 			let self = this;
 			self.$http.get('/api/order/list/'+self.userId).then(function(res){
 				if(res.data.code=="OK"){
 					self.orders = res.data.data;
+					if(self.orders==null){
+						self.$router.push({path:'/thing'});
+					}
 				}
 				console.log(res.data);
 			}).catch(function(error){

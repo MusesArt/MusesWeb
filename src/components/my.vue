@@ -45,19 +45,19 @@
 		</div>
 		<div class="body">
 			<Flexbox>
-				<FlexboxItem class="body_bar" @click.native="unpayed()">
+				<FlexboxItem class="body_bar" @click.native="order(1)">
 					<img src="../assets/unpayed.svg" type="image/svg+xml"/>
 					<p>待付款</p>
 				</FlexboxItem>
-				<FlexboxItem class="body_bar">
+				<FlexboxItem class="body_bar" @click.native="order(2)">
 					<img src="../assets/undelivered.svg" type="image/svg+xml"/>
 					<p>待发货</p>
 				</FlexboxItem>
-				<FlexboxItem class="body_bar">
+				<FlexboxItem class="body_bar" @click.native="order(3)">
 					<img src="../assets/unconfirmed.svg" type="image/svg+xml"/>
 					<p>待收货</p>
 				</FlexboxItem>
-				<FlexboxItem class="body_bar">
+				<FlexboxItem class="body_bar" @click.native="order(4)">
 					<img src="../assets/uncommented.svg" type="image/svg+xml"/>
 					<p>待评价</p>
 				</FlexboxItem>
@@ -104,8 +104,8 @@ export default {
 		refund(){
 			this.$router.push({path:'/refund'});
 		},
-		unpayed(){
-			this.$router.push({path:'/unpayed'});
+		order(num){
+			this.$router.push({path:'/order',query:{num:num}});
 		}
 	}
 }
