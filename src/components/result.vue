@@ -4,7 +4,7 @@
       <FlexboxItem :span="10">
         <form action="" method="post">
           <img alt="search" src="../assets/search.png" class="search">
-          <input type="text" class="text" v-model="search">
+          <input type="text" class="text" v-model="search" @click="back()" @keydown.enter.prevent="">
         </form>
       </FlexboxItem>
       <FlexboxItem :span="2">
@@ -68,6 +68,14 @@
             this.$router.push({path: '/result/price'});
             break;
         }
+      },
+      back() {
+        this.$router.push({
+          name: 'search',
+          params: {
+            key: this.search
+          }
+        });
       }
     }
   }

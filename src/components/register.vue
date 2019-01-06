@@ -95,7 +95,7 @@ export default {
 			console.log('success');
 			let self = this;
 			console.log(self.u.mobile);
-			self.$http.post('http://localhost:8080/api/user/register',self.u).then(function(res){
+			self.$http.post('/api/user/register',self.u).then(function(res){
 				if(res.data.data==null){
 					alert(res.data.message);
 				}

@@ -64,7 +64,7 @@
         let nextPage = self.currentPage + 1;
         self.$http({
           method: "post",
-          url: "http://localhost:8080/api/commodity/page/" + nextPage,
+          url: "/api/commodity/page/" + nextPage,
           data: {
             size: self.size,
             sortType: self.sortType,
