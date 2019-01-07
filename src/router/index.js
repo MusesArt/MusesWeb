@@ -240,9 +240,14 @@ export default new Router({
       children:[
       {
         path:'/',
-        name:'order_main',
         component:order_main
-      }]
+      },
+      {
+        path: 'thing',
+        name: 'thing',
+        component: thing
+      }
+      ]
     },
     {
       path:'/my_access',
@@ -252,7 +257,12 @@ export default new Router({
         path:'/',
         name:'access_main',
         component:access_main
-      }]
+      },
+      {
+      path: 'thing',
+      name: 'thing',
+      component: thing
+    }]
     }
   ]
 })

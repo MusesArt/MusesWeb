@@ -5,26 +5,28 @@
 				<div class="top">
 					<p>Muses旗舰店</p>
 					<img src="../assets/more1.png" style="width:12px;height:12px;margin-top:5px"/>
-					<p v-text="item.payStatus"></p>
+					<p v-text="item.payStatus==1?'交易成功':'等待买家付款'"></p>
 				</div>
-				<div class="body">
-					<div>
-						<img src="../assets/new1.png" style="width:100px;height:100px">
+				<template v-for="(item2,index2) in item.orderCommodityModels">
+					<div class="body">
+						<div>
+							<img src="../assets/new1.png" style="width:100px;height:100px">
+						</div>
+						<div>
+							<p>装饰画</p>
+							<p v-text="item2.brief"></p>
+						</div>
+						<div>
+							<p>￥{{item2.price|addZero}}</p>
+							<p>x1</p>
+						</div>
 					</div>
-					<div>
-						<p>北欧装饰画客厅简约壁画沙发背景墙画卧室床头无框画</p>
-						<p>装饰画</p>
-					</div>
-					<div>
-						<p>￥{{item.orderAmount|addZero}}</p>
-						<p>x1</p>
-					</div>
-				</div>
+				</template>
 				<div class="bottom">
-					<p>共1件商品 合计: ￥{{item.orderAmount|addZero}}</p>
+					<p>共1件商品 合计: ￥<span>{{item.orderAmount|addZero}}</span></p>
 					<div class="bottom_border">
 						<p style="display: inline-block;">更多</p>
-						<div v-if="item.payStatus=='交易成功'">
+						<div v-if="item.payStatus=='1'">
 							<div style="border:1px solid #ff7f42">评价</div>
 							<div>卖了换钱</div>
 							<div>查看物流</div>
@@ -57,7 +59,7 @@ export default{
 	methods:{
 		init(){
 			let self = this;
-			 localStorage.setItem("userId",1);
+			 localStorage.setItem("userId",32);
 			var id = localStorage.getItem("userId");
 			self.userId = parseInt(id);
 			//父路由传递点击的是哪个tabItem
@@ -79,9 +81,9 @@ export default{
 			self.$http.get('/api/order/list/'+self.userId).then(function(res){
 				if(res.data.code=="OK"){
 					self.orders = res.data.data;
-					if(self.orders==null){
-						self.$router.push({path:'/thing'});
-					}
+				}
+				else if(res.data.code=="ERROR"){
+					self.$router.push({path:'/order/thing'});
 				}
 				console.log(res.data);
 			}).catch(function(error){
@@ -114,6 +116,7 @@ p{
 	border-radius: 15px;
 	padding:10px;
 	box-sizing: border-box;
+	margin-bottom:10px;
 }
 .top{
 }
@@ -130,7 +133,7 @@ p{
 	margin-top:10px;
 	height:100px;
 }
-.body div:nth-child(2) p:nth-child(1){
+.body div:nth-child(2) p:nth-child(1),.body div:nth-child(2) p:nth-child(2){
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -164,6 +167,9 @@ p{
 	text-align: right;
 	margin-bottom:10px;
 	font-size: 13px;
+}
+.bottom span{
+	font-size: 16px;
 }
 .bottom_border p{
 	margin-left:10px;

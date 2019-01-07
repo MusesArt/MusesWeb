@@ -1,16 +1,14 @@
 <template>
 	<div class="contain">
-		<div>
-			<div id="head">
-				<img src="../assets/back2.png"/>
-				<p>我的评价</p>
-			</div>
-			<view-box>
-				<keep-alive>
-					<router-view></router-view>
-				</keep-alive>
-			</view-box>
+		<div id="head">
+			<img src="../assets/back2.png"/>
+			<p>我的评价</p>
 		</div>
+		<view-box>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
+		</view-box>
 	</div>
 </template>
 <script>
@@ -29,7 +27,6 @@ export default{
 }
 #head{
 	height:50px;
-	text-align:center;
 	width:100%;
 	clear:both;
 	border:1px solid #aaa;
