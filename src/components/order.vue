@@ -1,5 +1,5 @@
 <template>
-	<div class="contain">
+	<div class="contain" style="background: #eee">
 		<div id="head">
 			<img src="../assets/back2.png" @click="back()">
 			<p>我的订单</p>
@@ -67,6 +67,7 @@ img{
 }
 .contain{
 	background-color: #efefef;
+  height: 100%;
 }
 #head{
 	height:50px;
@@ -90,5 +91,8 @@ img{
 #head p{
 	line-height: 50px;
 	display: inline-block;
+}
+body{
+  background: #eee !important;
 }
 </style>
