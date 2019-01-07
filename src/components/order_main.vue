@@ -5,15 +5,15 @@
 				<div class="top">
 					<p>Muses旗舰店</p>
 					<img src="../assets/more1.png" style="width:12px;height:12px;margin-top:5px"/>
-					<p v-text="item.payStatus==1?'交易成功':'等待买家付款'"></p>
+					<p v-text="item.payStatus==1?'等待买家付款':'交易成功'"></p>
 				</div>
 				<template v-for="(item2,index2) in item.orderCommodityModels">
 					<div class="body">
 						<div>
-							<img src="../assets/new1.png" style="width:100px;height:100px">
+							<img :src="item2.image" style="width:100px;height:100px">
 						</div>
 						<div>
-							<p>装饰画</p>
+							<p v-text="item2.title"></p>
 							<p v-text="item2.brief"></p>
 						</div>
 						<div>
@@ -48,7 +48,8 @@ export default{
 		return{
 			num:0,
 			userId:0,
-			orders:[]
+			orders:[],
+      commodity:[]
 		}
 	},
 	mounted(){
@@ -77,9 +78,11 @@ export default{
 		},
 		load(status){
 			let self = this;
+			console.log(self.userId);
 			self.$http.get('/api/order/list/'+self.userId).then(function(res){
 				if(res.data.code=="OK"){
 					self.orders = res.data.data;
+					console.log(self.orders);
 				}
 				else if(res.data.code=="ERROR"){
 					self.$router.push({path:'/order/thing'});

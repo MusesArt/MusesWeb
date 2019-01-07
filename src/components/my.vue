@@ -16,7 +16,7 @@
 			</Flexbox>
 			<Flexbox :gutter="0">
 				<FlexboxItem :span="4">
-					<p class="name" v-text="username"></p>
+					<p class="name" v-text="13017727896"></p>
 					<p class="my-id">ID:{{userId}}</p>
 				</FlexboxItem>
 				<FlexboxItem :span="6"></FlexboxItem>

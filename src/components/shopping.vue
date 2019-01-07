@@ -354,7 +354,7 @@ img {
 .content {
   position: relative;
   height: 112px;
-  box-shadow: #c0bfc4 1px 1px 0px;
+  /*box-shadow: #c0bfc4 1px 1px 0px;*/
 }
 .box {
   position: absolute;
