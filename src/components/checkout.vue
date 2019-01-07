@@ -55,7 +55,11 @@ export default {
       totalPrice: 0,
     };
   },
-  beforeCreate() {},
+  beforeCreate() {
+     document
+      .querySelector("body")
+      .setAttribute("style", "height:90%");
+  },
   mounted() {
     this.$nextTick(function() {
       window.self = this;
@@ -163,7 +167,6 @@ p {
 
 .body {
   width: 100%;
-  height: 1005;
   background-color: white;
   margin-bottom: 10px;
   box-sizing: border-box;
