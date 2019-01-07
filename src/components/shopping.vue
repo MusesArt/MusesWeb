@@ -13,8 +13,9 @@
         </FlexboxItem>
       </Flexbox>
     </div>
-    <template v-for="(item,index) in items">
-      <div class="content">
+    <div>
+      <template v-for="(item,index) in items">
+      <div class="content cart-content">
         <div
           class="box"
           @touchstart="remove&&touchstart(index,$event)"
@@ -69,6 +70,7 @@
         </div>
       </div>
     </template>
+    </div>
     <template v-if="items.length==0">
       <img id="default" src="../assets/default/4.png">
     </template>
@@ -329,7 +331,12 @@ img {
   width: 100%;
   height: 50px;
   padding-top: 6px;
+  padding-bottom: 6px;
   margin-bottom: 5px;
+  background: white;
+  z-index: 99;
+  position: fixed;
+  top: 0;
   /*border:1px solid #aaa;*/
 }
 .head .head_left {
@@ -600,5 +607,11 @@ img#default {
 }
 .angle :hover {
 	transform: rotate(90deg);
+}
+div.content.cart-content:first-child {
+  margin-top: 60px;
+}
+div.content.cart-content:last-child {
+  margin-bottom: 55px;
 }
 </style>
