@@ -127,9 +127,12 @@ export default {
 			}
 		},
 		back() {
-      if (this.$route.query.page === "gallery") {
+		  let page = this.$route.query.page;
+      if (page === "gallery") {
         this.$router.push({path:'/main'});
-      } else {
+      } else if (page === "cart") {
+        this.$router.push({path:'/main/shop'});
+      } else{
         let storage = window.localStorage;
         let index = parseInt(storage.getItem("tabIndex"));
         if (index === 0) {

@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="box_img">
-            <img :src="item.commodity.coverImage">
+            <img :src="item.commodity.coverImage" @click="select(item.commodityId)">
           </div>
           <div v-show="!edit">
             <div class="box_content" :style="{width:width-118+'px'}">
@@ -54,15 +54,10 @@
               <p class="box_price">¥{{item.commodity.discountPrice}}</p>
             </div>
             <div class="box_right" :style="{width:(width-118)*2/9+'px'}">
-              <input type="button" value="+" class="add button" @click="change(item,1)">
+              <input type="button" value="+" class="button" @click="change(item,1)">
               <input type="text" value="1" v-model="item.number" class="text">
-              <input
-                type="button"
-                value="-"
-                class="button decrease"
-                :class="{'disable':item.number==1}"
-                @click="change(item,-1)"
-              >
+              <input type="button" value="-" class="button decrease" :class="{'disable':item.number==1}"
+                     @click="change(item,-1)">
             </div>
             <div class="hide_left">
               <input type="button" value="收藏" class="collect">
@@ -89,7 +84,7 @@
         </div>
         <div v-show="!edit">
           <div class="hide_button">
-            <input type="button" class="left_button" value="收藏">
+            <input type="button" class="left_button" value="收藏" @click="addFav()">
             <input type="button" class="right_button" value="删除" @click="deleteSelected()">
           </div>
         </div>
@@ -109,7 +104,7 @@
   </div>
 </template>
 <script>
-import { Flexbox, FlexboxItem, Scroller } from "vux";
+import { Flexbox, FlexboxItem, Scroller, AlertModule } from "vux";
 import cart from "../js/cart.js"
 export default {
   data() {
@@ -268,10 +263,16 @@ export default {
     },
     change(item, way) {
       if (way < 0) {
-        item.number--;
-        self.$http.put('/api/cart/'+item.id, {"number": item.number})
-        if (item.number < 1) {
-          item.number = 1;
+        if (item.number===1) {
+          AlertModule.show({
+            content: '不能再减小啦！',
+          })
+        } else {
+          item.number--;
+          self.$http.put('/api/cart/'+item.id, {"number": item.number})
+          if (item.number < 1) {
+            item.number = 1;
+          }
         }
       } else {
         item.number++;
@@ -290,6 +291,16 @@ export default {
         }
       });
     },
+    select(id) {
+      console.log("select");
+      this.$router.push({
+        path: '/detail/',
+        query: {
+          id: id,
+          page: "cart"
+        }
+      })
+    }
   },
   filters: {
     fixed: function(value) {
@@ -322,9 +333,10 @@ img {
   /*border:1px solid #aaa;*/
 }
 .head .head_left {
-  font-size: 23px;
-  margin-top: 10px;
-  margin-left: 10px;
+  font-size: 24px;
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-bottom: 20px;
   font-weight: 400;
 }
 .head .head_right {
@@ -404,7 +416,7 @@ img {
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 12px;
-  margin-top: 4px;
+  margin-top: 8px;
   padding: 3px 0 3px 0;
 }
 .box .box_title {
@@ -422,7 +434,7 @@ img {
 	width: 80%;
 }
 .box .box_price {
-  margin-top: 10px;
+  margin-top: 6px;
   margin-left: 10px;
   font-size: 16px;
   color: #ff4013;
@@ -434,14 +446,15 @@ img {
 .button {
   background: white;
   outline: none;
-  width: 20px;
-  height: 20px;
+  /*width: 20px;*/
+  height: 40px;
   border: 0px;
   font-size: 20px;
   color: #797979;
-  font-weight: 520;
+  font-weight: 500;
   margin:auto;
 }
+
 .decrease {
   font-size: 28px;
   line-height: 5px;
