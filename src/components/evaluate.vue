@@ -1,5 +1,5 @@
 <template>
-	<div class="content" style="background-color: #eee">
+	<div class="content" style="background-color: #eee;">
 		<div class="head">
 			<p>用户评论({{evaluate.length}})</p>
 			<div class="praise">
@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<div>
-					<b v-text="item.content" style="width: 95%" class="content_p"></b>
+					<p v-text="item.content" style="width: 100%" class="content_p"></p>
 				</div>
 				<div class="imgs" style="margin-top: 10px">
 					<template v-for="(data,num) in item.images">
@@ -227,7 +227,7 @@ img{
 	padding:0 15px;
 	background:white;
 	padding-top:10px;
-	margin-bottom:10px;
+	margin-bottom:15px;
 }
 .bar> div{
 	width:100%;
@@ -240,6 +240,7 @@ img{
 }
 .bar div .bottom_left{
 	float:left;
+  margin-bottom: 5px;
 }
 .bar div .bottom_right{
 	float:right;
@@ -257,7 +258,7 @@ img{
 	line-height:40px;
 }
 .content_p{
-	font-size:12px;
+	font-size:16px;
 	color:#000;
 	overflow: hidden;  
     display: -webkit-box;  
@@ -265,8 +266,9 @@ img{
     -webkit-box-orient: vertical; 
 }
 .imgs .img{
-	width:32%;
-	height:100px;
+	width:120px;
+	height:120px;
+  margin-right: 3px;
 	margin-bottom:3px;
 }
 .imgs .img_other{

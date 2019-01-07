@@ -155,7 +155,7 @@
     </div>
     <div class="footer">
       <div class="footer_left">
-        <img src="../assets/favorite_border.svg" type="image/svg+xml" style="margin-left: 1px">
+        <img src="../assets/favorite_border.svg" type="image/svg+xml" style="margin-left: 1px" @click="addFav()" id="image-fav">
         <p>收藏</p>
       </div>
       <div class="footer_left">
@@ -249,7 +249,7 @@
   </div>
 </template>
 <script>
-  import {Swiper, SwiperItem, Scroller, Sticky, Tab, TabItem, Popup, TransferDom, Flexbox, FlexboxItem} from 'vux'
+  import {Swiper, SwiperItem, Scroller, Sticky, Tab, TabItem, Popup, TransferDom, Flexbox, FlexboxItem, AlertModule } from 'vux'
   import detail from '../js/detail.js'
   import $ from 'jquery'
   export default {
@@ -270,6 +270,8 @@
         foryou: [],
         params: [],
         paramId: [],
+        // flag: 0,
+        // favId: 0,
       }
     },
     beforeCreate() {
@@ -317,25 +319,27 @@
             console.log(res.data.msg);
           }
         });
-        // 为你推荐
-        // self.$http.get('/api/commodity/1', {
-        //   params: {
-        //     size: 4,
-        //     sortType: 4,
-        //     isASC: true,
-        //     keyword: ""
-        //   }
-        // }).then(function (res) {
-        //   if (res.data.code === "OK") {
-        //     self.foryou = res.data.data.dataList;
-        //     console.log(self.foryou);
-        //   } else {
-        //     console.log(res.data.code);
-        //     console.log(res.data.msg);
-        //   }
-        // }).catch(function (error) {
-        //   console.log(error);
-        // })
+        let userId = localStorage.getItem("userId");
+        self.$http.get(`/api/favorite/commodity/${userId}/${commodityId}`, {
+          "userId": userId,
+          "commodityId": self.images.id,
+        }).then(function(res){
+          console.log(res.data);
+          if(res.data.code=="OK"){
+            console.log(res.data);
+            self.flag = 0; // 可以点赞
+            // self.favId = res.data.data;
+            console.log(self.favId)
+          } else {
+            $("#image-fav").attr("src", "data:image/svg+xml;base64,PHN2Zw0KICAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgICB2aWV3Qm94PSIwIDAgMjQgMjQiDQogICAgaWQ9InZlY3RvciI+DQogICAgPHBhdGgNCiAgICAgICAgaWQ9InBhdGhfMSINCiAgICAgICAgZD0iTSAxMiAyMS4zNSBMIDEwLjU1IDIwLjAzIEMgNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgQyAyIDUuNDIgNC40MiAzIDcuNSAzIEMgOS4yNCAzIDEwLjkxIDMuODEgMTIgNS4wOSBDIDEzLjA5IDMuODEgMTQuNzYgMyAxNi41IDMgQyAxOS41OCAzIDIyIDUuNDIgMjIgOC41IEMgMjIgMTIuMjggMTguNiAxNS4zNiAxMy40NSAyMC4wNCBMIDEyIDIxLjM1IFoiDQogICAgICAgIGZpbGw9IiNmNDQzMzYiLz4NCjwvc3ZnPg0K");
+            console.log("test");
+            self.flag = 1; // 不可以点赞
+            self.favId = res.data.data;
+          }
+          console.log(res.data)
+        }).catch(function(error){
+          console.log(error);
+        })
       })
     },
     methods: {
@@ -350,6 +354,9 @@
           if (res.data.code === "OK") {
             self.close()
             console.log("加入购物车成功")
+            AlertModule.show({
+              content: '加入购物车成功',
+            })
           } else {
             console.log(res.data.code);
             console.log(res.data.msg);
@@ -411,7 +418,47 @@
         this.selectIndex = 2;
         storage.setItem("selectIndex", 2);
         this.$router.push({name: '/detail/evaluate'});
-      }
+      },
+      addFav() {
+        // let self = this;
+        if (self.flag===0) {
+          self.$http.post('/api/favorite/commodity/', {
+            "userId": localStorage.getItem("userId"),
+            "commodityId": self.images.id,
+          }).then(function(res){
+            console.log(res.data);
+            if(res.data.code=="OK"){
+              $("#image-fav").attr("src", "data:image/svg+xml;base64,PHN2Zw0KICAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgICB2aWV3Qm94PSIwIDAgMjQgMjQiDQogICAgaWQ9InZlY3RvciI+DQogICAgPHBhdGgNCiAgICAgICAgaWQ9InBhdGhfMSINCiAgICAgICAgZD0iTSAxMiAyMS4zNSBMIDEwLjU1IDIwLjAzIEMgNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgQyAyIDUuNDIgNC40MiAzIDcuNSAzIEMgOS4yNCAzIDEwLjkxIDMuODEgMTIgNS4wOSBDIDEzLjA5IDMuODEgMTQuNzYgMyAxNi41IDMgQyAxOS41OCAzIDIyIDUuNDIgMjIgOC41IEMgMjIgMTIuMjggMTguNiAxNS4zNiAxMy40NSAyMC4wNCBMIDEyIDIxLjM1IFoiDQogICAgICAgIGZpbGw9IiNmNDQzMzYiLz4NCjwvc3ZnPg0K");
+              // console.log(res.data.data);
+              self.flag = 1;
+              self.favId = res.data.data;
+              AlertModule.show({
+                content: '添加收藏成功',
+              })
+            }
+          }).catch(function(error){
+            console.log(error);
+          })
+        } else {
+          console.log(self.favId);
+          self.$http.delete('/api/favorite/commodity/'+self.favId).then(function(res){
+            console.log(res.data);
+            if(res.data.code=="OK"){
+              // console.log(res.data.data);
+              $("#image-fav").attr("src", "data:image/svg+xml;base64,PHN2Zw0KICAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgICB2aWV3Qm94PSIwIDAgMjQgMjQiDQogICAgaWQ9InZlY3RvciI+DQogICAgPHBhdGgNCiAgICAgICAgaWQ9InBhdGgiDQogICAgICAgIGQ9Ik0gMTYuNSAzIEMgMTQuNzYgMyAxMy4wOSAzLjgxIDEyIDUuMDkgQyAxMC45MSAzLjgxIDkuMjQgMyA3LjUgMyBDIDQuNDIgMyAyIDUuNDIgMiA4LjUgQyAyIDEyLjI4IDUuNCAxNS4zNiAxMC41NSAyMC4wNCBMIDEyIDIxLjM1IEwgMTMuNDUgMjAuMDMgQyAxOC42IDE1LjM2IDIyIDEyLjI4IDIyIDguNSBDIDIyIDUuNDIgMTkuNTggMyAxNi41IDMgWiBNIDEyLjEgMTguNTUgTCAxMiAxOC42NSBMIDExLjkgMTguNTUgQyA3LjE0IDE0LjI0IDQgMTEuMzkgNCA4LjUgQyA0IDYuNSA1LjUgNSA3LjUgNSBDIDkuMDQgNSAxMC41NCA1Ljk5IDExLjA3IDcuMzYgTCAxMi45NCA3LjM2IEMgMTMuNDYgNS45OSAxNC45NiA1IDE2LjUgNSBDIDE4LjUgNSAyMCA2LjUgMjAgOC41IEMgMjAgMTEuMzkgMTYuODYgMTQuMjQgMTIuMSAxOC41NSBaIg0KICAgICAgICBmaWxsPSIjMDAwMDAwIi8+DQo8L3N2Zz4NCg==");
+              self.flag = 0;
+              AlertModule.show({
+                content: '取消收藏成功',
+              })
+            }
+            console.log(res.data.data)
+          }).catch(function(error){
+            console.log(error);
+          })
+        }
+
+
+      },
     },
     components: {
       Swiper,

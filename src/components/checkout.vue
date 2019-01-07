@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="head">
+    <div class="head" style="background: #EEE">
       <img @click="back()" src="../assets/angle_left.svg" type="image/svg+xml">
       <p>结算</p>
     </div>
@@ -13,7 +13,7 @@
             <p v-text="address.signerMobile"></p>
           </div>
           <div class="content">
-            <p id="addr">地址:{{address.province}}{{address.city}} {{address.address}}</p>
+            <p id="addr">地址:{{address.province}}{{address.city}}{{address.district}} {{address.address}}</p>
           </div>
         </FlexboxItem>
       </Flexbox>
@@ -29,6 +29,12 @@
               <p class="box_message" v-text="item.detail"></p>
               <span class="box_price">¥{{item.commodity.discountPrice}}</span>
               <span class="box_num">×{{item.number}}</span>
+            </div>
+          </FlexboxItem>
+        </Flexbox>
+        <Flexbox>
+          <FlexboxItem>
+            <div style="height: 1px; background-color: #eee;">
             </div>
           </FlexboxItem>
         </Flexbox>
@@ -130,7 +136,7 @@ p {
 }
 
 .container {
-  margin: 0 10px;
+  margin: 0 15px;
   margin-top: 15px;
 }
 
@@ -182,6 +188,7 @@ div.title {
 
 .content {
   height: 50px;
+  margin-top: 10px;
 }
 
 .content p {
@@ -249,7 +256,7 @@ hr {
 }
 
 .box_content {
-  width: 80%;
+  width: 77%;
 }
 
 .box_message {
@@ -260,7 +267,7 @@ hr {
   overflow: hidden;
   font-size: 12px;
   margin-top: 4px;
-  padding: 3px 0 3px 0;
+  padding: 8px 0 8px 0;
 }
 
 .box_title {
@@ -281,7 +288,7 @@ hr {
 }
 
 .box_price {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   font-size: 16px;
   color: #ff4013;
@@ -321,6 +328,7 @@ p#addr {
 .footer_price {
   font-size: 16px;
   margin-left: 5px;
+  margin-right: 5px;
   font-weight: bold;
   color: #ff4013;
 }
