@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="head" style="background: #EEE">
+    <div class="head">
       <img @click="back()" src="../assets/angle_left.svg" type="image/svg+xml">
       <p>结算</p>
     </div>
@@ -13,7 +13,7 @@
             <p v-text="address.signerMobile"></p>
           </div>
           <div class="content">
-            <p id="addr">地址:{{address.province}}{{address.city}}{{address.district}} {{address.address}}</p>
+            <p id="addr">地址:{{address.province}}{{address.city}} {{address.address}}</p>
           </div>
         </FlexboxItem>
       </Flexbox>
@@ -32,12 +32,6 @@
             </div>
           </FlexboxItem>
         </Flexbox>
-        <Flexbox>
-          <FlexboxItem>
-            <div style="height: 1px; background-color: #eee;">
-            </div>
-          </FlexboxItem>
-        </Flexbox>
       </template>
       <div class="footer">
         <span class="all">合计:</span>
@@ -49,7 +43,7 @@
 </template>
 <script>
 import cart from "../js/cart.js";
-import { Divider, Flexbox, FlexboxItem } from "vux";
+import { Divider, Flexbox, FlexboxItem, ViewBox } from "vux";
 
 export default {
   data() {
@@ -102,11 +96,13 @@ export default {
   components: {
     Flexbox,
     FlexboxItem,
-    Divider
+    Divider,
+    ViewBox
   }
 };
 </script>
 <style scoped>
+@import url(../style/normalize.css);
 html, body {
   margin: 0; height: 100%; overflow: hidden;
 }
@@ -117,6 +113,30 @@ p {
   width: 100%;
   height: 50px;
   box-shadow: #c0bfc4 1px 1px 5px;
+  position: fixed;
+  background: white;
+  top: 0;
+  backface-visibility: hidden;
+}
+
+@-webkit-keyframes .head {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+  }
+
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+  }
+
+  70% {
+    -webkit-transform: scale(.9);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+  }
 }
 
 .head img {
@@ -136,13 +156,14 @@ p {
 }
 
 .container {
-  margin: 0 15px;
-  margin-top: 15px;
+  margin: 0 10px;
+  margin-top: 60px;
+  margin-bottom: 55px;
 }
 
 .body {
   width: 100%;
-  height: 137px;
+  height: 1005;
   background-color: white;
   margin-bottom: 10px;
   box-sizing: border-box;
@@ -188,7 +209,6 @@ div.title {
 
 .content {
   height: 50px;
-  margin-top: 10px;
 }
 
 .content p {
@@ -256,7 +276,7 @@ hr {
 }
 
 .box_content {
-  width: 77%;
+  width: 80%;
 }
 
 .box_message {
@@ -267,7 +287,7 @@ hr {
   overflow: hidden;
   font-size: 12px;
   margin-top: 4px;
-  padding: 8px 0 8px 0;
+  padding: 3px 0 3px 0;
 }
 
 .box_title {
@@ -288,7 +308,7 @@ hr {
 }
 
 .box_price {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 10px;
   font-size: 16px;
   color: #ff4013;
@@ -324,11 +344,12 @@ p#addr {
   text-align: right;
   display: block;
   border-top: #eee 1px solid;
+  background: white;
+  position: fixed;
 }
 .footer_price {
   font-size: 16px;
   margin-left: 5px;
-  margin-right: 5px;
   font-weight: bold;
   color: #ff4013;
 }
