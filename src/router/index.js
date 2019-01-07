@@ -39,6 +39,8 @@ import result_default from "../components/result_default";
 import checkout from '../components/checkout.vue'
 import order from '../components/order.vue'
 import order_main from '../components/order_main.vue'
+import my_access from '../components/my_access.vue'
+import access_main from '../components/access_main.vue'
 
 
 Vue.use(Router)
@@ -239,9 +241,29 @@ export default new Router({
       children:[
       {
         path:'/',
-        name:'order_main',
         component:order_main
-      }]
+      },
+      {
+        path: 'thing',
+        name: 'thing',
+        component: thing
+      }
+      ]
+    },
+    {
+      path:'/my_access',
+      component:my_access,
+      children:[
+      {
+        path:'/',
+        name:'access_main',
+        component:access_main
+      },
+      {
+      path: 'thing',
+      name: 'thing',
+      component: thing
+    }]
     }
   ]
 })

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="contain">
 		<div id="head">
 			<img src="../assets/back2.png" @click="back()">
 			<p>我的订单</p>
@@ -32,7 +32,6 @@ export default {
 		if(localStorage.getItem("selected")!=null){
 			this.select=localStorage.getItem("selected");
 		}
-		document.querySelector('body').setAttribute('style', 'background-color:#ededed');
 	},
 	mounted(){
 		this.$nextTick(function(){
@@ -66,7 +65,9 @@ img{
 	width:100%;
 	height:100%;
 }
-
+.contain{
+	background-color: #efefef;
+}
 #head{
 	height:50px;
 	box-sizing: border-box;
